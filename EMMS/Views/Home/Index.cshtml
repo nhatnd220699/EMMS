@@ -1,0 +1,1207 @@
+﻿@{
+    ViewBag.Title = "Fixture Management";
+}
+
+@section styles {
+    <link href="~/Content/css/fancybox/fancybox.css" rel="stylesheet" />
+    <link href="~/Content/css/custom/style.css" rel="stylesheet" />
+}
+<main id="content">
+    <div class="container-fluid px-4 py-3">
+        <!-- KPI Statistics -->
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card kpi-card p-3" data-status="All">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-secondary fw-bold"
+                                   style="font-size: 12px">Total</small>
+                            <h4 class="mb-0 fw-bold" id="kpi-total">50</h4>
+                        </div>
+                        <div class="kpi-icon-box bg-light text-primary">
+                            <span class="material-symbols-outlined">inventory_2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card kpi-card p-3" data-status="No checking">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
+                                No
+                                checking
+                            </small>
+                            <h4 class="mb-0 fw-bold text-danger" id="kpi-maintenance">
+                                0
+                            </h4>
+                        </div>
+                        <div class="kpi-icon-box bg-danger-subtle text-danger">
+                            <span class="material-symbols-outlined">error</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card kpi-card p-3" data-status="Ongoing">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-secondary fw-bold"
+                                   style="font-size: 12px">Ongoing</small>
+                            <!-- <h4 class="mb-0 fw-bold" id="kpi-waiting" style="color: var(--tertiary);">0</h4> -->
+                            <h4 class="mb-0 fw-bold text-warning" id="kpi-waiting">
+                                0
+                            </h4>
+                        </div>
+                        <div class="kpi-icon-box bg-warning-subtle text-warning">
+                            <span class="material-symbols-outlined">schedule</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card kpi-card p-3" data-status="Done">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <small class="text-uppercase text-secondary fw-bold"
+                                   style="font-size: 12px">Done</small>
+                            <h4 class="mb-0 fw-bold text-success" id="kpi-completed">
+                                0
+                            </h4>
+                        </div>
+                        <div class="kpi-icon-box bg-success-subtle text-secondary">
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Filters -->
+        <div class="card border-0 shadow-sm p-2 mb-4">
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <small class="text-uppercase text-secondary fw-bold ps-2"
+                       style="font-size: 10px; letter-spacing: 1px">Filter</small>
+                <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="type">
+                    <option>All type</option>
+                    <option value="FATP">FATP</option>
+                </select>
+                <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="line">
+                    <option>All line</option>
+                    <option value="B11">B11</option>
+                    <option value="B12">B12</option>
+                </select>
+                <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="department">
+                    <option>All dept</option>
+                    <option value="AME">AME</option>
+                    <option value="RE">RE</option>
+                </select>
+                <button class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-2" id="refresh-btn">
+                    <span class="material-symbols-outlined fs-6">refresh</span> Refresh
+                </button>
+            </div>
+        </div>
+        <!-- Status Grid Header -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">
+                Machines
+                <small class="text-muted fw-normal ms-2 fs-6" id="grid-density-label">All</small>
+            </h5>
+            <div class="text-muted small" id="quick-pagination-info"></div>
+        </div>
+        <!-- Main Fixture Grid -->
+        <div class="row g-3 mb-4" id="fixture-grid">
+            <!-- Dynamically Rendered Content -->
+        </div>
+        <!-- Pagination Container -->
+        <div class="pagination-bar d-flex flex-wrap align-items-center justify-content-between gap-3"
+             id="pagination-container">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2">
+                    <small class="text-secondary fw-semibold">Show</small>
+                    <select class="form-select form-select-sm border-light-subtle bg-light"
+                            id="pageSizeSelector" style="width: 70px">
+                        <option value="24">24</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+                <div class="small text-secondary fw-medium" id="pageIndicator">
+                    Showing 1 - 20 of 50
+                </div>
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm mb-0 flex-wrap gap-2" id="paginationControls">
+                    <!-- Dynamically Rendered Pagination -->
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+
+<!-- Maintenance Log Modal -->
+<div aria-hidden="true" class="modal" id="maintenanceModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 12px">
+            <div class="modal-header px-4 py-3 border-bottom-0">
+                <div>
+                    <h5 class="fw-bold mb-1" id="maintenanceModalLabel">Machine</h5>
+                    <p class="text-muted small mb-0" id="modalFixtureId">Fixture ID: --</p>
+                </div>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body px-3 py-0">
+                <div class="table-responsive-custom">
+                    <table class="maintenance-table" id="maintenance-table">
+                        <thead>
+                            <tr>
+                                <th colspan="34">
+                                    日保養記錄 / <br />
+                                    Daily Maintenance List / Ghi lại bảo trì hàng ngày
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="text-start">
+                                    線別 / Line:
+                                    <span id="modalLine"></span>
+                                </th>
+                                <th colspan="1" class="text-start">
+                                    班別 / Shift:
+                                    <span id="modalShift"></span>
+                                </th>
+
+                                <th colspan="20" class="text-start">
+                                    年 / Year:
+                                    <span id="modalYear"></span>
+                                </th>
+                                <th colspan="11" class="text-start">
+                                    月 / Month:
+                                    <span id="modalMonth"></span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="text-start">
+                                    設備名稱 / Device Name:
+                                    <span id="modalDeviceName"></span>
+                                </th>
+                                <th colspan="16" class="text-start">
+                                    設備型號 / Device Mod:
+                                    <span id="modalDeviceMod"></span>
+                                </th>
+                                <th colspan="15" class="text-start">
+                                    設備編號 / Device Number:
+                                    <span id="modalDeviceNo"></span>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th rowspan="2" style="width: 40px">序號 / No.</th>
+                                <th rowspan="2" style="width: 220px">
+                                    執行動作 / Action / Thao tác
+                                </th>
+                                <th rowspan="2" style="width: 220px">
+                                    確認方法及標準 / Confirmation Method &amp; Standard /
+                                    phương pháp và tiêu chuẩn xác định
+                                </th>
+                                <th colspan="31">日期 / Date / ngày tháng</th>
+                            </tr>
+                            <tr id="date-header-row">
+                                <!-- Days 1 to 31 will be injected here via JS -->
+                            </tr>
+                        </thead>
+                        <tbody id="maintenance-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer border-top-0">
+                <button class="btn px-3 py-2 transition-all shadow-sm fw-semibold" data-bs-dismiss="modal"
+                        type="button">
+                    Close
+                </button>
+                <button class="btn btn-primary px-3 py-2 transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
+                        type="button" onclick="exportTable()">
+                    <span class="material-symbols-outlined fs-6">print</span> Export excel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detail Entry Modal (Form View) -->
+<div aria-hidden="true" class="modal" id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-2xl overflow-hidden" style="border-radius: 12px">
+            <div class="modal-header px-4 py-3 border-bottom d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <h5 class="fw-bold mb-0">Details</h5>
+                    <div class="badge rounded-pill px-3 py-1 font-semibold" style="
+                                    font-size: 12px;
+                                    color: rgb(51 65 85);
+                                    background-color: rgb(226 232 240 / 1);
+                                ">
+                        Line:
+                        <span id="detailLine">--</span>
+                    </div>
+                    <div class="badge rounded-pill px-3 py-1 font-semibold" style="
+                                    font-size: 12px;
+                                    color: rgb(51 65 85);
+                                    background-color: rgb(226 232 240 / 1);
+                                ">
+                        Date:
+                        <span id="detailDate">--</span>
+                    </div>
+                    <div class="badge rounded-pill px-3 py-1 font-semibold" style="
+                                    font-size: 12px;
+                                    color: rgb(51 65 85);
+                                    background-color: rgb(226 232 240 / 1);
+                                ">
+                        Shift:
+                        <span id="detailShift">--</span>
+                    </div>
+                    <div class="badge rounded-pill px-3 py-1 font-semibold" style="
+                                    font-size: 12px;
+                                    color: rgb(51 65 85);
+                                    background-color: rgb(226 232 240 / 1);
+                                ">
+                        Fixture: <span id="detailFixtureId">--</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="btn-group border rounded" role="group">
+                        <input autocomplete="off" checked="" class="btn-check" id="roleUploader" name="roleToggle"
+                               type="radio" />
+                        <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
+                               for="roleUploader">Uploader Mode</label>
+                        <input autocomplete="off" class="btn-check" id="roleApprover" name="roleToggle"
+                               type="radio" />
+                        <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
+                               for="roleApprover">Approver Mode</label>
+                    </div>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+            </div>
+            <div class="modal-body p-0">
+                <div class="table-responsive">
+                    <table class="detail-form-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px">No.</th>
+                                <th style="width: 220px">
+                                    Maintenance Item / <br />
+                                    各 hàng mục bảo trì
+                                </th>
+                                <th style="width: 220px">
+                                    Confirmation Method &amp; Standard / <br />
+                                    phương pháp và tiêu chuẩn xác định
+                                </th>
+                                <th style="width: 200px">Maintenance Images</th>
+                                <th style="width: 140px">Uploader<br />Result</th>
+                                <th style="width: 100px">Uploader ID</th>
+                                <th style="width: 100px">Approver Result</th>
+                                <th style="width: 100px">Approver ID</th>
+                                <th>Remark</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-form-body">
+                            <!-- Rows Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer border-top">
+                <button class="btn btn-link px-3 py-2 text-decoration-none fw-semibold transition-all shadow-sm"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <div id="uploaderActions" class="d-flex align-items-center gap-2">
+                    <button type="button"
+                            class="btn btn-primary px-3 py-2 transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
+                            id="saveUploader">
+                        <span class="material-symbols-outlined fs-6">save</span> Save
+                    </button>
+                    <button class="btn btn-warning px-3 py-2 transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
+                            id="editUploader">
+                        <span class="material-symbols-outlined fs-6">edit</span> Edit
+                    </button>
+                </div>
+                <div class="d-none" id="approverActions">
+                    <button class="btn btn-success px-3 py-2 transition-all shadow-sm d-flex align-items-center gap-2"
+                            id="approveAll">
+                        <span class="material-symbols-outlined fs-6">check_circle</span>
+                        Approve
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/js/lenis/lenis.min.js"></script>
+    <script src="~/Scripts/js/fancybox/fancybox.umd.js"></script>
+    <script src="~/Scripts/js/dayjs/dayjs.min.js"></script>
+    <script src="~/Scripts/js/xlsx/xlsx.full.min.js"></script>
+    @*<script src="~/Scripts/js/custom/index.js"></script>*@
+    <script>
+        // Initialize Lenis
+        const lenis = new Lenis({
+            prevent: (node) => {
+                return (
+                    node.closest("#maintenanceModal") ||
+                    node.closest("#detailModal") ||
+                    node.closest(".sidebar")
+                );
+            },
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+        /**
+            * Enhanced Dataset for testing large pagination (350 items)
+            */
+        const DATASET = {};
+        let FIXTURE_DATASET = [];
+        const STATUS_ALL = "All";
+        const STATUS_NO_CHECKING = "No checking";
+        const STATUS_ON_GOING = "Ongoing";
+        const STATUS_DONE = "Done";
+
+        /**
+            * Global State
+            */
+        let currentPage = 1;
+        let pageSize = 24;
+        let currentStatusFilter = "All";
+        const details = [
+            {
+                id: 1,
+                action: "檢查氣壓系統是否正常 Kiểm tra hệ thống khí áp có hoạt động bình thường không",
+                method: "確認氣管無漏氣且接頭固定 Kiểm tra ống khí không bị rò rỉ và đầu nối được cố định",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "OK",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Machine status stable",
+            },
+            {
+                id: 2,
+                action: "確認感測器表面是否清潔 Kiểm tra bề mặt cảm biến có sạch không",
+                method: "使用乾布擦拭感測器表面 Lau bề mặt cảm biến bằng khăn khô",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "NG",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Dust detected near sensor",
+            },
+            {
+                id: 3,
+                action: "檢查螺絲是否鬆動 Kiểm tra các vít có bị lỏng không",
+                method: "使用扭力工具重新固定 Siết lại bằng dụng cụ lực",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "NA",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Section not applicable",
+            },
+            {
+                id: 4,
+                action: "確認電源線是否損壞 Kiểm tra dây nguồn có bị hỏng không",
+                method: "檢查外層絕緣是否完整 Kiểm tra lớp cách điện bên ngoài",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "OK",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Cable condition normal",
+            },
+            {
+                id: 5,
+                action: "檢查設備運轉聲音是否異常 Kiểm tra âm thanh hoạt động của thiết bị",
+                method: "啟動設備後監聽異音 Khởi động máy và nghe tiếng bất thường",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "NG",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Abnormal noise detected",
+            },
+            {
+                id: 6,
+                action: "確認安全護罩是否完整 Kiểm tra tấm chắn an toàn có đầy đủ không",
+                method: "檢查固定扣件是否牢固 Kiểm tra các chốt cố định",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "OK",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Safety cover installed correctly",
+            },
+            {
+                id: 7,
+                action: "檢查潤滑油液位是否正常 Kiểm tra mức dầu bôi trơn",
+                method: "查看油位刻度並補充 Kiểm tra vạch dầu và bổ sung nếu cần",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "NA",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Lubrication not required",
+            },
+            {
+                id: 8,
+                action: "確認操作面板按鍵是否正常 Kiểm tra các nút trên bảng điều khiển",
+                method: "逐一測試所有功能按鍵 Test từng nút chức năng",
+                image: ["/url/img1.png", "/url/img1.png"],
+                maintenance_result: "OK",
+                upload_id: "V5120002",
+                approve_id: "V5070000",
+                remark: "Buttons responsive",
+            },
+        ];
+
+        let maintenanceModalInstance = null;
+        let detailModalInstance = null;
+        let activeFixture = null;
+        let currentRole = "uploader";
+        let uploadedFiles = {};
+
+        /**
+            * Utility: Get Status Styling
+            */
+        const getStatusStyle = (status) => {
+            switch (status) {
+                case STATUS_NO_CHECKING:
+                    return { class: "bg-danger-subtle text-danger", dot: "bg-danger" };
+                case STATUS_ON_GOING:
+                    return { class: "bg-warning-subtle text-warning", dot: "bg-warning" };
+                case STATUS_DONE:
+                default:
+                    return { class: "bg-success-subtle text-success", dot: "bg-success" };
+            }
+        };
+
+        /**
+            * KPI Updates
+            */
+        const updateKPIs = async () => {
+            const counts = FIXTURE_DATASET.reduce((acc, curr) => {
+                acc[curr.status] = (acc[curr.status] || 0) + 1;
+                return acc;
+            }, {});
+
+            document.getElementById("kpi-total").textContent =
+                FIXTURE_DATASET.length.toLocaleString();
+            document.getElementById("kpi-maintenance").textContent =
+                counts[STATUS_NO_CHECKING] || 0;
+            document.getElementById("kpi-waiting").textContent = counts[STATUS_ON_GOING] || 0;
+            document.getElementById("kpi-completed").textContent = counts[STATUS_DONE] || 0;
+        };
+
+        /**
+            * Unified Rendering Logic (Handles Filtering, Pagination, and Display)
+            */
+        const updateDisplay = async (resetPagination = false) => {
+            if (resetPagination) currentPage = 1;
+
+            const params = {
+                type: DATASET.type ?? "",
+                line: DATASET.line ?? "",
+                department: DATASET.department ?? "",
+            };
+            const query = new URLSearchParams(params).toString();
+            const res = await fetch(`/Content/data/dashboard.json?${query}`, {
+                method: "GET",
+            });
+
+            const data = await res.json();
+            FIXTURE_DATASET = data || [];
+
+            const grid = document.getElementById("fixture-grid");
+            grid.innerHTML = "";
+
+            // 1. Filter the dataset
+            const filteredData =
+                currentStatusFilter === "All"
+                    ? FIXTURE_DATASET
+                    : FIXTURE_DATASET.filter((item) => item.status === currentStatusFilter);
+
+            const totalItems = filteredData.length;
+            const totalPages = Math.ceil(totalItems / pageSize) || 1;
+
+            // 2. Slice for pagination
+            const startIndex = (currentPage - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, totalItems);
+            const pageItems = filteredData.slice(startIndex, endIndex);
+
+            // 3. Render grid items
+            if (totalItems === 0) {
+                grid.innerHTML =
+                    '<div class="col-12 text-center py-5"><p class="text-muted">No data to display</p></div>';
+            } else {
+                pageItems.forEach((fix, idx) => {
+                    const style = getStatusStyle(fix.status);
+                    const col = document.createElement("div");
+                    col.className =
+                        "col-6 col-sm-4 col-md-3 col-lg-3 col-xxl-2 fixture-grid-item";
+                    col.style.animationDelay = `${idx * 0.015}s`;
+                    col.innerHTML = `
+                        <div class="fixture-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold small">${fix.fixture}</span>
+                                <div class="status-dot ${style.dot} shadow-sm"></div>
+                            </div>
+                            <div class="mb-1">
+                                <span class="badge-status ${style.class}">${fix.status}</span>
+                            </div>
+                            <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line}</small>
+                        </div>
+                    `;
+
+                    // Add click event for modal
+                    col.addEventListener("click", () => openMaintenanceModal(fix));
+                    grid.appendChild(col);
+                });
+            }
+
+            // 4. Update Header Labels
+            const densityLabel = document.getElementById("grid-density-label");
+            if (densityLabel) {
+                if (currentStatusFilter === "All") {
+                    densityLabel.textContent = "Total";
+                } else {
+                    densityLabel.textContent = `Filtered: ${currentStatusFilter}`;
+                }
+            }
+
+            // 5. Update Pagination Info and Controls
+            const paginationInfo =
+                totalItems === 0
+                    ? "0 - 0 của 0"
+                    : `${startIndex + 1} - ${endIndex} của ${totalItems}`;
+            document.getElementById("quick-pagination-info").textContent = paginationInfo;
+            document.getElementById("pageIndicator").textContent =
+                `Showing ${paginationInfo.replace("của", "of")}`;
+
+            updatePaginationControls(totalPages);
+
+            updateKPIs();
+        };
+
+        /**
+            * Unified Pagination UI Generator
+            */
+        const updatePaginationControls = (totalPages) => {
+            const controls = document.getElementById("paginationControls");
+            controls.innerHTML = "";
+
+            const createItem = (
+                label,
+                targetPage,
+                isActive = false,
+                isDisabled = false,
+                isEllipsis = false,
+            ) => {
+                const li = document.createElement("li");
+                li.className = `page-item ${isActive ? "active" : ""} ${isDisabled ? "disabled" : ""}`;
+                const a = document.createElement("a");
+                a.className = `page-link rounded-2 ${isEllipsis ? "disabled-link" : ""}`;
+                a.href = "#";
+                a.innerHTML = label;
+
+                if (!isDisabled && !isActive && !isEllipsis) {
+                    a.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        currentPage = targetPage;
+                        updateDisplay();
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                    });
+                } else {
+                    a.addEventListener("click", (e) => e.preventDefault());
+                }
+
+                li.appendChild(a);
+                return li;
+            };
+
+            // Navigation arrows
+            controls.appendChild(
+                createItem(
+                    '<span class="material-symbols-outlined fs-6">first_page</span>',
+                    1,
+                    false,
+                    currentPage === 1,
+                ),
+            );
+            controls.appendChild(
+                createItem(
+                    '<span class="material-symbols-outlined fs-6">chevron_left</span>',
+                    currentPage - 1,
+                    false,
+                    currentPage === 1,
+                ),
+            );
+
+            // Page numbers
+            const range = 2;
+            let pages = [];
+            if (totalPages <= 7) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+            } else {
+                pages.push(1);
+                if (currentPage > range + 2) pages.push("...");
+                const start = Math.max(2, currentPage - range);
+                const end = Math.min(totalPages - 1, currentPage + range);
+                for (let i = start; i <= end; i++) pages.push(i);
+                if (currentPage < totalPages - range - 1) pages.push("...");
+                pages.push(totalPages);
+            }
+
+            pages.forEach((p) => {
+                if (p === "...")
+                    controls.appendChild(createItem("...", null, false, false, true));
+                else controls.appendChild(createItem(p, p, p === currentPage));
+            });
+
+            controls.appendChild(
+                createItem(
+                    '<span class="material-symbols-outlined fs-6">chevron_right</span>',
+                    currentPage + 1,
+                    false,
+                    currentPage === totalPages,
+                ),
+            );
+            controls.appendChild(
+                createItem(
+                    '<span class="material-symbols-outlined fs-6">last_page</span>',
+                    totalPages,
+                    false,
+                    currentPage === totalPages,
+                ),
+            );
+        };
+
+        /**
+            * Navbar Title Sync Logic
+            */
+        const updateNavbarTitle = (element) => {
+            const titleEl = document.getElementById("navbar-dynamic-title");
+            if (!titleEl || !element) return;
+
+            const labelSpan = element.querySelector("span:not(.material-symbols-outlined)");
+            if (labelSpan) {
+                titleEl.textContent = labelSpan.textContent.trim();
+            }
+        };
+
+        /**
+            * Navigation & Sidebar Logic
+            */
+        const initSidebarAndNav = () => {
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+            const toggle = document.getElementById("sidebarCollapse");
+
+            toggle.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+                content.classList.toggle("active");
+                const icon = toggle.querySelector(".material-symbols-outlined");
+                icon.textContent = sidebar.classList.contains("active") ? "menu_open" : "menu";
+            });
+
+            // Submenu Collapse Logic
+            const subToggles = document.querySelectorAll(".custom-collapse-toggle");
+            subToggles.forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const targetId = btn.getAttribute("data-target");
+                    const target = document.querySelector(targetId);
+                    const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+                    if (isExpanded) {
+                        btn.setAttribute("aria-expanded", "false");
+                        target.style.maxHeight = target.scrollHeight + "px";
+                        target.offsetHeight;
+                        target.style.maxHeight = "0px";
+                        setTimeout(() => {
+                            if (btn.getAttribute("aria-expanded") === "false")
+                                target.classList.remove("show");
+                        }, 400);
+                    } else {
+                        btn.setAttribute("aria-expanded", "true");
+                        target.classList.add("show");
+                        target.style.maxHeight = "0px";
+                        target.offsetHeight;
+                        target.style.maxHeight = target.scrollHeight + "px";
+                        setTimeout(() => {
+                            if (btn.getAttribute("aria-expanded") === "true")
+                                target.style.maxHeight = "none";
+                        }, 400);
+                    }
+                });
+            });
+
+            // Sync initial state
+            const currentPath = "/monitoring/dept/electronic/pcb-assembly";
+            const activeLink = document.querySelector(
+                `.sidebar-item[href="${currentPath}"], .submenu-item[href="${currentPath}"]`,
+            );
+            if (activeLink) {
+                activeLink.classList.add("active");
+                updateNavbarTitle(activeLink);
+
+                let parent = activeLink.closest(".sidebar-submenu");
+                while (parent) {
+                    parent.classList.add("show");
+                    parent.style.maxHeight = "none";
+                    const toggle = document.querySelector(`[data-target="#${parent.id}"]`);
+                    if (toggle) toggle.setAttribute("aria-expanded", "true");
+                    parent = parent.parentElement.closest(".sidebar-submenu");
+                }
+            }
+        };
+
+        /**
+            * Open Maintenance Modal
+            */
+        const openMaintenanceModal = (fixture) => {
+            activeFixture = fixture.fixture;
+
+            if (!maintenanceModalInstance) {
+                maintenanceModalInstance = new bootstrap.Modal(
+                    document.getElementById("maintenanceModal"),
+                );
+            }
+
+            // Fill modal details
+            document.getElementById("modalFixtureId").textContent =
+                `Fixture ID: ${fixture.fixture ?? ""}`;
+            document.getElementById("modalLine").textContent = fixture.line ?? "";
+            document.getElementById("modalShift").textContent = fixture.shift ?? "";
+            document.getElementById("modalYear").textContent = fixture.year ?? "";
+            document.getElementById("modalMonth").textContent = fixture.month ?? "";
+            document.getElementById("modalDeviceNo").textContent = fixture.fixture ?? "";
+            maintenanceModalInstance.show();
+
+            initTable();
+        };
+
+        const openDetailModal = ({ line, day, shift, activeFixture }) => {
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+
+            if (!detailModalInstance)
+                detailModalInstance = new bootstrap.Modal(
+                    document.getElementById("detailModal"),
+                );
+
+            if (maintenanceModalInstance) {
+                maintenanceModalInstance.hide();
+            }
+
+            document.getElementById("detailLine").textContent = line ? line : "--";
+            document.getElementById("detailDate").textContent = day;
+            document.getElementById("detailShift").textContent = shift ? shift : "--";
+            document.getElementById("detailFixtureId").textContent = activeFixture
+                ? activeFixture
+                : "--";
+
+            renderDetailRows();
+            detailModalInstance.show();
+        };
+
+        const handleFileUpload = (input, rowId) => {
+            const fileList = Array.from(input.files);
+            const gallery = input.closest("td").querySelector(".gallery-grid");
+            fileList.forEach((file) => {
+                if (!file.type.startsWith("image/")) return;
+                const url = URL.createObjectURL(file);
+                renderGallery(rowId, gallery, file, url);
+            });
+            input.value = "";
+        };
+
+        const renderGallery = (rowId, gallery, file, url) => {
+            if (!gallery) return;
+
+            const div = document.createElement("div");
+            div.className = "gallery-item";
+
+            div._file = file;
+            div._url = url;
+
+            div.innerHTML = `
+                <a href="${url}" data-fancybox="gallery-${rowId}">
+                    <img src="${url}" alt="preview" >
+                </a>
+                ${currentRole === "uploader"
+                    ? `
+                    <button type="button" class="remove-btn">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                `
+                    : ""
+                }
+            `;
+
+            div.querySelector(".remove-btn")?.addEventListener("click", () => {
+                URL.revokeObjectURL(div._url); //cleanup
+                div.remove();
+            });
+            gallery.insertAdjacentElement("beforeend", div);
+        };
+
+        const renderDetailRows = () => {
+            const body = document.getElementById("detail-form-body");
+            body.innerHTML = "";
+
+            details.forEach((item, idx) => {
+                const tr = document.createElement("tr");
+
+                // Image Cell Logic
+                let imageCellHtml = "";
+                if (currentRole === "uploader") {
+                    imageCellHtml = `
+                    <div>
+                        <div class="upload-zone mx-auto" onclick="document.getElementById('input_${idx}').click()">
+                            <span class="material-symbols-outlined fs-2">add_a_photo</span>
+                            <input type="file" id="input_${idx}" class="d-none" accept="image/*" multiple onchange="handleFileUpload( this, ${idx} )">
+                        </div>
+                        <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
+                    </div>
+                `;
+                } else {
+                    imageCellHtml = `
+                    <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
+                `;
+                }
+
+                // Maintenance Result Cell Logic
+                let uploaderResultHtml = `
+                    <div class="status-radio flex-column gap-1">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="uploader_res_${idx}" id="uploader_resOk_${idx}" value="OK" ${currentRole === "approver" ? "disabled checked" : ""}>
+                            <label for="uploader_resOk_${idx}" class="text-xs">OK</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="uploader_res_${idx}" id="uploader_resNg_${idx}" value="NG" ${currentRole === "approver" ? "disabled" : ""}>
+                            <label for="uploader_resNg_${idx}" class="text-xs">NG</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="uploader_res_${idx}" id="uploader_resNa_${idx}" value="NA" ${currentRole === "approver" ? "disabled" : ""}>
+                            <label for="uploader_resNa_${idx}" class="text-xs">NA</label>
+                        </div>
+                    </div>
+                `;
+
+                let approvalResultHtml = `
+                    <div class="status-radio flex-column gap-1">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="approver_res_${idx}" id="approver_resOk_${idx}" value="OK" ${currentRole !== "approver" ? "disabled checked" : ""}>
+                            <label for="approver_resOk_${idx}" class="text-xs">OK</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="approver_res_${idx}" id="approver_resNg_${idx}" value="NG" ${currentRole !== "approver" ? "disabled" : ""}>
+                            <label for="approver_resNg_${idx}" class="text-xs">NG</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="approver_res_${idx}" id="approver_resNa_${idx}" value="NA" ${currentRole !== "approver" ? "disabled" : ""}>
+                            <label for="approver_resNa_${idx}" class="text-xs">NA</label>
+                        </div>
+                    </div>
+                `;
+
+                // Remark Cell Logic
+                let remarkHtml = "";
+                if (currentRole === "uploader") {
+                    remarkHtml = `<div class="p-2 h-full rounded italic text-[11px]">Approver only</div>`;
+                } else {
+                    remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..."></textarea>`;
+                }
+
+                tr.innerHTML = `
+                    <td class="text-center fw-bold">${idx + 1}</td>
+                    <td>
+                        <div class="fw-medium">${item.action}</div>
+                        <div class="mt-1">${item.vn}</div>
+                    </td>
+                    <td>
+                        <div class="fw-medium">${item.std}</div>
+                        <div class="mt-1">${item.stdVn}</div>
+                    </td>
+                    <td>${imageCellHtml}</td>
+                    <td>${uploaderResultHtml}</td>
+                    <td class="text-center">ALEX-998</td>
+                    <td>${approvalResultHtml}</td>
+                    <td class="text-center">ALEX-998</td>
+                    <td class="text-center">${remarkHtml}</td>
+                `;
+                body.appendChild(tr);
+            });
+        };
+
+        const initTable = () => {
+            const headerRow = document.getElementById("date-header-row");
+            const body = document.getElementById("maintenance-body");
+
+            headerRow.innerHTML = "";
+            body.innerHTML = "";
+
+            const year = new Date().getFullYear();
+            const month = new Date().getMonth() * 1;
+            const days = new Date(year, month + 1, 0).getDate();
+            for (let i = 1; i <= days; i++) {
+                const day = dayjs(new Date(year, month, i)).format("YYYY-MM-DD");
+                const th = document.createElement("th");
+                th.className = "day-col font-mediumn text-decoration-underline";
+                th.textContent = i;
+                th.dataset.date = day;
+                th.onclick = () => openDetailModal({ line: "", day, shift: "", activeFixture });
+                headerRow.appendChild(th);
+            }
+
+            details.forEach((item, idx) => {
+                const tr = document.createElement("tr");
+                let daysHtml = "";
+                for (let i = 1; i <= days; i++) {
+                    let val = ["OK", "NG", "NA"][Math.floor(Math.random() * 3)];
+                    let text = "",
+                        classCell = "";
+                    if (val == "OK") {
+                        text = `<span class="text-success">${val}</span>`;
+                        classCell = `bg-success-subtle-custom`;
+                    }
+                    if (val == "NG") {
+                        text = `<span class="text-warning">${val}</span>`;
+                        classCell = `bg-warning-subtle-custom`;
+                    }
+                    if (val == "NA") {
+                        text = `<span>${val}</span>`;
+                        classCell = ``;
+                    }
+                    daysHtml += `<td class="day-col ${classCell}">${text}</td>`;
+                }
+                tr.innerHTML = `
+                    <td class="text-center fw-bold">${idx + 1}</td>
+                    <td>${item.action}</td>
+                    <td>${item.method}</td>
+                    ${daysHtml}
+                `;
+                body.appendChild(tr);
+            });
+        };
+
+        function exportTable() {
+            const table = document.getElementById("maintenance-table");
+            const workbook = XLSX.utils.table_to_book(table);
+            XLSX.writeFile(workbook, "table.xlsx");
+        }
+
+        /**
+            * Initialization
+            */
+        document.addEventListener("DOMContentLoaded", () => {
+            initSidebarAndNav();
+            updateDisplay();
+            // initTable();
+
+            // Page Size Selector
+            document.getElementById("pageSizeSelector").addEventListener("change", (e) => {
+                pageSize = parseInt(e.target.value);
+                updateDisplay(true);
+            });
+
+            // Refresh Button
+            document.getElementById("refresh-btn").addEventListener("click", () => {
+                updateDisplay();
+            });
+
+            // KPI Card Click Events for Unified Filtering
+            document.querySelectorAll(".kpi-card").forEach((card) => {
+                card.addEventListener("click", () => {
+                    // UI Toggle
+                    document
+                        .querySelectorAll(".kpi-card")
+                        .forEach((c) => c.classList.remove("active-filter"));
+                    card.classList.add("active-filter");
+
+                    // Filter logic
+                    currentStatusFilter = card.getAttribute("data-status");
+                    updateDisplay(true);
+                });
+            });
+
+            // Micro-interactions for buttons
+            document.addEventListener("mousedown", (e) => {
+                const interactive = e.target.closest(
+                    ".sidebar-item, .submenu-item, .fixture-card, .btn, .page-link",
+                );
+                if (
+                    interactive &&
+                    !interactive.classList.contains("custom-collapse-toggle") &&
+                    !interactive.classList.contains("disabled-link")
+                ) {
+                    interactive.style.transform = "scale(0.975)";
+                    interactive.style.transition = "transform 0.1s ease";
+                }
+            });
+            document.addEventListener("mouseup", (e) => {
+                const interactive = e.target.closest(
+                    ".sidebar-item, .submenu-item, .fixture-card, .btn, .page-link",
+                );
+                if (interactive) interactive.style.transform = "";
+            });
+
+            // Role Toggling
+            document.getElementById("roleUploader").addEventListener("change", (e) => {
+                if (e.target.checked) {
+                    currentRole = "uploader";
+                    document.getElementById("uploaderActions").classList.remove("d-none");
+                    document.getElementById("approverActions").classList.add("d-none");
+                    renderDetailRows();
+                }
+            });
+
+            document.getElementById("roleApprover").addEventListener("change", (e) => {
+                if (e.target.checked) {
+                    currentRole = "approver";
+                    document.getElementById("uploaderActions").classList.add("d-none");
+                    document.getElementById("approverActions").classList.remove("d-none");
+                    renderDetailRows();
+                }
+            });
+
+            document.getElementById("saveUploader").addEventListener("click", () => {
+                alert("Maintenance data and images saved for uploader ALEX-998");
+                detailModalInstance.hide();
+            });
+
+            document.getElementById("approveAll").addEventListener("click", () => {
+                alert("All records approved by LEAD-042");
+                detailModalInstance.hide();
+            });
+
+            document.getElementById("type").addEventListener("change", (e) => {
+                DATASET["type"] = (e.target.value ?? "")?.trim();
+            });
+
+            document.getElementById("line").addEventListener("change", (e) => {
+                DATASET["line"] = (e.target.value ?? "")?.trim();
+            });
+
+            document.getElementById("department").addEventListener("change", (e) => {
+                DATASET["department"] = (e.target.value ?? "")?.trim();
+            });
+
+            document.getElementById("detailModal").addEventListener("hidden.bs.modal", () => {
+                if (maintenanceModalInstance) {
+                    maintenanceModalInstance.show();
+                }
+
+                //Cleanup temp blob image
+                document.querySelectorAll(".gallery-item").forEach((el) => {
+                    if (el._url) {
+                        URL.revokeObjectURL(el._url);
+                    }
+                });
+            });
+
+
+            // Tạo countdown
+            const countdown = document.createElement("div");
+            countdown.className = "fb-countdown";
+
+            Fancybox.bind("[data-fancybox]", {
+                closeButton: false,
+                dragToClose: false,
+                Backdrop: {
+                    closeOnClick: false
+                },
+                Keyboard: {
+                    Escape: true
+                },
+                loop: true,
+                Carousel: {
+                    Thumbs: {
+                        type: "scrollable",
+                    },
+                    Toolbar: {
+                        display: {
+                            left: ["counter"],
+                            middle: [
+                                "zoomIn",
+                                "zoomOut",
+                                "toggle1to1",
+                                "rotateCCW",
+                                "rotateCW",
+                                "flipX",
+                                "flipY",
+                                "reset",
+                            ],
+                            right: ["autoplay", "thumbs", "close"],
+                        },
+                    },
+
+
+                },
+                on: {
+                    ready: (fancybox) => {
+                        fancybox.LOCK_DURATION = 5;
+                        fancybox.isClosable = false;
+                        const closeBtn = document.querySelector("[data-fancybox-close]");
+
+                        if (closeBtn) {
+                            closeBtn.style.display = "none";
+                        }
+
+                        document.body.appendChild(countdown);
+
+                        let remaining = fancybox.LOCK_DURATION;
+
+                        countdown.innerHTML = `
+                            Vui lòng xem ảnh ${remaining}s
+                        `;
+
+                        // cập nhật mỗi giây
+                        fancybox.countdownInterval = setInterval(() => {
+                            remaining--;
+
+                            if (remaining > 0) {
+                                countdown.innerHTML = `Vui lòng xem ảnh ${remaining}s`;
+                            } else {
+                                countdown.innerHTML = `Bạn có thể đóng preview`;
+                                clearInterval(fancybox.countdownInterval);
+                            }
+                        }, 1000);
+
+
+                        fancybox.closeTimer = setTimeout(() => {
+                            fancybox.isClosable = true;
+
+                            if (closeBtn) {
+                                closeBtn.style.display = "";
+                            }
+
+                        }, fancybox.LOCK_DURATION * 1000);
+                    },
+                    keydown: (fancybox, event) => {
+                        if (event.key === "Escape" && !fancybox.isClosable) {
+                            event.preventDefault();
+                            event.stopPropagation();
+
+                            return false;
+                        }
+                    },
+                    shouldClose: (fancybox, event) => {
+                        return fancybox.isClosable;
+                    },
+                    destroy: (fancybox) => {
+                        clearTimeout(fancybox.closeTimer);
+                        document.querySelector('.fb-countdown').remove();
+                    },
+                }
+            });
+        });
+    </script>
+}
+

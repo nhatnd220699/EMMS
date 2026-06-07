@@ -1,0 +1,122 @@
+﻿<!-- Top Navigation Bar -->
+<nav class="navbar navbar-expand-lg fixed-top px-3">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center">
+            <button class="btn btn-link p-2 text-secondary me-2" id="sidebarCollapse" type="button">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+            <a class="navbar-brand py-0 me-4" href="#">
+                <span class="d-none d-md-block"
+                      id="navbar-dynamic-title">Fixture Maintenance</span>
+            </a>
+            <!-- <div class="collapse navbar-collapse d-none d-lg-block">
+                <div class="navbar-nav gap-2">
+                    <a class="nav-link-custom active" href="#">Dashboard</a>
+                    <a class="nav-link-custom" href="#">Maintenance</a>
+                    <a class="nav-link-custom" href="#">Analytics</a>
+                    <a class="nav-link-custom" href="#">Logs</a>
+                </div>
+            </div> -->
+        </div>
+        <div class="ms-auto d-flex align-items-center gap-3">
+            <!-- <div class="search-container d-none d-md-block">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input class="form-control" placeholder="Tìm kiếm fixture..." type="text" />
+            </div>
+            <button class="btn btn-link p-1 text-secondary position-relative">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button class="btn btn-link p-1 text-secondary">
+                <span class="material-symbols-outlined">settings</span>
+            </button> -->
+            <div class="dropdown d-flex align-items-center">
+                <button aria-expanded="false"
+                        class="btn btn-link p-1 text-secondary d-flex align-items-center gap-1 text-decoration-none"
+                        data-bs-toggle="dropdown" id="languageDropdown" type="button">
+                    <span class="material-symbols-outlined fs-5">language</span>
+                    <span class="fw-semibold" style="font-size: 13px">VI</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px">expand_more</span>
+                </button>
+                <ul aria-labelledby="languageDropdown"
+                    class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 p-0 overflow-hidden"
+                    style="min-width: 160px; border-radius: 12px">
+                    <li class="">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 active" href="#"
+                           style="font-size: 14px">
+                            <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center"
+                                 style="width: 20px; height: 20px">
+                                <span class="fw-bold" style="font-size: 10px">VN</span>
+                            </div>
+                            <span class="">Tiếng Việt (VI)</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                           style="font-size: 14px">
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center border"
+                                 style="width: 20px; height: 20px">
+                                <span class="fw-bold" style="font-size: 10px">EN</span>
+                            </div>
+                            <span class="">English (EN)</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                           style="font-size: 14px">
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center border"
+                                 style="width: 20px; height: 20px">
+                                <span class="fw-bold" style="font-size: 10px">CN</span>
+                            </div>
+                            <span class="">中文 (CN)</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <div aria-expanded="false"
+                     class="rounded-circle overflow-hidden border cursor-pointer d-flex align-items-center justify-content-center"
+                     data-bs-toggle="dropdown" id="profileDropdown" style="width: 32px; height: 32px">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <ul aria-labelledby="profileDropdown"
+                    class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 p-0 overflow-hidden"
+                    style="min-width: 220px; border-radius: 12px">
+                    <li>
+                        <div class="px-3 py-3 bg-light border-bottom">
+                            <p class="mb-0 fw-bold text-dark" style="font-size: 14px">
+                                Alex Nguyen
+                            </p>
+                            <p class="mb-0 text-muted" style="font-size: 12px">
+                                System Administrator
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                           style="font-size: 14px">
+                            <span class="material-symbols-outlined fs-5">person</span> Trang
+                            cá nhân
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                           style="font-size: 14px">
+                            <span class="material-symbols-outlined fs-5">settings</span> Cài
+                            đặt tài khoản
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider m-0 opacity-10" />
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger" href="#"
+                           style="font-size: 14px">
+                            <span class="material-symbols-outlined fs-5">logout</span> Đăng
+                            xuất
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

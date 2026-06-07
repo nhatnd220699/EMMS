@@ -1,0 +1,2452 @@
+[
+  {
+    "fixture": "FTX-833440388",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-654607620",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-202160946",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-890153624",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-760662210",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-060960516",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-771644994",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-239009403",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-802152270",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-253024626",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-214808041",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-941711451",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-333960907",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-483752967",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-284150200",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-284919819",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-169997898",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-126646801",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-160132332",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-335944985",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-562912957",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-734262740",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-603146106",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-983096182",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-396068737",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-911584982",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-948089753",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-864455057",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-049647619",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-552505532",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-701433794",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-720279610",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-643458149",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-706483092",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-784440066",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-279643946",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-023662059",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-534850414",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-459118031",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-218747842",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-136974507",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-745179973",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-758338634",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-864072765",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-631453578",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-882556925",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-262621479",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-712080254",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-563526470",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-197176944",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-589346945",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-058871667",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-189178299",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-993986436",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-258335308",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-919990953",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-726191218",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-695545665",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-184465502",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-771002411",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-519797790",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-433375577",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-329492518",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-241335725",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-460808357",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-114483423",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-453581889",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-388881989",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-828223978",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-870125730",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-370759826",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-770607881",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-353614352",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-999458679",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-089847131",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-504116655",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-409939415",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-171615360",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-090496969",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-682732682",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-830922840",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-153745004",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-979966925",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-760080814",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-033451990",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-511793604",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-728279839",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-626249909",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-659777318",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-866489854",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-397969655",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-834070912",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-192604103",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-984171813",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-862960156",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-226068805",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-839743308",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-037305844",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-189402339",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-212062225",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-488713296",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-016741934",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-977092989",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-950379109",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-513160011",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-870382693",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-487071199",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-762967293",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-604132191",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-249400789",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-242231714",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-750516665",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-258140813",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-892470777",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-109217027",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-061300646",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-834869913",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-499952339",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-016686158",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-942128935",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-500305292",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-127473122",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-887065765",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-309918553",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-593983811",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-326209162",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-963942779",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-867613953",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-824119305",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-801799936",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-849598668",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-960947321",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-395847596",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-646389131",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-078999811",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-070527483",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-310718590",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-616477799",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-878575981",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-267200905",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-630832667",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-977510200",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-285630113",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-752324347",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-310697185",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-142447200",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-212528612",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-451931569",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-262487350",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-614345270",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-365561461",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-642301389",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-730698535",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-408665273",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-632736023",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-180163773",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-644319911",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-811118227",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-722280417",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-991150895",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-335534726",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-034345801",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-989914966",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-142571457",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-901107721",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-783954859",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-890209691",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-286084578",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-968857868",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-434851687",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-129637219",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-536767082",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-721662012",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-747279281",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-830120697",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-751583134",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-841211685",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-317664255",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-333105552",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-910909260",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-738237402",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-098279265",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-400656768",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-305295477",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-123217914",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-878295849",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-679305090",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-855986235",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-097648659",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-639843177",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-762594420",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-918124513",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-681196052",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-345481342",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-501413307",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-953383377",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-263569498",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-587392571",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-898245530",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-474810797",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-960483393",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-518293468",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-039052701",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-632468702",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-676254160",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-033683962",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-126449279",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-231119632",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-720533165",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-054320173",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-764548044",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-415101028",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-002751812",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-397325475",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-626762545",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-361820383",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-441265103",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-415778662",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-445576204",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-879874577",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-430010061",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-670674045",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-145910812",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-366745178",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-841542093",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-248049178",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-180621102",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-948845732",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-774645386",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-393951344",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-491883128",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-756437484",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-020641551",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-738460934",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-554357867",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-119326551",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-541141421",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-647464734",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-745304649",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-682019727",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-163265423",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-227990801",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-610355894",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-419634394",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-030531712",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-113219423",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-953660267",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-146284798",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-220390510",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-408627892",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-048812932",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-182867614",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-561106794",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-634063508",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-560953260",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-814069049",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-001955229",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-090881718",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-935495255",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-678154335",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-738132107",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-259724853",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-976974922",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-911249867",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-449425630",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-023131514",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-480961219",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-800321245",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-315894714",
+    "status": "Done",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-625362693",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-073608567",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-736947719",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-278854668",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-444688859",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-660639195",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-051412900",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-700587511",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-056644672",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-027877937",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-822214250",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-257953011",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-161294423",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-858590521",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-808796825",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-820310795",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-325591387",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-661715626",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-827792003",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-782336235",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-606284070",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-814010202",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-302946561",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-934412040",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-050774717",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-076935644",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-089483363",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-029132774",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-614894529",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-285984051",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-291119248",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-909553920",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-331049548",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-761550316",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-025008224",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-780902944",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-402856776",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-287471829",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-517058720",
+    "status": "Done",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-065950653",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-764862114",
+    "status": "No checking",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-031105051",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-252108048",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-759747342",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-909211906",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-565895319",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-984254590",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-385447496",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-354224839",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-046786532",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-954501761",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-796026445",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-291972625",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-228218476",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-278473649",
+    "status": "Done",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-189477844",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-052380751",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-167563048",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-942707630",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-849129932",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-243443888",
+    "status": "No checking",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-495670153",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-912167113",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-962252665",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-606058089",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-652178659",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-356362758",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-416305040",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-730068783",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-183563157",
+    "status": "Ongoing",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-040363138",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-364778133",
+    "status": "Done",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-632081192",
+    "status": "Done",
+    "line": "B12",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-509456156",
+    "status": "Ongoing",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-125411497",
+    "status": "No checking",
+    "line": "B12",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-102953930",
+    "status": "Ongoing",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-974052536",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-739515877",
+    "status": "Done",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-049385467",
+    "status": "No checking",
+    "line": "B13",
+    "department": "AME",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-891182310",
+    "status": "No checking",
+    "line": "B11",
+    "department": "RE",
+    "type": "FATP"
+  },
+  {
+    "fixture": "FTX-369268162",
+    "status": "No checking",
+    "line": "B11",
+    "department": "AME",
+    "type": "FATP"
+  }
+]

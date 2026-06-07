@@ -1,0 +1,68 @@
+## Ignore Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bin/
+obj/
+
+## ASP.NET cache/config
+*.cache
+*.dbmdl
+*.pdb
+*.log
+
+## IIS Express
+/.vs/config/applicationhost.config
+iisexpress/
+
+## NuGet
+packages/
+!packages/build/
+*.nupkg
+*.snupkg
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## Rider
+.idea/
+
+## Publish output
+publish/
+app.publish/
+
+## Test results
+TestResults/
+*.trx
+
+## Azure
+.PublishSettings
+Azure/
+
+## Node modules (nếu có frontend)
+node_modules/
+
+## Logs
+logs/
+*.log
+
+## OS generated files
+.DS_Store
+Thumbs.db
+
+## SQL Server files
+*.mdf
+*.ldf
+
+## Secrets
+appsettings.Development.json
+secrets.json
