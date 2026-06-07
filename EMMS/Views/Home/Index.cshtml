@@ -504,12 +504,12 @@
             if (resetPagination) currentPage = 1;
 
             const params = {
-                type: DATASET.type ?? "",
-                line: DATASET.line ?? "",
-                department: DATASET.department ?? "",
+                fixtureId: '123',
+                line: 'B11',
+                status: '0'
             };
             const query = new URLSearchParams(params).toString();
-            const res = await fetch(`/Content/data/dashboard.json?${query}`, {
+            const res = await fetch(`/api/fixture/dashboard?${query}`, {
                 method: "GET",
             });
 
