@@ -82,18 +82,13 @@
                 <small class="text-uppercase text-secondary fw-bold ps-2"
                        style="font-size: 10px; letter-spacing: 1px">Filter</small>
                 <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="type">
-                    <option>All type</option>
-                    <option value="FATP">FATP</option>
+                    <option value="">All type</option>
                 </select>
                 <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="line">
-                    <option>All line</option>
-                    <option value="B11">B11</option>
-                    <option value="B12">B12</option>
+                    <option value="">All line</option>
                 </select>
                 <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="department">
-                    <option>All dept</option>
-                    <option value="AME">AME</option>
-                    <option value="RE">RE</option>
+                    <option value="">All dept</option>
                 </select>
                 <button class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-2" id="refresh-btn">
                     <span class="material-symbols-outlined fs-6">refresh</span> Refresh
@@ -297,9 +292,9 @@
                                 <th style="width: 200px">Maintenance Images</th>
                                 <th style="width: 140px">Uploader<br />Result</th>
                                 <th style="width: 100px">Uploader ID</th>
-                                <th style="width: 100px">Approver Result</th>
-                                <th style="width: 100px">Approver ID</th>
-                                <th>Remark</th>
+                                <th class="approver-only-col" style="width: 100px">Approver Result</th>
+                                <th class="approver-only-col" style="width: 100px">Approver ID</th>
+                                <th class="approver-only-col">Remark</th>
                             </tr>
                         </thead>
                         <tbody id="detail-form-body">
@@ -340,8 +335,7 @@
     <script src="~/Scripts/js/lenis/lenis.min.js"></script>
     <script src="~/Scripts/js/fancybox/fancybox.umd.js"></script>
     <script src="~/Scripts/js/dayjs/dayjs.min.js"></script>
-    <script src="~/Scripts/js/xlsx/xlsx.full.min.js"></script>
-    @*<script src="~/Scripts/js/custom/index.js"></script>*@
+    <script defer src="~/Scripts/js/xlsx/xlsx.full.min.js"></script>
     <script>
         // Initialize Lenis
         const lenis = new Lenis({
@@ -361,122 +355,175 @@
 
         requestAnimationFrame(raf);
         /**
-            * Enhanced Dataset for testing large pagination (350 items)
-            */
-        const DATASET = {};
+        * Enhanced Dataset for testing large pagination (350 items)
+        */
+        const DATASET = { type: "", line: "", department: "" };
         let FIXTURE_DATASET = [];
         const STATUS_ALL = "All";
         const STATUS_NO_CHECKING = "No checking";
         const STATUS_ON_GOING = "Ongoing";
         const STATUS_DONE = "Done";
+        const STATUS_NG = "NG";
 
         /**
-            * Global State
-            */
+        * Global State
+        */
         let currentPage = 1;
         let pageSize = 24;
         let currentStatusFilter = "All";
-        const details = [
-            {
-                id: 1,
-                action: "檢查氣壓系統是否正常 Kiểm tra hệ thống khí áp có hoạt động bình thường không",
-                method: "確認氣管無漏氣且接頭固定 Kiểm tra ống khí không bị rò rỉ và đầu nối được cố định",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "OK",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Machine status stable",
-            },
-            {
-                id: 2,
-                action: "確認感測器表面是否清潔 Kiểm tra bề mặt cảm biến có sạch không",
-                method: "使用乾布擦拭感測器表面 Lau bề mặt cảm biến bằng khăn khô",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "NG",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Dust detected near sensor",
-            },
-            {
-                id: 3,
-                action: "檢查螺絲是否鬆動 Kiểm tra các vít có bị lỏng không",
-                method: "使用扭力工具重新固定 Siết lại bằng dụng cụ lực",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "NA",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Section not applicable",
-            },
-            {
-                id: 4,
-                action: "確認電源線是否損壞 Kiểm tra dây nguồn có bị hỏng không",
-                method: "檢查外層絕緣是否完整 Kiểm tra lớp cách điện bên ngoài",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "OK",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Cable condition normal",
-            },
-            {
-                id: 5,
-                action: "檢查設備運轉聲音是否異常 Kiểm tra âm thanh hoạt động của thiết bị",
-                method: "啟動設備後監聽異音 Khởi động máy và nghe tiếng bất thường",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "NG",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Abnormal noise detected",
-            },
-            {
-                id: 6,
-                action: "確認安全護罩是否完整 Kiểm tra tấm chắn an toàn có đầy đủ không",
-                method: "檢查固定扣件是否牢固 Kiểm tra các chốt cố định",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "OK",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Safety cover installed correctly",
-            },
-            {
-                id: 7,
-                action: "檢查潤滑油液位是否正常 Kiểm tra mức dầu bôi trơn",
-                method: "查看油位刻度並補充 Kiểm tra vạch dầu và bổ sung nếu cần",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "NA",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Lubrication not required",
-            },
-            {
-                id: 8,
-                action: "確認操作面板按鍵是否正常 Kiểm tra các nút trên bảng điều khiển",
-                method: "逐一測試所有功能按鍵 Test từng nút chức năng",
-                image: ["/url/img1.png", "/url/img1.png"],
-                maintenance_result: "OK",
-                upload_id: "V5120002",
-                approve_id: "V5070000",
-                remark: "Buttons responsive",
-            },
-        ];
 
         let maintenanceModalInstance = null;
         let detailModalInstance = null;
         let activeFixture = null;
+        let activeFixtureObject = null;
+        let activeMonthlyData = null;
+        let activeDailyData = null;
+        let activeDetailDay = null;
+        let activeDetailDate = null;
+        let activeMaintenanceItems = [];
         let currentRole = "uploader";
         let uploadedFiles = {};
+        const DEFAULT_UPLOAD_ID = "V5070000";
+        const DEFAULT_APPROVAL_ID = "V4070216";
 
         /**
-            * Utility: Get Status Styling
-            */
+        * Utility: Get Status Styling
+        */
         const getStatusStyle = (status) => {
-            switch (status) {
+            switch (normalizeStatus(status)) {
                 case STATUS_NO_CHECKING:
+                case STATUS_NG:
                     return { class: "bg-danger-subtle text-danger", dot: "bg-danger" };
                 case STATUS_ON_GOING:
                     return { class: "bg-warning-subtle text-warning", dot: "bg-warning" };
                 case STATUS_DONE:
                 default:
                     return { class: "bg-success-subtle text-success", dot: "bg-success" };
+            }
+        };
+
+        const getProp = (obj, ...keys) => {
+            if (!obj) return null;
+
+            for (const key of keys) {
+                if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                    return obj[key];
+                }
+            }
+
+            return null;
+        };
+
+        const normalizeStatus = (status) => {
+            const value = (status ?? "").toString().trim();
+            const compact = value.toLowerCase().replace(/\s+/g, "");
+
+            if (compact === "ongoing" || compact === "on-going") return STATUS_ON_GOING;
+            if (compact === "nochecking") return STATUS_NO_CHECKING;
+            if (compact === "done") return STATUS_DONE;
+            if (compact === "ng") return "NG";
+
+            return value || STATUS_NO_CHECKING;
+        };
+
+        const normalizeFixture = (item) => {
+            return {
+                numberOrder: getProp(item, "number_Order", "Number_Order", "numberOrder", "NumberOrder"),
+                fixture: getProp(item, "eQ_SN", "EQ_SN", "eq_SN", "eqSn", "Fixture", "fixture"),
+                eqName: getProp(item, "eQ_Name", "EQ_Name", "eq_Name", "eqName"),
+                eqModel: getProp(item, "eQ_Model", "EQ_Model", "eq_Model", "eqModel"),
+                line: getProp(item, "line", "Line"),
+                status: normalizeStatus(getProp(item, "status", "Status"))
+            };
+        };
+
+        const getResponseData = (response) => {
+            return getProp(response, "data", "Data");
+        };
+
+        const isSuccessResponse = (response) => {
+            return getProp(response, "success", "Success") === true;
+        };
+
+        const getResponseMessage = (response) => {
+            return getProp(response, "message", "Message") || "Request failed.";
+        };
+
+        const fetchJson = async (url) => {
+            const response = await fetch(url, { method: "GET" });
+            const text = await response.text();
+            let data = null;
+
+            try {
+                data = text ? JSON.parse(text) : null;
+            } catch (error) {
+                throw new Error(text || `HTTP ${response.status}`);
+            }
+
+            if (!response.ok || !isSuccessResponse(data)) {
+                throw new Error(getResponseMessage(data));
+            }
+
+            return getResponseData(data);
+        };
+
+        const buildQuery = (params) => {
+            const query = new URLSearchParams();
+
+            Object.keys(params).forEach((key) => {
+                const value = params[key];
+                if (value !== undefined && value !== null && value !== "") {
+                    query.append(key, value);
+                }
+            });
+
+            return query.toString();
+        };
+
+        const normalizeDateText = (value) => {
+            if (!value) return "";
+
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return value.toString().substring(0, 10);
+
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+        };
+
+        const resolveImageUrl = (path) => {
+            if (!path) return "";
+            if (/^(https?:)?\/\//i.test(path) || path.startsWith("/")) return path;
+            return `/${path.replace(/^~\//, "")}`;
+        };
+
+        const setLoadingGrid = (message) => {
+            document.getElementById("fixture-grid").innerHTML =
+                `<div class="col-12 text-center py-5"><p class="text-muted">${message}</p></div>`;
+        };
+
+        const fillSelect = (selectId, data, defaultText) => {
+            const select = document.getElementById(selectId);
+            const currentValue = select.value;
+
+            select.innerHTML = `<option value="">${defaultText}</option>`;
+            (data || []).forEach((value) => {
+                const option = document.createElement("option");
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+
+            select.value = [...select.options].some((x) => x.value === currentValue) ? currentValue : "";
+        };
+
+        const loadFilterOptions = async () => {
+            try {
+                const options = await fetchJson("/api/fixture/options");
+
+                fillSelect("type", getProp(options, "types", "Types"), "All type");
+                fillSelect("line", getProp(options, "lines", "Lines"), "All line");
+                fillSelect("department", getProp(options, "departments", "Departments"), "All dept");
+            } catch (error) {
+                alert(error.message);
             }
         };
 
@@ -489,10 +536,8 @@
                 return acc;
             }, {});
 
-            document.getElementById("kpi-total").textContent =
-                FIXTURE_DATASET.length.toLocaleString();
-            document.getElementById("kpi-maintenance").textContent =
-                counts[STATUS_NO_CHECKING] || 0;
+            document.getElementById("kpi-total").textContent = FIXTURE_DATASET.length.toLocaleString();
+            document.getElementById("kpi-maintenance").textContent = counts[STATUS_NO_CHECKING] || 0;
             document.getElementById("kpi-waiting").textContent = counts[STATUS_ON_GOING] || 0;
             document.getElementById("kpi-completed").textContent = counts[STATUS_DONE] || 0;
         };
@@ -503,20 +548,29 @@
         const updateDisplay = async (resetPagination = false) => {
             if (resetPagination) currentPage = 1;
 
-            const params = {
-                fixtureId: '123',
-                line: 'B11',
-                status: '0'
-            };
-            const query = new URLSearchParams(params).toString();
-            const res = await fetch(`/api/fixture/dashboard?${query}`, {
-                method: "GET",
-            });
-
-            const data = await res.json();
-            FIXTURE_DATASET = data || [];
-
             const grid = document.getElementById("fixture-grid");
+            setLoadingGrid("Loading data...");
+
+            try {
+                const params = {
+                    type: DATASET.type,
+                    line: DATASET.line,
+                    department: DATASET.department
+                };
+                const query = buildQuery(params);
+                const data = await fetchJson(`/api/fixture/dashboard${query ? `?${query}` : ""}`);
+                FIXTURE_DATASET = (data || [])
+                    .map(normalizeFixture)
+                    .sort((a, b) => (Number(a.numberOrder) || 0) - (Number(b.numberOrder) || 0));
+            } catch (error) {
+                FIXTURE_DATASET = [];
+                grid.innerHTML =
+                    `<div class="col-12 text-center py-5"><p class="text-danger">${error.message}</p></div>`;
+                updateKPIs();
+                updatePaginationControls(1);
+                return;
+            }
+
             grid.innerHTML = "";
 
             // 1. Filter the dataset
@@ -527,6 +581,8 @@
 
             const totalItems = filteredData.length;
             const totalPages = Math.ceil(totalItems / pageSize) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
 
             // 2. Slice for pagination
             const startIndex = (currentPage - 1) * pageSize;
@@ -545,17 +601,18 @@
                         "col-6 col-sm-4 col-md-3 col-lg-3 col-xxl-2 fixture-grid-item";
                     col.style.animationDelay = `${idx * 0.015}s`;
                     col.innerHTML = `
-                        <div class="fixture-card h-100">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-bold small">${fix.fixture}</span>
-                                <div class="status-dot ${style.dot} shadow-sm"></div>
+                            <div class="fixture-card h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
+                                    <div class="status-dot ${style.dot} shadow-sm"></div>
+                                </div>
+                                <div class="mb-1">
+                                    <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
+                                </div>
+                                <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
+                                <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
                             </div>
-                            <div class="mb-1">
-                                <span class="badge-status ${style.class}">${fix.status}</span>
-                            </div>
-                            <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line}</small>
-                        </div>
-                    `;
+                        `;
 
                     // Add click event for modal
                     col.addEventListener("click", () => openMaintenanceModal(fix));
@@ -763,8 +820,9 @@
         /**
             * Open Maintenance Modal
             */
-        const openMaintenanceModal = (fixture) => {
+        const openMaintenanceModal = async (fixture) => {
             activeFixture = fixture.fixture;
+            activeFixtureObject = fixture;
 
             if (!maintenanceModalInstance) {
                 maintenanceModalInstance = new bootstrap.Modal(
@@ -773,19 +831,66 @@
             }
 
             // Fill modal details
+            document.getElementById("maintenanceModalLabel").textContent = fixture.eqName || "Machine";
             document.getElementById("modalFixtureId").textContent =
                 `Fixture ID: ${fixture.fixture ?? ""}`;
             document.getElementById("modalLine").textContent = fixture.line ?? "";
-            document.getElementById("modalShift").textContent = fixture.shift ?? "";
-            document.getElementById("modalYear").textContent = fixture.year ?? "";
-            document.getElementById("modalMonth").textContent = fixture.month ?? "";
+            document.getElementById("modalShift").textContent = "";
+            document.getElementById("modalYear").textContent = "";
+            document.getElementById("modalMonth").textContent = "";
+            document.getElementById("modalDeviceName").textContent = fixture.eqName ?? "";
+            document.getElementById("modalDeviceMod").textContent = fixture.eqModel ?? "";
             document.getElementById("modalDeviceNo").textContent = fixture.fixture ?? "";
+            document.getElementById("maintenance-body").innerHTML =
+                '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly report...</td></tr>';
+
             maintenanceModalInstance.show();
 
-            initTable();
+            try {
+                const params = {
+                    type: DATASET.type || "FATP",
+                    line: DATASET.line,
+                    department: DATASET.department,
+                    eqSn: fixture.fixture
+                };
+                const query = buildQuery(params);
+                activeMonthlyData = await fetchJson(`/api/fixture/monthly?${query}`);
+                activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
+
+                document.getElementById("maintenanceModalLabel").textContent =
+                    getProp(activeMonthlyData, "eQ_Name", "EQ_Name") || fixture.eqName || "Machine";
+                document.getElementById("modalLine").textContent =
+                    getProp(activeMonthlyData, "line", "Line") || fixture.line || "";
+                document.getElementById("modalShift").textContent =
+                    getProp(activeMonthlyData, "shift", "Shift") || "";
+                document.getElementById("modalYear").textContent =
+                    getProp(activeMonthlyData, "year", "Year") || "";
+                document.getElementById("modalMonth").textContent =
+                    getProp(activeMonthlyData, "month", "Month") || "";
+                document.getElementById("modalDeviceName").textContent =
+                    getProp(activeMonthlyData, "eQ_Name", "EQ_Name") || "";
+                document.getElementById("modalDeviceMod").textContent =
+                    getProp(activeMonthlyData, "eQ_Model", "EQ_Model") || "";
+                document.getElementById("modalDeviceNo").textContent =
+                    getProp(activeMonthlyData, "eQ_SN", "EQ_SN") || fixture.fixture || "";
+
+                initTable();
+            } catch (error) {
+                activeMonthlyData = null;
+                activeMaintenanceItems = [];
+                document.getElementById("maintenance-body").innerHTML =
+                    `<tr><td colspan="34" class="text-center py-4 text-danger">${error.message}</td></tr>`;
+            }
         };
 
-        const openDetailModal = ({ line, day, shift, activeFixture }) => {
+        const openDetailModal = async ({ line, day, shift, activeFixture }) => {
+            activeDetailDay = day;
+            activeDailyData = null;
+
+            const year = parseInt(getProp(activeMonthlyData, "year", "Year")) || new Date().getFullYear();
+            const month = parseInt(getProp(activeMonthlyData, "month", "Month")) || (new Date().getMonth() + 1);
+            activeDetailDate = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
             if (document.activeElement) {
                 document.activeElement.blur();
             }
@@ -800,15 +905,43 @@
             }
 
             document.getElementById("detailLine").textContent = line ? line : "--";
-            document.getElementById("detailDate").textContent = day;
+            document.getElementById("detailDate").textContent = activeDetailDate;
             document.getElementById("detailShift").textContent = shift ? shift : "--";
             document.getElementById("detailFixtureId").textContent = activeFixture
                 ? activeFixture
                 : "--";
 
-            renderDetailRows();
+            //toggleDetailColumns();
+            document.getElementById("detail-form-body").innerHTML =
+                '<tr><td colspan="9" class="text-center py-4 text-muted">Loading daily maintenance form...</td></tr>';
             detailModalInstance.show();
+
+            try {
+                const params = {
+                    type: DATASET.type || "FATP",
+                    line: DATASET.line || line,
+                    department: DATASET.department,
+                    eqSn: activeFixture,
+                    date: activeDetailDate,
+                    shift: shift || "Day",
+                    uploadId: DEFAULT_UPLOAD_ID,
+                    isApproverMode: currentRole === "approver"
+                };
+                const query = buildQuery(params);
+                activeDailyData = await fetchJson(`/api/fixture/daily?${query}`);
+                renderDetailRows();
+            } catch (error) {
+                document.getElementById("detail-form-body").innerHTML =
+                    `<tr><td colspan="9" class="text-center py-4 text-danger">${error.message}</td></tr>`;
+            }
         };
+
+        //const toggleDetailColumns = () => {
+        //    const isApprover = currentRole === "approver";
+        //    document.querySelectorAll(".approver-only-col").forEach((el) => {
+        //        el.classList.toggle("d-none", !isApprover);
+        //    });
+        //};
 
         const handleFileUpload = (input, rowId) => {
             const fileList = Array.from(input.files);
@@ -821,31 +954,32 @@
             input.value = "";
         };
 
-        const renderGallery = (rowId, gallery, file, url) => {
-            if (!gallery) return;
+        const renderGallery = (rowId, gallery, file, url, existingPath = "") => {
+            if (!gallery || !url) return;
 
             const div = document.createElement("div");
             div.className = "gallery-item";
 
             div._file = file;
             div._url = url;
+            div._path = existingPath;
 
             div.innerHTML = `
-                <a href="${url}" data-fancybox="gallery-${rowId}">
-                    <img src="${url}" alt="preview" >
-                </a>
-                ${currentRole === "uploader"
+                    <a href="${url}" data-fancybox="gallery-${rowId}">
+                        <img src="${url}" alt="preview" >
+                    </a>
+                    ${currentRole === "uploader"
                     ? `
-                    <button type="button" class="remove-btn">
-                        <span class="material-symbols-outlined">close</span>
-                    </button>
-                `
+                        <button type="button" class="remove-btn">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    `
                     : ""
                 }
-            `;
+                `;
 
             div.querySelector(".remove-btn")?.addEventListener("click", () => {
-                URL.revokeObjectURL(div._url); //cleanup
+                if (div._file && div._url) URL.revokeObjectURL(div._url); //cleanup
                 div.remove();
             });
             gallery.insertAdjacentElement("beforeend", div);
@@ -854,90 +988,107 @@
         const renderDetailRows = () => {
             const body = document.getElementById("detail-form-body");
             body.innerHTML = "";
+            //toggleDetailColumns();
 
-            details.forEach((item, idx) => {
+            const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || activeMaintenanceItems || [];
+
+            if (!sourceRows.length) {
+                body.innerHTML = '<tr><td colspan="9" class="text-center py-4 text-muted">No daily maintenance items to display</td></tr>';
+                return;
+            }
+
+            sourceRows.forEach((item, idx) => {
                 const tr = document.createElement("tr");
+
+                const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
+                const mtNo = getProp(item, "mT_No", "MT_No", "mtNo") || numberOrder;
+                const actionText = getProp(item, "mT_Item", "MT_Item", "action") || "";
+                const methodText = getProp(item, "mT_Desc", "MT_Desc", "method") || "";
+                const uploadResult = getProp(item, "upload_Result", "Upload_Result") || "NA";
+                const approvalResult = getProp(item, "approval_Result", "Approval_Result") || "";
+                const uploadId = getProp(item, "upload_ID", "Upload_ID") || DEFAULT_UPLOAD_ID;
+                const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
+                const remark = getProp(item, "remark", "Remark") || "";
 
                 // Image Cell Logic
                 let imageCellHtml = "";
                 if (currentRole === "uploader") {
                     imageCellHtml = `
-                    <div>
-                        <div class="upload-zone mx-auto" onclick="document.getElementById('input_${idx}').click()">
-                            <span class="material-symbols-outlined fs-2">add_a_photo</span>
-                            <input type="file" id="input_${idx}" class="d-none" accept="image/*" multiple onchange="handleFileUpload( this, ${idx} )">
+                        <div>
+                            <div class="upload-zone mx-auto" onclick="document.getElementById('input_${idx}').click()">
+                                <span class="material-symbols-outlined fs-2">add_a_photo</span>
+                                <input type="file" id="input_${idx}" class="d-none" accept="image/*" multiple onchange="handleFileUpload( this, ${idx} )">
+                            </div>
+                            <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
                         </div>
-                        <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
-                    </div>
-                `;
+                    `;
                 } else {
                     imageCellHtml = `
-                    <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
-                `;
+                        <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
+                    `;
                 }
 
                 // Maintenance Result Cell Logic
                 let uploaderResultHtml = `
-                    <div class="status-radio flex-column gap-1">
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="uploader_res_${idx}" id="uploader_resOk_${idx}" value="OK" ${currentRole === "approver" ? "disabled checked" : ""}>
-                            <label for="uploader_resOk_${idx}" class="text-xs">OK</label>
+                        <div class="status-radio flex-column gap-1">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="uploader_res_${idx}" id="uploader_resOk_${idx}" value="OK" ${uploadResult === "OK" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
+                                <label for="uploader_resOk_${idx}" class="text-xs">OK</label>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="uploader_res_${idx}" id="uploader_resNg_${idx}" value="NG" ${uploadResult === "NG" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
+                                <label for="uploader_resNg_${idx}" class="text-xs">NG</label>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="uploader_res_${idx}" id="uploader_resNa_${idx}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
+                                <label for="uploader_resNa_${idx}" class="text-xs">NA</label>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="uploader_res_${idx}" id="uploader_resNg_${idx}" value="NG" ${currentRole === "approver" ? "disabled" : ""}>
-                            <label for="uploader_resNg_${idx}" class="text-xs">NG</label>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="uploader_res_${idx}" id="uploader_resNa_${idx}" value="NA" ${currentRole === "approver" ? "disabled" : ""}>
-                            <label for="uploader_resNa_${idx}" class="text-xs">NA</label>
-                        </div>
-                    </div>
-                `;
+                    `;
 
                 let approvalResultHtml = `
-                    <div class="status-radio flex-column gap-1">
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="approver_res_${idx}" id="approver_resOk_${idx}" value="OK" ${currentRole !== "approver" ? "disabled checked" : ""}>
-                            <label for="approver_resOk_${idx}" class="text-xs">OK</label>
+                        <div class="status-radio flex-column gap-1">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="approver_res_${idx}" id="approver_resOk_${idx}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                <label for="approver_resOk_${idx}" class="text-xs">OK</label>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="approver_res_${idx}" id="approver_resNg_${idx}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                <label for="approver_resNg_${idx}" class="text-xs">NG</label>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="approver_res_${idx}" id="approver_resNa_${idx}" value="NA" ${approvalResult === "NA" || approvalResult === "" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                <label for="approver_resNa_${idx}" class="text-xs">NA</label>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="approver_res_${idx}" id="approver_resNg_${idx}" value="NG" ${currentRole !== "approver" ? "disabled" : ""}>
-                            <label for="approver_resNg_${idx}" class="text-xs">NG</label>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="approver_res_${idx}" id="approver_resNa_${idx}" value="NA" ${currentRole !== "approver" ? "disabled" : ""}>
-                            <label for="approver_resNa_${idx}" class="text-xs">NA</label>
-                        </div>
-                    </div>
-                `;
+                    `;
 
                 // Remark Cell Logic
-                let remarkHtml = "";
-                if (currentRole === "uploader") {
-                    remarkHtml = `<div class="p-2 h-full rounded italic text-[11px]">Approver only</div>`;
-                } else {
-                    remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..."></textarea>`;
-                }
+                let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${currentRole !== "approver" ? "disabled" : ""}>${remark}</textarea>`;
 
                 tr.innerHTML = `
-                    <td class="text-center fw-bold">${idx + 1}</td>
-                    <td>
-                        <div class="fw-medium">${item.action}</div>
-                        <div class="mt-1">${item.vn}</div>
-                    </td>
-                    <td>
-                        <div class="fw-medium">${item.std}</div>
-                        <div class="mt-1">${item.stdVn}</div>
-                    </td>
-                    <td>${imageCellHtml}</td>
-                    <td>${uploaderResultHtml}</td>
-                    <td class="text-center">ALEX-998</td>
-                    <td>${approvalResultHtml}</td>
-                    <td class="text-center">ALEX-998</td>
-                    <td class="text-center">${remarkHtml}</td>
-                `;
+                        <td class="text-center fw-bold">${numberOrder}</td>
+                        <td>
+                            <div class="fw-medium">${actionText}</div>
+                        </td>
+                        <td>
+                            <div class="fw-medium">${methodText}</div>
+                        </td>
+                        <td>${imageCellHtml}</td>
+                        <td>${uploaderResultHtml}</td>
+                        <td class="text-center upload-id-cell">${uploadId}</td>
+                        <td class="approver-only-col">${approvalResultHtml}</td>
+                        <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
+                        <td class="text-center approver-only-col">${remarkHtml}</td>
+                    `;
                 body.appendChild(tr);
+
+                const gallery = document.getElementById(`gallery_${idx}`);
+                const existingImagePaths = getProp(item, "existingImagePaths", "ExistingImagePaths") || [];
+                existingImagePaths.forEach((path) => renderGallery(idx, gallery, null, resolveImageUrl(path), path));
             });
+
+            //toggleDetailColumns();
         };
 
         const initTable = () => {
@@ -947,24 +1098,35 @@
             headerRow.innerHTML = "";
             body.innerHTML = "";
 
-            const year = new Date().getFullYear();
-            const month = new Date().getMonth() * 1;
-            const days = new Date(year, month + 1, 0).getDate();
+            const year = parseInt(getProp(activeMonthlyData, "year", "Year")) || new Date().getFullYear();
+            const month = parseInt(getProp(activeMonthlyData, "month", "Month")) || (new Date().getMonth() + 1);
+            const line = getProp(activeMonthlyData, "line", "Line") || "";
+            const shift = getProp(activeMonthlyData, "shift", "Shift") || "";
+            const items = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
+            const days = new Date(year, month, 0).getDate();
+
             for (let i = 1; i <= days; i++) {
-                const day = dayjs(new Date(year, month, i)).format("YYYY-MM-DD");
+                const day = i;
                 const th = document.createElement("th");
                 th.className = "day-col font-mediumn text-decoration-underline";
                 th.textContent = i;
-                th.dataset.date = day;
-                th.onclick = () => openDetailModal({ line: "", day, shift: "", activeFixture });
+                th.dataset.date = `${year}-${String(month).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+                th.onclick = () => openDetailModal({ line, day, shift, activeFixture });
                 headerRow.appendChild(th);
             }
 
-            details.forEach((item, idx) => {
+            if (!items.length) {
+                body.innerHTML = '<tr><td colspan="34" class="text-center py-4 text-muted">No maintenance items to display</td></tr>';
+                return;
+            }
+
+            items.forEach((item, idx) => {
                 const tr = document.createElement("tr");
                 let daysHtml = "";
+                const dailyResults = getProp(item, "dailyResults", "DailyResults") || {};
+
                 for (let i = 1; i <= days; i++) {
-                    let val = ["OK", "NG", "NA"][Math.floor(Math.random() * 3)];
+                    let val = dailyResults[i] || dailyResults[String(i)] || "NA";
                     let text = "",
                         classCell = "";
                     if (val == "OK") {
@@ -979,16 +1141,122 @@
                         text = `<span>${val}</span>`;
                         classCell = ``;
                     }
-                    daysHtml += `<td class="day-col ${classCell}">${text}</td>`;
+                    daysHtml += `<td class="day-col ${classCell}" onclick="openDetailModal({ line: '${line}', day: ${i}, shift: '${shift}', activeFixture: activeFixture })">${text}</td>`;
                 }
+
+                const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
+                const mtItem = getProp(item, "mT_Item", "MT_Item") || "";
+                const mtDesc = getProp(item, "mT_Desc", "MT_Desc") || "";
+
                 tr.innerHTML = `
-                    <td class="text-center fw-bold">${idx + 1}</td>
-                    <td>${item.action}</td>
-                    <td>${item.method}</td>
-                    ${daysHtml}
-                `;
+                        <td class="text-center fw-bold">${numberOrder}</td>
+                        <td>${mtItem}</td>
+                        <td>${mtDesc}</td>
+                        ${daysHtml}
+                    `;
                 body.appendChild(tr);
             });
+        };
+
+        const refreshMonthlyModal = async () => {
+            if (!activeFixtureObject) return;
+
+            try {
+                const params = {
+                    type: DATASET.type || "FATP",
+                    line: DATASET.line,
+                    department: DATASET.department,
+                    eqSn: activeFixtureObject.fixture
+                };
+                const query = buildQuery(params);
+                activeMonthlyData = await fetchJson(`/api/fixture/monthly?${query}`);
+                activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
+                initTable();
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        const getRadioValue = (name, defaultValue = "NA") => {
+            const checked = document.querySelector(`input[name="${name}"]:checked`);
+            return checked ? checked.value : defaultValue;
+        };
+
+        const postFormData = async (url, formData) => {
+            const response = await fetch(url, {
+                method: "POST",
+                body: formData
+            });
+            const text = await response.text();
+            let data = null;
+
+            try {
+                data = text ? JSON.parse(text) : null;
+            } catch (error) {
+                throw new Error(text || `HTTP ${response.status}`);
+            }
+
+            if (!response.ok || !isSuccessResponse(data)) {
+                throw new Error(getResponseMessage(data));
+            }
+
+            return data;
+        };
+
+        const collectDetailFormData = (isApproverMode) => {
+            const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || [];
+            const formData = new FormData();
+
+            formData.append("type", DATASET.type || "FATP");
+            formData.append("line", getProp(activeDailyData, "line", "Line") || DATASET.line || "");
+            formData.append("department", DATASET.department || "");
+            formData.append("eqSn", getProp(activeDailyData, "eQ_SN", "EQ_SN") || activeFixture || "");
+            formData.append("eqName", getProp(activeDailyData, "eQ_Name", "EQ_Name") || "");
+            formData.append("eqModel", getProp(activeDailyData, "eQ_Model", "EQ_Model") || "");
+            formData.append("date", activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date")));
+            formData.append("shift", getProp(activeDailyData, "shift", "Shift") || "Day");
+            formData.append("isApproverMode", isApproverMode ? "true" : "false");
+            formData.append("itemCount", sourceRows.length);
+
+            sourceRows.forEach((item, idx) => {
+                const mtNo = getProp(item, "mT_No", "MT_No", "mtNo") || "";
+                const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
+                const uploadId = getProp(item, "upload_ID", "Upload_ID") || DEFAULT_UPLOAD_ID;
+                const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
+                const existingImagePaths = [];
+
+                document.querySelectorAll(`#gallery_${idx} .gallery-item`).forEach((el) => {
+                    if (el._path) existingImagePaths.push(el._path);
+                    if (el._file) formData.append(`imageFiles_${idx}`, el._file);
+                });
+
+                const remarkEl = document.querySelector(`#detail-form-body tr:nth-child(${idx + 1}) textarea`);
+
+                formData.append(`items[${idx}].Number_Order`, numberOrder);
+                formData.append(`items[${idx}].MT_No`, mtNo);
+                formData.append(`items[${idx}].MT_Item`, getProp(item, "mT_Item", "MT_Item") || "");
+                formData.append(`items[${idx}].MT_Desc`, getProp(item, "mT_Desc", "MT_Desc") || "");
+                formData.append(`items[${idx}].Upload_Result`, getRadioValue(`uploader_res_${idx}`));
+                formData.append(`items[${idx}].Upload_ID`, uploadId);
+                formData.append(`items[${idx}].Approval_ID`, approvalId);
+                formData.append(`items[${idx}].Approval_Result`, getRadioValue(`approver_res_${idx}`));
+                formData.append(`items[${idx}].Remark`, remarkEl ? remarkEl.value : (getProp(item, "remark", "Remark") || ""));
+                formData.append(`items[${idx}].ExistingImagePaths`, JSON.stringify(existingImagePaths));
+            });
+
+            return formData;
+        };
+
+        const saveDailyForm = async (isApproverMode) => {
+            try {
+                const response = await postFormData("/api/fixture/daily/save", collectDetailFormData(isApproverMode));
+                activeDailyData = getResponseData(response);
+                await refreshMonthlyModal();
+                alert(getResponseMessage(response) || "Save OK!");
+                detailModalInstance.hide();
+            } catch (error) {
+                alert(error.message);
+            }
         };
 
         function exportTable() {
@@ -1000,8 +1268,10 @@
         /**
             * Initialization
             */
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", async () => {
             initSidebarAndNav();
+            //toggleDetailColumns();
+            await loadFilterOptions();
             updateDisplay();
             // initTable();
 
@@ -1013,7 +1283,7 @@
 
             // Refresh Button
             document.getElementById("refresh-btn").addEventListener("click", () => {
-                updateDisplay();
+                updateDisplay(true);
             });
 
             // KPI Card Click Events for Unified Filtering
@@ -1058,6 +1328,7 @@
                     currentRole = "uploader";
                     document.getElementById("uploaderActions").classList.remove("d-none");
                     document.getElementById("approverActions").classList.add("d-none");
+                    //toggleDetailColumns();
                     renderDetailRows();
                 }
             });
@@ -1067,30 +1338,32 @@
                     currentRole = "approver";
                     document.getElementById("uploaderActions").classList.add("d-none");
                     document.getElementById("approverActions").classList.remove("d-none");
+                    //toggleDetailColumns();
                     renderDetailRows();
                 }
             });
 
-            document.getElementById("saveUploader").addEventListener("click", () => {
-                alert("Maintenance data and images saved for uploader ALEX-998");
-                detailModalInstance.hide();
+            document.getElementById("saveUploader").addEventListener("click", async () => {
+                await saveDailyForm(false);
             });
 
-            document.getElementById("approveAll").addEventListener("click", () => {
-                alert("All records approved by LEAD-042");
-                detailModalInstance.hide();
+            document.getElementById("approveAll").addEventListener("click", async () => {
+                await saveDailyForm(true);
             });
 
             document.getElementById("type").addEventListener("change", (e) => {
                 DATASET["type"] = (e.target.value ?? "")?.trim();
+                updateDisplay(true);
             });
 
             document.getElementById("line").addEventListener("change", (e) => {
                 DATASET["line"] = (e.target.value ?? "")?.trim();
+                updateDisplay(true);
             });
 
             document.getElementById("department").addEventListener("change", (e) => {
                 DATASET["department"] = (e.target.value ?? "")?.trim();
+                updateDisplay(true);
             });
 
             document.getElementById("detailModal").addEventListener("hidden.bs.modal", () => {
@@ -1159,8 +1432,8 @@
                         let remaining = fancybox.LOCK_DURATION;
 
                         countdown.innerHTML = `
-                            Vui lòng xem ảnh ${remaining}s
-                        `;
+                                Vui lòng xem ảnh ${remaining}s
+                            `;
 
                         // cập nhật mỗi giây
                         fancybox.countdownInterval = setInterval(() => {

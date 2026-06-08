@@ -43,10 +43,18 @@
   <ItemGroup>
     <Compile Include="Common\ApiResponse.cs" />
     <Compile Include="Common\DataDto.cs" />
+    <Compile Include="DTOs\FilterDto.cs" />
+    <Compile Include="DTOs\FixtureDailyHeaderRawDto.cs" />
+    <Compile Include="DTOs\FixtureDailyRawDto.cs" />
+    <Compile Include="DTOs\FixtureDashboardRawDto.cs" />
+    <Compile Include="DTOs\FixtureFilterOptionDto.cs" />
     <Compile Include="DTOs\FixtureDashboardDto.cs" />
     <Compile Include="DTOs\FixtureDto.cs" />
     <Compile Include="DTOs\FixtureMonthlyDto.cs" />
+    <Compile Include="DTOs\FixtureMonthlyHeaderRawDto.cs" />
+    <Compile Include="DTOs\FixtureMonthlyRawDto.cs" />
     <Compile Include="DTOs\ResultMessageDto.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

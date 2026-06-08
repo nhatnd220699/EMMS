@@ -2,10 +2,11 @@
 {
     public class FixtureDashboardDto
     {
-        public string FixtureId { get; set; }
-        public string FixtureName { get; set; } = string.Empty;
-        public string Line { get; set; } = string.Empty;
-        public string Department { get; set; } = string.Empty;
-        public int Status { get; set; }
+        public int Number_Order { get; set; }
+        public string EQ_SN { get; set; }
+        public string EQ_Name { get; set; }
+        public string EQ_Model { get; set; }
+        public string Line { get; set; }
+        public string Status { get; set; }
     }
 }

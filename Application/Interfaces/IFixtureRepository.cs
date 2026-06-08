@@ -1,15 +1,20 @@
-﻿using Shared.DTOs;
-using Shared.Common;
+﻿using Shared.Common;
+using Shared.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface IFixtureRepository
     {
-        Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string fixtureId, string line, int status);
+        Task<DataDto<List<string>>> GetTypesAsync();
+        Task<DataDto<List<string>>> GetLinesAsync();
+        Task<DataDto<List<string>>> GetDepartmentsAsync();
+        //Task<DataDto<FixtureFilterOptionDto>> GetFilterOptionsAsync();
+        Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department);
+        Task<DataDto<FixtureMonthlyDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn);
+        Task<DataDto<FixtureDto>> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode);
+        Task<DataDto<FixtureDto>> SaveFixtureDailyAsync(string type, string line, string department, FixtureDto fixture);
     }
 }

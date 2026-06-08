@@ -224,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Maintenance\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\js\custom\" />
   </ItemGroup>
