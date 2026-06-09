@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Shared.DTOs
 {
-    public class FixtureDto
+    public class FixtureDailyDto
     {
         // Header
         public string EQ_SN { get; set; }
@@ -12,10 +12,8 @@ namespace Shared.DTOs
         public string Line { get; set; }
         public DateTime Date { get; set; }
         public string Shift { get; set; }
-
         // Cờ xác định user đang mở form với quyền nào để ẩn/hiện cột tương ứng
         public bool IsApproverMode { get; set; }
-
         // Input form
         public List<DailyItemInputDto> CheckItems { get; set; } = new List<DailyItemInputDto>();
     }
@@ -28,7 +26,7 @@ namespace Shared.DTOs
         public string MT_Desc { get; set; }
 
         // Input data
-        //public string Upload_PathImage { get; set; }
+        // public string Upload_PathImage { get; set; }
         public string Upload_Result { get; set; } // OK, NG, NA
         public string Upload_ID { get; set; }
         public string Approval_ID { get; set; }
