@@ -3,6 +3,7 @@ using Application.Services;
 using Infrastructure.Repositories;
 using Shared.Common;
 using Shared.DTOs;
+using Shared.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -102,7 +103,7 @@ namespace EMMS.Controllers
             {
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {
-                    return Ok(new ApiResponse<FixtureDto>
+                    return Ok(new ApiResponse<FixtureDailyDto>
                     {
                         Success = false,
                         Message = "EQ_SN is required.",
@@ -116,7 +117,7 @@ namespace EMMS.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponse<FixtureDto>
+                return Ok(new ApiResponse<FixtureDailyDto>
                 {
                     Success = false,
                     Message = ex.GetBaseException().Message,
@@ -145,7 +146,7 @@ namespace EMMS.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponse<FixtureDto>
+                return Ok(new ApiResponse<FixtureDailyDto>
                 {
                     Success = false,
                     Message = ex.GetBaseException().Message,
@@ -227,10 +228,10 @@ namespace EMMS.Controllers
             return result.Distinct().ToList();
         }
 
-        private FixtureDto BuildFixtureFromRequest(HttpRequest request)
+        private FixtureDailyDto BuildFixtureFromRequest(HttpRequest request)
         {
             var itemCount = GetFormInt(request, "itemCount");
-            var fixture = new FixtureDto
+            var fixture = new FixtureDailyDto
             {
                 EQ_SN = GetFormValue(request, "eqSn"),
                 EQ_Name = GetFormValue(request, "eqName"),
@@ -261,7 +262,7 @@ namespace EMMS.Controllers
             return fixture;
         }
 
-        private void SaveImageFiles(HttpRequest request, FixtureDto fixture)
+        private void SaveImageFiles(HttpRequest request, FixtureDailyDto fixture)
         {
             if (request.Files == null || request.Files.Count == 0 || fixture == null || fixture.CheckItems == null)
                 return;

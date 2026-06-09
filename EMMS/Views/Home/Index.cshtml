@@ -946,6 +946,7 @@
         const handleFileUpload = (input, rowId) => {
             const fileList = Array.from(input.files);
             const gallery = input.closest("td").querySelector(".gallery-grid");
+
             fileList.forEach((file) => {
                 if (!file.type.startsWith("image/")) return;
                 const url = URL.createObjectURL(file);
