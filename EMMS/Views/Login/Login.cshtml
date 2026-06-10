@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="~/Content/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/custom/login.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Main Content -->
+     <!-- Background Elements -->
+    <div class="bg-animated"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <!-- Header Section -->
+
+    <!-- Main Content -->
+    <main class="container flex-grow-1 d-flex align-items-center justify-content-center py-4 min-vh-100">
+        <div class="login-card">
+            <!-- Welcome Section -->
+            <div class="text-center mb-4">
+                <h1 class="h3 fw-bold mb-1">Login</h1>
+                @*<p class="text-muted small mb-0">Vui lòng đăng nhập để tiếp tục.</p>*@
+            </div>
+            <!-- Login Form -->
+            <form onsubmit="return false;">
+                <!-- Email/Username Input -->
+                <div class="mb-3">
+                    <label class="form-label" for="username">Tên đăng nhập</label>
+                    <div class="position-relative">
+                        <span class="material-symbols-outlined input-group-text-overlay">person</span>
+                        <input class="form-control" id="username" placeholder="Nhập tên đăng nhập" type="text">
+                    </div>
+                </div>
+                <!-- Password Input -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label" for="password">Mật khẩu</label>
+                    </div>
+                    <div class="position-relative">
+                        <span class="material-symbols-outlined input-group-text-overlay">lock</span>
+                        <input class="form-control" id="password" placeholder="••••••••" type="password">
+                        <button class="password-toggle" onclick="togglePasswordVisibility()" type="button">
+                            <span class="material-symbols-outlined" id="password-toggle-icon">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Remember & Forgot -->
+               @*<div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" id="rememberMe" type="checkbox" value="">
+                        <label class="form-check-label" for="rememberMe">
+                            Ghi nhớ đăng nhập
+                        </label> 
+                    </div>
+                    <a class="link-primary" href="#">Quên mật khẩu?</a>
+                </div>*@
+                <!-- Primary Submit Button -->
+                <button class="btn btn-primary w-100 mb-4" type="submit">
+                    Đăng Nhập
+                </button>
+            </form>
+            <!-- Signup Prompt -->
+            <div class="text-center">
+                <p class="small text-muted mb-0">
+                    Please contact admin to register
+                </p>
+            </div>
+        </div>
+    </main>
+    <!-- Bootstrap Bundle with Popper -->
+
+    <script src="~/Scripts/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('password-toggle-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.innerText = 'visibility_off';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.innerText = 'visibility';
+            }
+        }
+    </script>
+</body>
+
+</html>

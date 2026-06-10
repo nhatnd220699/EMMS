@@ -47,11 +47,11 @@ namespace EMMS.Controllers
 
         [HttpGet]
         [Route("dashboard")]
-        public async Task<IHttpActionResult> GetFixtureDashboard(string type = "FATP", string line = "", string department = "")
+        public async Task<IHttpActionResult> GetFixtureDashboard(string type = "FATP", string line = "", string department = "", string fixtureSN = "")
         {
             try
             {
-                var result = await _fixtureService.GetFixtureDashboardsAsync(type, line, department);
+                var result = await _fixtureService.GetFixtureDashboardsAsync(type, line, department, fixtureSN);
                 return Ok(result);
             }
             catch (Exception ex)

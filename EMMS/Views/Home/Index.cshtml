@@ -90,6 +90,7 @@
                 <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="department">
                     <option value="">All dept</option>
                 </select>
+                <input type="text" class="form-control form-control-sm w-auto" id="fixture-sn" placeholder="Enter Fixture SN..." />
                 <button class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-2" id="refresh-btn">
                     <span class="material-symbols-outlined fs-6">refresh</span> Refresh
                 </button>
@@ -555,7 +556,8 @@
                 const params = {
                     type: DATASET.type,
                     line: DATASET.line,
-                    department: DATASET.department
+                    department: DATASET.department,
+                    fixtureSN: DATASET.fixtureSNInput
                 };
                 const query = buildQuery(params);
                 const data = await fetchJson(`/api/fixture/dashboard${query ? `?${query}` : ""}`);
@@ -601,18 +603,18 @@
                         "col-6 col-sm-4 col-md-3 col-lg-3 col-xxl-2 fixture-grid-item";
                     col.style.animationDelay = `${idx * 0.015}s`;
                     col.innerHTML = `
-                            <div class="fixture-card h-100">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
-                                    <div class="status-dot ${style.dot} shadow-sm"></div>
+                                <div class="fixture-card h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
+                                        <div class="status-dot ${style.dot} shadow-sm"></div>
+                                    </div>
+                                    <div class="mb-1">
+                                        <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
+                                    </div>
+                                    <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
+                                    <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
                                 </div>
-                                <div class="mb-1">
-                                    <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
-                                </div>
-                                <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
-                                <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
-                            </div>
-                        `;
+                            `;
 
                     // Add click event for modal
                     col.addEventListener("click", () => openMaintenanceModal(fix));
@@ -798,7 +800,7 @@
             });
 
             // Sync initial state
-            const currentPath = "/monitoring/dept/electronic/pcb-assembly";
+            const currentPath = window.location.pathname;
             const activeLink = document.querySelector(
                 `.sidebar-item[href="${currentPath}"], .submenu-item[href="${currentPath}"]`,
             );
@@ -966,18 +968,18 @@
             div._path = existingPath;
 
             div.innerHTML = `
-                    <a href="${url}" data-fancybox="gallery-${rowId}">
-                        <img src="${url}" alt="preview" >
-                    </a>
-                    ${currentRole === "uploader"
+                        <a href="${url}" data-fancybox="gallery-${rowId}">
+                            <img src="${url}" alt="preview" >
+                        </a>
+                        ${currentRole === "uploader"
                     ? `
-                        <button type="button" class="remove-btn">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    `
+                            <button type="button" class="remove-btn">
+                                <span class="material-symbols-outlined">close</span>
+                            </button>
+                        `
                     : ""
                 }
-                `;
+                    `;
 
             div.querySelector(".remove-btn")?.addEventListener("click", () => {
                 if (div._file && div._url) URL.revokeObjectURL(div._url); //cleanup
@@ -1015,73 +1017,73 @@
                 let imageCellHtml = "";
                 if (currentRole === "uploader") {
                     imageCellHtml = `
-                        <div>
-                            <div class="upload-zone mx-auto" onclick="document.getElementById('input_${idx}').click()">
-                                <span class="material-symbols-outlined fs-2">add_a_photo</span>
-                                <input type="file" id="input_${idx}" class="d-none" accept="image/*" multiple onchange="handleFileUpload( this, ${idx} )">
+                            <div>
+                                <div class="upload-zone mx-auto" onclick="document.getElementById('input_${idx}').click()">
+                                    <span class="material-symbols-outlined fs-2">add_a_photo</span>
+                                    <input type="file" id="input_${idx}" class="d-none" accept="image/*" multiple onchange="handleFileUpload( this, ${idx} )">
+                                </div>
+                                <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
                             </div>
-                            <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
-                        </div>
-                    `;
+                        `;
                 } else {
                     imageCellHtml = `
-                        <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
-                    `;
+                            <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
+                        `;
                 }
 
                 // Maintenance Result Cell Logic
                 let uploaderResultHtml = `
-                        <div class="status-radio flex-column gap-1">
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="radio" name="uploader_res_${idx}" id="uploader_resOk_${idx}" value="OK" ${uploadResult === "OK" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
-                                <label for="uploader_resOk_${idx}" class="text-xs">OK</label>
+                            <div class="status-radio flex-column gap-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="uploader_res_${idx}" id="uploader_resOk_${idx}" value="OK" ${uploadResult === "OK" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
+                                    <label for="uploader_resOk_${idx}" class="text-xs">OK</label>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="uploader_res_${idx}" id="uploader_resNg_${idx}" value="NG" ${uploadResult === "NG" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
+                                    <label for="uploader_resNg_${idx}" class="text-xs">NG</label>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="uploader_res_${idx}" id="uploader_resNa_${idx}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
+                                    <label for="uploader_resNa_${idx}" class="text-xs">NA</label>
+                                </div>
                             </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="radio" name="uploader_res_${idx}" id="uploader_resNg_${idx}" value="NG" ${uploadResult === "NG" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
-                                <label for="uploader_resNg_${idx}" class="text-xs">NG</label>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="radio" name="uploader_res_${idx}" id="uploader_resNa_${idx}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
-                                <label for="uploader_resNa_${idx}" class="text-xs">NA</label>
-                            </div>
-                        </div>
-                    `;
+                        `;
 
                 let approvalResultHtml = `
-                        <div class="status-radio flex-column gap-1">
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="radio" name="approver_res_${idx}" id="approver_resOk_${idx}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                <label for="approver_resOk_${idx}" class="text-xs">OK</label>
+                            <div class="status-radio flex-column gap-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="approver_res_${idx}" id="approver_resOk_${idx}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                    <label for="approver_resOk_${idx}" class="text-xs">OK</label>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="approver_res_${idx}" id="approver_resNg_${idx}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                    <label for="approver_resNg_${idx}" class="text-xs">NG</label>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="radio" name="approver_res_${idx}" id="approver_resNa_${idx}" value="NA" ${approvalResult === "NA" || approvalResult === "" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                    <label for="approver_resNa_${idx}" class="text-xs">NA</label>
+                                </div>
                             </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="radio" name="approver_res_${idx}" id="approver_resNg_${idx}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                <label for="approver_resNg_${idx}" class="text-xs">NG</label>
-                            </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="radio" name="approver_res_${idx}" id="approver_resNa_${idx}" value="NA" ${approvalResult === "NA" || approvalResult === "" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                <label for="approver_resNa_${idx}" class="text-xs">NA</label>
-                            </div>
-                        </div>
-                    `;
+                        `;
 
                 // Remark Cell Logic
                 let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${currentRole !== "approver" ? "disabled" : ""}>${remark}</textarea>`;
 
                 tr.innerHTML = `
-                        <td class="text-center fw-bold">${numberOrder}</td>
-                        <td>
-                            <div class="fw-medium">${actionText}</div>
-                        </td>
-                        <td>
-                            <div class="fw-medium">${methodText}</div>
-                        </td>
-                        <td>${imageCellHtml}</td>
-                        <td>${uploaderResultHtml}</td>
-                        <td class="text-center upload-id-cell">${uploadId}</td>
-                        <td class="approver-only-col">${approvalResultHtml}</td>
-                        <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
-                        <td class="text-center approver-only-col">${remarkHtml}</td>
-                    `;
+                            <td class="text-center fw-bold">${numberOrder}</td>
+                            <td>
+                                <div class="fw-medium">${actionText}</div>
+                            </td>
+                            <td>
+                                <div class="fw-medium">${methodText}</div>
+                            </td>
+                            <td>${imageCellHtml}</td>
+                            <td>${uploaderResultHtml}</td>
+                            <td class="text-center upload-id-cell">${uploadId}</td>
+                            <td class="approver-only-col">${approvalResultHtml}</td>
+                            <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
+                            <td class="text-center approver-only-col">${remarkHtml}</td>
+                        `;
                 body.appendChild(tr);
 
                 const gallery = document.getElementById(`gallery_${idx}`);
@@ -1150,11 +1152,11 @@
                 const mtDesc = getProp(item, "mT_Desc", "MT_Desc") || "";
 
                 tr.innerHTML = `
-                        <td class="text-center fw-bold">${numberOrder}</td>
-                        <td>${mtItem}</td>
-                        <td>${mtDesc}</td>
-                        ${daysHtml}
-                    `;
+                            <td class="text-center fw-bold">${numberOrder}</td>
+                            <td>${mtItem}</td>
+                            <td>${mtDesc}</td>
+                            ${daysHtml}
+                        `;
                 body.appendChild(tr);
             });
         };
@@ -1367,6 +1369,18 @@
                 updateDisplay(true);
             });
 
+            document.getElementById('fixture-sn').addEventListener("input", (e) => {
+                DATASET["fixtureSNInput"] = (e.target.value ?? "")?.trim();
+            });
+
+            document.getElementById('fixture-sn').addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    DATASET["fixtureSNInput"] = (e.target.value ?? "").trim();
+                    updateDisplay(true);
+                }
+            });
+
             document.getElementById("detailModal").addEventListener("hidden.bs.modal", () => {
                 if (maintenanceModalInstance) {
                     maintenanceModalInstance.show();
@@ -1433,8 +1447,8 @@
                         let remaining = fancybox.LOCK_DURATION;
 
                         countdown.innerHTML = `
-                                Vui lòng xem ảnh ${remaining}s
-                            `;
+                                    Vui lòng xem ảnh ${remaining}s
+                                `;
 
                         // cập nhật mỗi giây
                         fancybox.countdownInterval = setInterval(() => {

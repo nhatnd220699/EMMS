@@ -90,11 +90,11 @@ namespace Application.Services
             }
         }
 
-        public async Task<ApiResponse<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department)
+        public async Task<ApiResponse<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
         {
             try
             {
-                var repoResult = await _fixtureRepository.GetFixtureDashboardsAsync(type, line, department);
+                var repoResult = await _fixtureRepository.GetFixtureDashboardsAsync(type, line, department, sqSn);
 
                 var success = repoResult.Result.IsPass();
 
@@ -243,15 +243,22 @@ namespace Application.Services
         {
             try
             {
-                var repoResult = await _fixtureRepository.SaveFixtureDailyAsync(type, line, department, fixture);
+                //var repoResult = await _fixtureRepository.SaveFixtureDailyAsync(type, line, department, fixture);
 
-                var success = repoResult.Result.IsPass();
+                //var success = repoResult.Result.IsPass();
+
+                //return new ApiResponse<FixtureDailyDto>
+                //{
+                //    Success = success,
+                //    Message = repoResult.Message,
+                //    Data = success ? repoResult.Data : null
+                //};
 
                 return new ApiResponse<FixtureDailyDto>
                 {
-                    Success = success,
-                    Message = repoResult.Message,
-                    Data = success ? repoResult.Data : null
+                    Success = true,
+                    Message = "",
+                    Data = null
                 };
             }
             catch (Exception ex)
