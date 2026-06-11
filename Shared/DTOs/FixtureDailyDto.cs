@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Shared.DTOs
 {
@@ -26,7 +27,8 @@ namespace Shared.DTOs
         public string MT_Desc { get; set; }
 
         // Input data
-        // public string Upload_PathImage { get; set; }
+        public List<HttpPostedFile> NewFiles { get; set; }  = new List<HttpPostedFile>();
+        public string Upload_PathImage { get; set; }
         public string Upload_Result { get; set; } // OK, NG, NA
         public string Upload_ID { get; set; }
         public string Approval_ID { get; set; }

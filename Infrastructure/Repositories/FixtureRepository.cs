@@ -381,7 +381,82 @@ namespace Infrastructure.Repositories
             }
         }
 
-        //public async Task<DataDto<FixtureDailyDto>> SaveFixtureDailyAsync(string type, string line, string department, FixtureDailyDto fixture)
+
+        public async Task<DataDto<string>> SaveFixtureDailyAsync(string type, string line, string department, string funcType, string uploadPathImage, FixtureDailyDto fixture)
+        {
+            try
+            {
+                if (fixture == null)
+                    return Fail<string>("Fixture data is required.");
+
+                if (string.IsNullOrWhiteSpace(fixture.EQ_SN))
+                    return Fail<string>("EQ_SN is required.");
+
+                var items = fixture.CheckItems ?? new List<DailyItemInputDto>();
+                if (!items.Any())
+                    return Fail<string>("Check item data is required.");
+
+                //var funcType = fixture.IsApproverMode ? "Approve_Equipment_By_SN" : "Upload_Equipment_By_SN";
+                var shift = string.IsNullOrWhiteSpace(fixture.Shift) ? "Day" : fixture.Shift;
+                var uploadId = items.Select(x => x.Upload_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+                var approvalId = items.Select(x => x.Approval_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+
+                var extendedPara = fixture.IsApproverMode
+                    ? ""
+                    : BuildExtendedPara(new Dictionary<string, string>
+                    {
+                        { "Upload_ID", uploadId },
+                        { "Approval_ID", approvalId },
+                        { "EQ_Name", fixture.EQ_Name },
+                        { "EQ_Model", fixture.EQ_Model }
+                    });
+
+                var uploadResult = fixture.IsApproverMode ? "" : BuildMtValueString(items, x => x.Upload_Result, true);
+                var approvalResult = fixture.IsApproverMode ? BuildMtValueString(items, x => x.Approval_Result, true) : "";
+                var remark = BuildMtValueString(items, x => x.Remark);
+                //var uploadPathImage = fixture.IsApproverMode
+                //    ? ""
+                //    : string.Join(";", items
+                //        .Where(x => !string.IsNullOrWhiteSpace(x.MT_No))
+                //        .Select(x => x.MT_No + "=" + SerializeImagePaths(x.ExistingImagePaths)));
+
+                using (var conn = _db.CreateConnection())
+                {
+                    using (var multi = await conn.QueryMultipleAsync(
+                        "Maintenance_Fixture_Portal",
+                        BuildParameters(funcType, type, line, department, fixture.EQ_SN, "", extendedPara, uploadPathImage, uploadResult, approvalResult, remark),
+                        commandType: CommandType.StoredProcedure,
+                        commandTimeout: 180)
+                    )
+                    {
+                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+                        // The first table returned by SP is always Result. Only read next tables when Result = PASS.
+                        if (result == null || !result.IsPass)
+                        {
+                            return Fail<string>(result);
+                        }
+                        else
+                        {
+                            return new DataDto<string>
+                            {
+                                Result = result.Result,
+                                Message = result.Message,
+                                Data = ""
+                            };
+                        }
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Fail<string>("Call SP save daily equipment error: " + GetExceptionMessage(ex));
+            }
+        }
+
+        //public async Task<DataDto<FixtureDailyDto>> SaveFixtureDailyAsync(string type, string line, string department, string imageResult, string uploadResult, string approvalResult, FixtureDailyDto fixture)
         //{
         //    try
         //    {

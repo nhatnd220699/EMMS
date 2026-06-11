@@ -1,0 +1,120 @@
+{
+  "Success": true,
+  "Message": "Get data OK!",
+  "Data": {
+    "EQ_SN": "9200000624050521",
+    "EQ_Name": "组装-KB PEM",
+    "EQ_Model": "KB PEM install fixture",
+    "Line": "E11",
+    "Date": "2026-06-09T00:00:00",
+    "Shift": "Day",
+    "IsApproverMode": false,
+    "CheckItems": [
+      {
+        "Number_Order": 1,
+        "MT_No": "181",
+        "MT_Item": "Check for foreign objects falling into the fixture's bottom mold and material platform./Kiểm tra xem có vật lạ nào rơi vào khuôn đáy và bệ đỡ vật liệu của thiết bị hay không.",
+        "MT_Desc": "No foreign objects have fallen into the jig's bottom mold material platform./Không có vật lạ nào rơi vào khay chứa vật liệu khuôn đáy của đồ gá.",
+        "Upload_Result": "OK",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      },
+      {
+        "Number_Order": 2,
+        "MT_No": "182",
+        "MT_Item": "Check if the equipment's interior and surface are clean./Kiểm tra xem bên trong và bề mặt thiết bị có sạch sẽ không.",
+        "MT_Desc": "The equipment surface is clean./Bề mặt thiết bị sạch sẽ.",
+        "Upload_Result": "OK",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      },
+      {
+        "Number_Order": 3,
+        "MT_No": "183",
+        "MT_Item": "Check if the Teflon and rubber protection on the fixture is intact./Kiểm tra xem lớp bảo vệ Teflon và cao su trên thiết bị có còn nguyên vẹn không.",
+        "MT_Desc": "Teflon and rubber protection are intact./Lớp bảo vệ Teflon và cao su còn nguyên vẹn.",
+        "Upload_Result": "OK",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      },
+      {
+        "Number_Order": 4,
+        "MT_No": "184",
+        "MT_Item": "Check if the TC pressure plate is intact./Kiểm tra xem tấm ép TC có còn nguyên vẹn không.",
+        "MT_Desc": "The TC pressure plate's country of origin and quantity are correct and it is undamaged./Xuất xứ và số lượng của tấm ép TC chính xác và không bị hư hại.",
+        "Upload_Result": "OK",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      },
+      {
+        "Number_Order": 5,
+        "MT_No": "185",
+        "MT_Item": "Check if the safety light curtain is functioning properly./Kiểm tra xem màn chắn ánh sáng an toàn có hoạt động bình thường không.",
+        "MT_Desc": "The safety light curtain functions normally./Màn chắn ánh sáng an toàn hoạt động bình thường.",
+        "Upload_Result": "OK",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      },
+      {
+        "Number_Order": 6,
+        "MT_No": "186",
+        "MT_Item": "Check if the switches, reset buttons, and emergency stop buttons are functioning properly./Kiểm tra xem các công tắc, nút đặt lại và nút dừng khẩn cấp có hoạt động bình thường không.",
+        "MT_Desc": "The switch, reset, and emergency stop buttons function normally./Các nút công tắc, đặt lại và dừng khẩn cấp hoạt động bình thường.",
+        "Upload_Result": "OK",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      },
+      {
+        "Number_Order": 7,
+        "MT_No": "187",
+        "MT_Item": "Check if the main air valve reaches the required air pressure./Kiểm tra xem van khí chính có đạt được áp suất khí yêu cầu không.",
+        "MT_Desc": "The main air valve's pressure requirement is 0.5-0.7 MPa./Áp suất yêu cầu của van khí chính là 0,5-0,7 MPa.",
+        "Upload_Result": "0.6",
+        "Upload_ID": "V5021477",
+        "Approval_ID": "V5070000",
+        "Approval_Result": "OK",
+        "Remark": "",
+        "ExistingImagePaths": [
+          "Content/Images/img1.png",
+          "Content/Images/img2.png"
+        ]
+      }
+    ]
+  }
+}

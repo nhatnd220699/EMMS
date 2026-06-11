@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Fixture Management";
+    ViewBag.Title = "Fixture Maintenance";
 }
 
 @section styles {
@@ -311,13 +311,17 @@
                 </button>
                 <div id="uploaderActions" class="d-flex align-items-center gap-2">
                     <button type="button"
-                            class="btn btn-primary px-3 py-2 transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
+                            class="btn btn-primary px-3 py-2 d-none transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
                             id="saveUploader">
                         <span class="material-symbols-outlined fs-6">save</span> Save
                     </button>
-                    <button class="btn btn-warning px-3 py-2 transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
+                    <button class="btn btn-warning px-3 py-2 d-none transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
                             id="editUploader">
                         <span class="material-symbols-outlined fs-6">edit</span> Edit
+                    </button>
+                    <button class="btn btn-danger px-3 py-2 d-none transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
+                            id="cancelUploader">
+                        <span class="material-symbols-outlined fs-6">cancel</span> Cancel
                     </button>
                 </div>
                 <div class="d-none" id="approverActions">
@@ -360,6 +364,8 @@
         */
         const DATASET = { type: "", line: "", department: "" };
         let FIXTURE_DATASET = [];
+        const IMAGE_CHECK = {};
+        const PREVIEW_IMAGE = {};
         const STATUS_ALL = "All";
         const STATUS_NO_CHECKING = "No checking";
         const STATUS_ON_GOING = "Ongoing";
@@ -386,6 +392,9 @@
         let uploadedFiles = {};
         const DEFAULT_UPLOAD_ID = "V5070000";
         const DEFAULT_APPROVAL_ID = "V4070216";
+        let isApproved;
+
+        let startEdit = false;
 
         /**
         * Utility: Get Status Styling
@@ -603,18 +612,18 @@
                         "col-6 col-sm-4 col-md-3 col-lg-3 col-xxl-2 fixture-grid-item";
                     col.style.animationDelay = `${idx * 0.015}s`;
                     col.innerHTML = `
-                                <div class="fixture-card h-100">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
-                                        <div class="status-dot ${style.dot} shadow-sm"></div>
+                                    <div class="fixture-card h-100">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
+                                            <div class="status-dot ${style.dot} shadow-sm"></div>
+                                        </div>
+                                        <div class="mb-1">
+                                            <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
+                                        </div>
+                                        <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
+                                        <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
                                     </div>
-                                    <div class="mb-1">
-                                        <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
-                                    </div>
-                                    <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
-                                    <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
-                                </div>
-                            `;
+                                `;
 
                     // Add click event for modal
                     col.addEventListener("click", () => openMaintenanceModal(fix));
@@ -832,6 +841,10 @@
                 );
             }
 
+            if (detailModalInstance) {
+                detailModalInstance.hide();
+            }
+
             // Fill modal details
             document.getElementById("maintenanceModalLabel").textContent = fixture.eqName || "Machine";
             document.getElementById("modalFixtureId").textContent =
@@ -945,8 +958,14 @@
         //    });
         //};
 
-        const handleFileUpload = (input, rowId) => {
+        const handleFileUpload = async (input, rowId) => {
             const fileList = Array.from(input.files);
+
+            const imageResult = await uploadImage(fileList);
+            if (imageResult && imageResult.code == 200) {
+                checkImageTime(imageResult.time_stamp, rowId);
+            }
+
             const gallery = input.closest("td").querySelector(".gallery-grid");
 
             fileList.forEach((file) => {
@@ -968,18 +987,18 @@
             div._path = existingPath;
 
             div.innerHTML = `
-                        <a href="${url}" data-fancybox="gallery-${rowId}">
-                            <img src="${url}" alt="preview" >
-                        </a>
-                        ${currentRole === "uploader"
+                            <a href="${url}" data-mtNo="${rowId}" data-fancybox="gallery-${rowId}">
+                                <img src="${url}" alt="preview" >
+                            </a>
+                            ${currentRole === "uploader"
                     ? `
-                            <button type="button" class="remove-btn">
-                                <span class="material-symbols-outlined">close</span>
-                            </button>
-                        `
+                                <button type="button" class="remove-btn">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            `
                     : ""
                 }
-                    `;
+                        `;
 
             div.querySelector(".remove-btn")?.addEventListener("click", () => {
                 if (div._file && div._url) URL.revokeObjectURL(div._url); //cleanup
@@ -988,7 +1007,87 @@
             gallery.insertAdjacentElement("beforeend", div);
         };
 
-        const renderDetailRows = () => {
+
+        async function uploadImage(fileList) {
+            const formData = new FormData();
+            formData.append("file", fileList[0]);
+
+            const response = await fetch('/api/fixture/image/getInfo', {
+                method: 'POST',
+                body: formData
+            });
+
+            return resulcheckImageTimet = await response.json();
+        }
+
+        function checkImageTime (timestamp, rowId) {
+            // Parse chuỗi
+            const parts = timestamp.split(" ");
+
+            const timePart = parts[0];
+            const datePart = parts[1];
+
+            const timeNow = new Date();
+
+            // Lấy ngày hiện tại
+            const currentDay = timeNow.getDate();
+            const currentMonth = timeNow.getMonth() + 1;
+            const currentYear = timeNow.getFullYear();
+
+            // Lấy ngày từ chuỗi
+            const dateArr = datePart.split("/");
+
+            const day = parseInt(dateArr[0]);
+            const month = parseInt(dateArr[1]);
+            const year = parseInt(dateArr[2]);
+
+            // So sánh ngày
+            const sameDate =
+                day === currentDay &&
+                month === currentMonth &&
+                year === currentYear;
+
+            let result = 'NA';
+            if (sameDate) {
+                // So sánh giờ với 20:00
+                if (timePart > "20:00") {
+                    result = 'NG';
+                } else {
+                    result = 'OK';
+                }
+
+            } else {
+                result = 'NG';
+            }
+
+            if (IMAGE_CHECK[rowId] == null) {
+                IMAGE_CHECK[rowId] = [];
+            }
+
+            IMAGE_CHECK[rowId].push(result);
+
+            const resultArr = IMAGE_CHECK[rowId] || [];
+
+            let resultUploader = 'NA';
+            if (resultArr.includes('NA')){
+                resultUploader = 'NA';
+            }
+
+            if (resultArr.includes('NG')){
+                resultUploader = 'NG';
+            }
+
+
+            // Tất cả đều là OK
+            else if (resultArr.every(x => x === "OK")) {
+                resultUploader = 'OK';
+            }
+
+            document.querySelector(`input[name="uploader_res_${rowId}"][value="${resultUploader}"]`).checked = true;
+        }
+
+
+        const renderDetailRows = (buttonClick = false) => {
             const body = document.getElementById("detail-form-body");
             body.innerHTML = "";
             //toggleDetailColumns();
@@ -998,6 +1097,46 @@
             if (!sourceRows.length) {
                 body.innerHTML = '<tr><td colspan="9" class="text-center py-4 text-muted">No daily maintenance items to display</td></tr>';
                 return;
+            }
+
+            isApproved = sourceRows.every(item => item.Approval_Result);
+            isUploaded = sourceRows.some(item => item.Upload_Result);
+
+            // Xu ly an hien nut chuc nang form daily
+            const uploaderAction = document.querySelector('#uploaderActions');
+            const approverAction = document.querySelector('#approverActions');
+
+            console.log(isUploaded, isApproved);
+   
+            if (currentRole?.toLocaleLowerCase() === "uploader") {
+                approverAction.classList.add('d-none');
+                if (isApproved) {
+                    if (!buttonClick) {
+                        document.querySelector('#editUploader').classList.remove('d-none');
+                        document.querySelector('#saveUploader').classList.add('d-none');
+                        document.querySelector('#cancelUploader').classList.add('d-none');
+                    }
+                } else {
+                    if (!buttonClick) {
+                        if (isUploaded) {
+                            document.querySelector('#saveUploader').classList.remove('d-none');
+                        }
+                    }
+                    else {
+
+                            document.querySelector('#saveUploader').classList.add('d-none');
+                            document.querySelector('#editUploader').classList.remove('d-none');
+                            document.querySelector('#cancelUploader').classList.remove('d-none');
+                        }
+                        //else {
+                        //    console.log(111111)
+                        //    document.querySelector('#editUploader').classList.remove('d-none');
+                        //}
+
+                }
+            } else if (currentRole?.toLocaleLowerCase() === 'approver') {
+                uploaderAction.classList.add('d-none');
+                approverAction.classList.remove('d-none');
             }
 
             sourceRows.forEach((item, idx) => {
@@ -1013,82 +1152,108 @@
                 const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
                 const remark = getProp(item, "remark", "Remark") || "";
 
+                tr.dataset.mtNo = mtNo;
+                tr.dataset.numberOrder = numberOrder;
+
+                let images = (item.ExistingImagePaths || []).map(url => {
+                    return `
+                        <div class="gallery-item" data-path="${url}">
+                            <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
+                                <img src="${url}" alt="preview">
+                            </a>
+                            ${currentRole == "uploader" && (!isApproved || startEdit)
+                                ?`<button type="button" class="remove-btn">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                                `
+                                : ''}
+                        </div>
+                    `
+                }).join('');
+
+                PREVIEW_IMAGE[mtNo] = false;
+
+
                 // Image Cell Logic
                 let imageCellHtml = "";
                 if (currentRole === "uploader") {
-                    imageCellHtml = `
-                            <div>
-                                <div class="upload-zone mx-auto" onclick="document.getElementById('input_${idx}').click()">
-                                    <span class="material-symbols-outlined fs-2">add_a_photo</span>
-                                    <input type="file" id="input_${idx}" class="d-none" accept="image/*" multiple onchange="handleFileUpload( this, ${idx} )">
-                                </div>
-                                <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
-                            </div>
-                        `;
+                    if (!isApproved || startEdit) {
+                        imageCellHtml = `
+                                    <div>
+                                        <div class="upload-zone mx-auto" onclick="document.getElementById('input_${mtNo}').click()">
+                                            <span class="material-symbols-outlined fs-2">add_a_photo</span>
+                                            <input type="file" id="input_${mtNo}" class="d-none" accept="image/*" onchange="handleFileUpload( this, ${mtNo} )">
+                                        </div>
+                                        <div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">
+                                            ${images}
+                                        </div>
+                                    </div>
+                                `;
+                    } else {
+                        imageCellHtml = `<div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">${images}</div>`;
+                    }
                 } else {
-                    imageCellHtml = `
-                            <div class="gallery-grid d-flex justify-content-center" id="gallery_${idx}"></div>
-                        `;
+                    imageCellHtml = `<div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">${images}</div>`;
                 }
 
                 // Maintenance Result Cell Logic
                 let uploaderResultHtml = `
-                            <div class="status-radio flex-column gap-1">
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="radio" name="uploader_res_${idx}" id="uploader_resOk_${idx}" value="OK" ${uploadResult === "OK" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
-                                    <label for="uploader_resOk_${idx}" class="text-xs">OK</label>
+                                <div class="status-radio flex-column gap-1">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="radio" name="uploader_res_${mtNo}" id="uploader_resOk_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} disabled>
+                                        <label for="uploader_resOk_${mtNo}" class="text-xs">OK</label>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNg_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} disabled>
+                                        <label for="uploader_resNg_${mtNo}" class="text-xs">NG</label>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNa_${mtNo}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} disabled>
+                                        <label for="uploader_resNa_${mtNo}" class="text-xs">NA</label>
+                                    </div>
                                 </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="radio" name="uploader_res_${idx}" id="uploader_resNg_${idx}" value="NG" ${uploadResult === "NG" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
-                                    <label for="uploader_resNg_${idx}" class="text-xs">NG</label>
-                                </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="radio" name="uploader_res_${idx}" id="uploader_resNa_${idx}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} ${currentRole === "approver" ? "disabled" : ""}>
-                                    <label for="uploader_resNa_${idx}" class="text-xs">NA</label>
-                                </div>
-                            </div>
-                        `;
+                            `;
 
                 let approvalResultHtml = `
-                            <div class="status-radio flex-column gap-1">
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="radio" name="approver_res_${idx}" id="approver_resOk_${idx}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                    <label for="approver_resOk_${idx}" class="text-xs">OK</label>
+                                <div class="status-radio flex-column gap-1 approver-radio">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="radio" name="approver_res_${mtNo}" id="approver_resOk_${mtNo}" data-mt-no="${mtNo}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                        <label for="approver_resOk_${mtNo}" class="text-xs">OK</label>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="radio" name="approver_res_${mtNo}" id="approver_resNg_${mtNo}" data-mt-no="${mtNo}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                        <label for="approver_resNg_${mtNo}" class="mtNo-xs">NG</label>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <input type="radio" name="approver_res_${mtNo}" id="approver_resNa_${mtNo}" data-mt-no="${mtNo}" value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                        <label for="approver_resNa_${mtNo}" class="text-xs">NA</label>
+                                    </div>
                                 </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="radio" name="approver_res_${idx}" id="approver_resNg_${idx}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                    <label for="approver_resNg_${idx}" class="text-xs">NG</label>
-                                </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <input type="radio" name="approver_res_${idx}" id="approver_resNa_${idx}" value="NA" ${approvalResult === "NA" || approvalResult === "" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                    <label for="approver_resNa_${idx}" class="text-xs">NA</label>
-                                </div>
-                            </div>
-                        `;
+                            `;
 
                 // Remark Cell Logic
                 let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${currentRole !== "approver" ? "disabled" : ""}>${remark}</textarea>`;
 
                 tr.innerHTML = `
-                            <td class="text-center fw-bold">${numberOrder}</td>
-                            <td>
-                                <div class="fw-medium">${actionText}</div>
-                            </td>
-                            <td>
-                                <div class="fw-medium">${methodText}</div>
-                            </td>
-                            <td>${imageCellHtml}</td>
-                            <td>${uploaderResultHtml}</td>
-                            <td class="text-center upload-id-cell">${uploadId}</td>
-                            <td class="approver-only-col">${approvalResultHtml}</td>
-                            <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
-                            <td class="text-center approver-only-col">${remarkHtml}</td>
-                        `;
+                                <td class="text-center number-order">${numberOrder}</td>
+                                <td class="mt-item">
+                                    ${actionText}
+                                </td>
+                                <td class="mt-desc">
+                                    ${methodText}
+                                </td>
+                                <td>${imageCellHtml}</td>
+                                <td>${uploaderResultHtml}</td>
+                                <td class="text-center upload-id-cell">${uploadId}</td>
+                                <td class="approver-only-col">${approvalResultHtml}</td>
+                                <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
+                                <td class="text-center approver-only-col">${remarkHtml}</td>
+                            `;
                 body.appendChild(tr);
 
-                const gallery = document.getElementById(`gallery_${idx}`);
-                const existingImagePaths = getProp(item, "existingImagePaths", "ExistingImagePaths") || [];
-                existingImagePaths.forEach((path) => renderGallery(idx, gallery, null, resolveImageUrl(path), path));
+                //const gallery = document.getElementById(`gallery_${mtNo}`);
+                //const existingImagePaths = getProp(item, "existingImagePaths", "ExistingImagePaths") || [];
+                //existingImagePaths.forEach((path) => renderGallery(mtNo, gallery, null, resolveImageUrl(path), path));
             });
 
             //toggleDetailColumns();
@@ -1152,11 +1317,11 @@
                 const mtDesc = getProp(item, "mT_Desc", "MT_Desc") || "";
 
                 tr.innerHTML = `
-                            <td class="text-center fw-bold">${numberOrder}</td>
-                            <td>${mtItem}</td>
-                            <td>${mtDesc}</td>
-                            ${daysHtml}
-                        `;
+                                <td class="text-center">${numberOrder}</td>
+                                <td>${mtItem}</td>
+                                <td>${mtDesc}</td>
+                                ${daysHtml}
+                            `;
                 body.appendChild(tr);
             });
         };
@@ -1206,61 +1371,202 @@
             return data;
         };
 
-        const collectDetailFormData = (isApproverMode) => {
-            const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || [];
-            const formData = new FormData();
+        const collectDailyData = () => {
+            const rows = document.querySelectorAll("#detail-form-body tr");
+            const result = [];
 
-            formData.append("type", DATASET.type || "FATP");
-            formData.append("line", getProp(activeDailyData, "line", "Line") || DATASET.line || "");
-            formData.append("department", DATASET.department || "");
-            formData.append("eqSn", getProp(activeDailyData, "eQ_SN", "EQ_SN") || activeFixture || "");
-            formData.append("eqName", getProp(activeDailyData, "eQ_Name", "EQ_Name") || "");
-            formData.append("eqModel", getProp(activeDailyData, "eQ_Model", "EQ_Model") || "");
-            formData.append("date", activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date")));
-            formData.append("shift", getProp(activeDailyData, "shift", "Shift") || "Day");
-            formData.append("isApproverMode", isApproverMode ? "true" : "false");
-            formData.append("itemCount", sourceRows.length);
+            rows.forEach((tr, idx) => {
+                const mtNo = tr.dataset.mtNo;
+                const numberOrder = tr.dataset.numberOrder;
+                // basic fields
+                const mtItem = tr.querySelector(`td.mt-item`)?.text || "";
+                const mtDesc = tr.querySelector(`td.mt-desc`)?.text || "";
+                const uploadResult = tr.querySelector(`input[name="uploader_res_${mtNo}"]:checked`)?.value || "NA";
+                const approvalResult = tr.querySelector(`input[name="approver_res_${mtNo}"]:checked`)?.value || "";
+                const remark = tr.querySelector("textarea")?.value || "";
+                const uploadId = tr.querySelector(".upload-id-cell")?.innerText || "";
+                const approvalId = tr.querySelector(".approval-id-cell")?.innerText || "";
 
-            sourceRows.forEach((item, idx) => {
-                const mtNo = getProp(item, "mT_No", "MT_No", "mtNo") || "";
-                const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
-                const uploadId = getProp(item, "upload_ID", "Upload_ID") || DEFAULT_UPLOAD_ID;
-                const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
+                // lấy gallery
+                const galleryItems = tr.querySelectorAll(`#gallery_${mtNo} .gallery-item`);
+
                 const existingImagePaths = [];
+                const newFiles = [];
 
-                document.querySelectorAll(`#gallery_${idx} .gallery-item`).forEach((el) => {
-                    if (el._path) existingImagePaths.push(el._path);
-                    if (el._file) formData.append(`imageFiles_${idx}`, el._file);
+                galleryItems.forEach(item => {
+                    // ảnh mới
+                    if (item._file) {
+                        newFiles.push(item._file);
+                    }
+
+                    // ảnh cũ
+                    if (item.dataset.path) {
+                        existingImagePaths.push(item.dataset.path);
+                    }
                 });
 
-                const remarkEl = document.querySelector(`#detail-form-body tr:nth-child(${idx + 1}) textarea`);
-
-                formData.append(`items[${idx}].Number_Order`, numberOrder);
-                formData.append(`items[${idx}].MT_No`, mtNo);
-                formData.append(`items[${idx}].MT_Item`, getProp(item, "mT_Item", "MT_Item") || "");
-                formData.append(`items[${idx}].MT_Desc`, getProp(item, "mT_Desc", "MT_Desc") || "");
-                formData.append(`items[${idx}].Upload_Result`, getRadioValue(`uploader_res_${idx}`));
-                formData.append(`items[${idx}].Upload_ID`, uploadId);
-                formData.append(`items[${idx}].Approval_ID`, approvalId);
-                formData.append(`items[${idx}].Approval_Result`, getRadioValue(`approver_res_${idx}`));
-                formData.append(`items[${idx}].Remark`, remarkEl ? remarkEl.value : (getProp(item, "remark", "Remark") || ""));
-                formData.append(`items[${idx}].ExistingImagePaths`, JSON.stringify(existingImagePaths));
+                result.push({
+                    numberOrder,
+                    mtNo,
+                    mtItem,
+                    mtDesc,
+                    uploadResult,
+                    approvalResult,
+                    remark,
+                    uploadId,
+                    approvalId,
+                    existingImagePaths,
+                    newFiles
+                });
             });
 
-            return formData;
+            //console.log(result);
+
+            return result;
         };
 
-        const saveDailyForm = async (isApproverMode) => {
-            try {
-                const response = await postFormData("/api/fixture/daily/save", collectDetailFormData(isApproverMode));
-                activeDailyData = getResponseData(response);
-                await refreshMonthlyModal();
-                alert(getResponseMessage(response) || "Save OK!");
-                detailModalInstance.hide();
-            } catch (error) {
-                alert(error.message);
+
+        const sumbitDailyForm = async (funcType) => {
+            const data = collectDailyData() || [];
+
+            if (data.length <= 0) {
+                alert("Cannot gather info daily form, try again!");
+                return;
             }
-        };
+            const isApproverAllResult = data.every(item => item.approvalResult);
+
+            if (currentRole === 'approver' && !isApproverAllResult) {
+                alert("Please complete the evaluation of all items before submitting the data!");
+                return;
+            }
+
+
+            const formData = new FormData();
+
+            const type = DATASET.type || "FATP";
+            const line = getProp(activeDailyData, "line", "Line") || DATASET.line || ""
+            const department = DATASET.department || ""
+            const eqSn = getProp(activeDailyData, "eQ_SN", "EQ_SN") || activeFixture || ""
+            const eqName = getProp(activeDailyData, "eQ_Name", "EQ_Name") || ""
+            const eqModel = getProp(activeDailyData, "eQ_Model", "EQ_Model") || ""
+            const date = activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date"))
+            const shift = getProp(activeDailyData, "shift", "Shift") || "Day"
+            const isApproverMode = currentRole === "approver" ? true : false;
+/*            const itemCount = sourceRows.length;*/
+
+            //formData.append("type", type);
+            formData.append("Line", line);
+            formData.append("Department", department);
+            formData.append("EQ_SN", eqSn);
+            formData.append("EQ_Name", eqName);
+            formData.append("EQ_Model", eqModel);
+            formData.append("Date", date);
+            formData.append("Shift", shift);
+            formData.append("IsApproverMode", isApproverMode);
+            formData.append("FuncType", funcType);
+            //formData.append("itemCount", itemCount);
+
+            data.forEach((item, i) => {
+
+                formData.append(`CheckItems[${i}].MT_No`, item.mtNo);
+                formData.append(`CheckItems[${i}].Number_Order`, item.numberOrder);
+                formData.append(`CheckItems[${i}].MT_Item`, item.mtItem);
+                formData.append(`CheckItems[${i}].MT_Desc`, item.mtDesc);
+
+                formData.append(`CheckItems[${i}].Upload_Result`, item.uploadResult);
+                formData.append(`CheckItems[${i}].Approval_Result`, item.approvalResult);
+                formData.append(`CheckItems[${i}].Remark`, item.remark);
+                formData.append(`CheckItems[${i}].Upload_ID`, item.uploadId);
+                formData.append(`CheckItems[${i}].Approval_ID`, item.approvalId);
+
+                // ✅ ảnh cũ (string path)
+                item.existingImagePaths.forEach((path, j) => {
+                    formData.append(`CheckItems[${i}].ExistingImagePaths[${j}]`, path);
+                });
+
+                // ✅ ảnh mới (file)
+                item.newFiles.forEach((file, j) => {
+                    formData.append(`CheckItems[${i}].NewFiles[${j}]`, file);
+                });
+
+            });
+
+            try {
+                const res = await fetch('/api/fixture/daily/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await res.json();
+                if (result.success == true) {
+                    alert('Save successfully');
+                    openMaintenanceModal(activeFixtureObject);
+                } else {
+                    alert('Save fail');
+                }
+                console.log(result);
+
+            } catch (err) {
+                console.error(err);
+            }
+
+        }
+
+        //const collectDetailFormData = (isApproverMode) => {
+        //    const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || [];
+        //    const formData = new FormData();
+
+        //    formData.append("type", DATASET.type || "FATP");
+        //    formData.append("line", getProp(activeDailyData, "line", "Line") || DATASET.line || "");
+        //    formData.append("department", DATASET.department || "");
+        //    formData.append("eqSn", getProp(activeDailyData, "eQ_SN", "EQ_SN") || activeFixture || "");
+        //    formData.append("eqName", getProp(activeDailyData, "eQ_Name", "EQ_Name") || "");
+        //    formData.append("eqModel", getProp(activeDailyData, "eQ_Model", "EQ_Model") || "");
+        //    formData.append("date", activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date")));
+        //    formData.append("shift", getProp(activeDailyData, "shift", "Shift") || "Day");
+        //    formData.append("isApproverMode", isApproverMode ? "true" : "false");
+        //    //formData.append("itemCount", sourceRows.length);
+
+        //    sourceRows.forEach((item, idx) => {
+        //        const mtNo = getProp(item, "mT_No", "MT_No", "mtNo") || "";
+        //        const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
+        //        const uploadId = getProp(item, "upload_ID", "Upload_ID") || DEFAULT_UPLOAD_ID;
+        //        const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
+        //        const existingImagePaths = [];
+
+        //        document.querySelectorAll(`#gallery_${idx} .gallery-item`).forEach((el) => {
+        //            if (el._path) existingImagePaths.push(el._path);
+        //            if (el._file) formData.append(`imageFiles_${idx}`, el._file);
+        //        });
+
+        //        const remarkEl = document.querySelector(`#detail-form-body tr:nth-child(${idx + 1}) textarea`);
+
+        //        formData.append(`items[${idx}].Number_Order`, numberOrder);
+        //        formData.append(`items[${idx}].MT_No`, mtNo);
+        //        formData.append(`items[${idx}].MT_Item`, getProp(item, "mT_Item", "MT_Item") || "");
+        //        formData.append(`items[${idx}].MT_Desc`, getProp(item, "mT_Desc", "MT_Desc") || "");
+        //        formData.append(`items[${idx}].Upload_Result`, getRadioValue(`uploader_res_${idx}`));
+        //        formData.append(`items[${idx}].Upload_ID`, uploadId);
+        //        formData.append(`items[${idx}].Approval_ID`, approvalId);
+        //        formData.append(`items[${idx}].Approval_Result`, getRadioValue(`approver_res_${idx}`));
+        //        formData.append(`items[${idx}].Remark`, remarkEl ? remarkEl.value : (getProp(item, "remark", "Remark") || ""));
+        //        formData.append(`items[${idx}].ExistingImagePaths`, JSON.stringify(existingImagePaths));
+        //    });
+
+        //    return formData;
+        //};
+
+        //const saveDailyForm = async (isApproverMode) => {
+        //    try {
+        //        const response = await postFormData("/api/fixture/daily/save", collectDetailFormData(isApproverMode));
+        //        activeDailyData = getResponseData(response);
+        //        await refreshMonthlyModal();
+        //        alert(getResponseMessage(response) || "Save OK!");
+        //        detailModalInstance.hide();
+        //    } catch (error) {
+        //        alert(error.message);
+        //    }
+        //};
 
         function exportTable() {
             const table = document.getElementById("maintenance-table");
@@ -1346,13 +1652,27 @@
                 }
             });
 
-            document.getElementById("saveUploader").addEventListener("click", async () => {
-                await saveDailyForm(false);
+            document.getElementById("editUploader").addEventListener("click", function () {
+                startEdit = true;
+                this.classList.add('d-none');
+                document.querySelector('#saveUploader').classList.remove('d-none');
+                document.querySelector('#cancelUploader').classList.remove('d-none');
+                renderDetailRows(true);
             });
 
-            document.getElementById("approveAll").addEventListener("click", async () => {
-                await saveDailyForm(true);
+            document.getElementById("cancelUploader").addEventListener("click", (e) => {
+                startEdit = false;
+                e.target.classList.add('d-none');
+                renderDetailRows(false);
             });
+
+            //document.getElementById("saveUploader").addEventListener("click", async () => {
+            //    await saveDailyForm(false);
+            //});
+
+            //document.getElementById("approveAll").addEventListener("click", async () => {
+            //    await saveDailyForm(true);
+            //});
 
             document.getElementById("type").addEventListener("change", (e) => {
                 DATASET["type"] = (e.target.value ?? "")?.trim();
@@ -1394,6 +1714,31 @@
                 });
             });
 
+            document.addEventListener('click', function (e) {
+                if (e.target.matches('.approver-radio input[type="radio"]')) {
+                    const mtNo = e.target.dataset.mtNo;
+                    console.log(mtNo)
+
+                    if (!PREVIEW_IMAGE[mtNo]) {
+                        alert('Please review the inspection images before evaluating!');
+
+                        e.preventDefault();
+                        e.target.checked = false;
+                    }
+                }
+            });
+
+            document.getElementById('saveUploader').addEventListener('click', function () {
+                sumbitDailyForm('Upload_Equipment_By_SN')
+            });
+
+            document.getElementById('editUploader').addEventListener('click', function () {
+                document.getElementById('saveUploader').setAttribute('onclick', "sumbitDailyForm('Upload_Equipment_By_SN')")
+            });
+
+            document.getElementById('approveAll').addEventListener('click', function () {
+                sumbitDailyForm('Approve_Equipment_By_SN')
+            });
 
             // Tạo countdown
             const countdown = document.createElement("div");
@@ -1434,6 +1779,8 @@
                 },
                 on: {
                     ready: (fancybox) => {
+                        var mtno = Fancybox.getInstance().getSlide().mtno;
+                        
                         fancybox.LOCK_DURATION = 5;
                         fancybox.isClosable = false;
                         const closeBtn = document.querySelector("[data-fancybox-close]");
@@ -1442,32 +1789,14 @@
                             closeBtn.style.display = "none";
                         }
 
-                        document.body.appendChild(countdown);
-
                         let remaining = fancybox.LOCK_DURATION;
-
-                        countdown.innerHTML = `
-                                    Vui lòng xem ảnh ${remaining}s
-                                `;
-
-                        // cập nhật mỗi giây
-                        fancybox.countdownInterval = setInterval(() => {
-                            remaining--;
-
-                            if (remaining > 0) {
-                                countdown.innerHTML = `Vui lòng xem ảnh ${remaining}s`;
-                            } else {
-                                countdown.innerHTML = `Bạn có thể đóng preview`;
-                                clearInterval(fancybox.countdownInterval);
-                            }
-                        }, 1000);
-
 
                         fancybox.closeTimer = setTimeout(() => {
                             fancybox.isClosable = true;
 
                             if (closeBtn) {
                                 closeBtn.style.display = "";
+                                PREVIEW_IMAGE[mtno] = true;
                             }
 
                         }, fancybox.LOCK_DURATION * 1000);
@@ -1485,7 +1814,7 @@
                     },
                     destroy: (fancybox) => {
                         clearTimeout(fancybox.closeTimer);
-                        document.querySelector('.fb-countdown').remove();
+                        //document.querySelector('.fb-countdown').remove();
                     },
                 }
             });

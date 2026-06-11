@@ -1,12 +1,19 @@
 ﻿using Application.Interfaces;
+using Newtonsoft;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Shared.Common;
 using Shared.DTOs;
 using Shared.Extensions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 
 namespace Application.Services
@@ -144,7 +151,8 @@ namespace Application.Services
                     Year = header.Year.ToInt(),
                     Month = header.Month.ToInt(),
                     MaintenanceItems = rows
-                        .GroupBy(x => new { MT_No = x.MT_No.ToString(), x.MT_Item, x.MT_Desc })
+                        .GroupBy(x => new { MT_No = x.MT_No.ToText(), x.MT_Item, x.MT_Desc })
+                        .Where(g => !string.IsNullOrWhiteSpace(g.Key.MT_No) && !string.IsNullOrWhiteSpace(g.Key.MT_Desc))
                         .Select(g => new MonthlyItemDto
                         {
                             Number_Order = g.Min(x => x.Number_Order.ToInt()),
@@ -158,6 +166,7 @@ namespace Application.Services
                         })
                         .OrderBy(x => x.Number_Order)
                         .ToList()
+
                 };
 
                 return new ApiResponse<FixtureMonthlyDto>
@@ -239,11 +248,11 @@ namespace Application.Services
             }
         }
 
-        public async Task<ApiResponse<FixtureDailyDto>> SaveFixtureDailyAsync(string type, string line, string department, FixtureDailyDto fixture)
+        public async Task<ApiResponse<string>> SaveFixtureDailyAsync(string type, string line, string department, string funcType, string uploadPathImage, FixtureDailyDto fixture)
         {
             try
             {
-                //var repoResult = await _fixtureRepository.SaveFixtureDailyAsync(type, line, department, fixture);
+                var repoResult = await _fixtureRepository.SaveFixtureDailyAsync(type, line, department, funcType, uploadPathImage, fixture);
 
                 //var success = repoResult.Result.IsPass();
 
@@ -254,7 +263,7 @@ namespace Application.Services
                 //    Data = success ? repoResult.Data : null
                 //};
 
-                return new ApiResponse<FixtureDailyDto>
+                return new ApiResponse<string>
                 {
                     Success = true,
                     Message = "",
@@ -263,12 +272,42 @@ namespace Application.Services
             }
             catch (Exception ex)
             {
-                return new ApiResponse<FixtureDailyDto>
+                return new ApiResponse<string>
                 {
                     Success = false,
                     Message = ex.Message,
                     Data = null
                 };
+            }
+        }
+
+
+        public async Task<JObject> GetImageInfoAsync(HttpPostedFile file)
+        {
+
+            using (var ms = new MemoryStream())
+            {
+                file.InputStream.CopyTo(ms);
+                string url = "https://10.36.8.55:5000/api/timestamp";
+
+                byte[] bytes = ms.ToArray();
+                string base64 = Convert.ToBase64String(bytes);
+                string json = "{\"image_base64\":\"" + base64 + "\"}";
+
+                var handler = new HttpClientHandler();
+                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+
+                handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls11;
+
+                using (HttpClient client = new HttpClient(handler))
+                {
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    // 建议使用异步方式，避免死锁；
+                    var response = await client.PostAsync(url, content);
+                    response.EnsureSuccessStatusCode();
+                    string result = await response.Content.ReadAsStringAsync();
+                    return (JObject)JsonConvert.DeserializeObject(result);
+                }
             }
         }
     }

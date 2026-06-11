@@ -1,2452 +1,2806 @@
-[
-  {
-    "fixture": "FTX-833440388",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-654607620",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-202160946",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-890153624",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-760662210",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-060960516",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-771644994",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-239009403",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-802152270",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-253024626",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-214808041",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-941711451",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-333960907",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-483752967",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-284150200",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-284919819",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-169997898",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-126646801",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-160132332",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-335944985",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-562912957",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-734262740",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-603146106",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-983096182",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-396068737",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-911584982",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-948089753",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-864455057",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-049647619",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-552505532",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-701433794",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-720279610",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-643458149",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-706483092",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-784440066",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-279643946",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-023662059",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-534850414",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-459118031",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-218747842",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-136974507",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-745179973",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-758338634",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-864072765",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-631453578",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-882556925",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-262621479",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-712080254",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-563526470",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-197176944",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-589346945",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-058871667",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-189178299",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-993986436",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-258335308",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-919990953",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-726191218",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-695545665",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-184465502",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-771002411",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-519797790",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-433375577",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-329492518",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-241335725",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-460808357",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-114483423",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-453581889",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-388881989",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-828223978",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-870125730",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-370759826",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-770607881",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-353614352",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-999458679",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-089847131",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-504116655",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-409939415",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-171615360",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-090496969",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-682732682",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-830922840",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-153745004",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-979966925",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-760080814",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-033451990",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-511793604",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-728279839",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-626249909",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-659777318",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-866489854",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-397969655",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-834070912",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-192604103",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-984171813",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-862960156",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-226068805",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-839743308",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-037305844",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-189402339",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-212062225",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-488713296",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-016741934",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-977092989",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-950379109",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-513160011",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-870382693",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-487071199",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-762967293",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-604132191",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-249400789",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-242231714",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-750516665",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-258140813",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-892470777",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-109217027",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-061300646",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-834869913",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-499952339",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-016686158",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-942128935",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-500305292",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-127473122",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-887065765",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-309918553",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-593983811",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-326209162",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-963942779",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-867613953",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-824119305",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-801799936",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-849598668",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-960947321",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-395847596",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-646389131",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-078999811",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-070527483",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-310718590",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-616477799",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-878575981",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-267200905",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-630832667",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-977510200",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-285630113",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-752324347",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-310697185",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-142447200",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-212528612",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-451931569",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-262487350",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-614345270",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-365561461",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-642301389",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-730698535",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-408665273",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-632736023",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-180163773",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-644319911",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-811118227",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-722280417",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-991150895",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-335534726",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-034345801",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-989914966",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-142571457",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-901107721",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-783954859",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-890209691",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-286084578",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-968857868",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-434851687",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-129637219",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-536767082",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-721662012",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-747279281",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-830120697",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-751583134",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-841211685",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-317664255",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-333105552",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-910909260",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-738237402",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-098279265",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-400656768",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-305295477",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-123217914",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-878295849",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-679305090",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-855986235",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-097648659",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-639843177",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-762594420",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-918124513",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-681196052",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-345481342",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-501413307",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-953383377",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-263569498",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-587392571",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-898245530",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-474810797",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-960483393",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-518293468",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-039052701",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-632468702",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-676254160",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-033683962",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-126449279",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-231119632",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-720533165",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-054320173",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-764548044",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-415101028",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-002751812",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-397325475",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-626762545",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-361820383",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-441265103",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-415778662",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-445576204",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-879874577",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-430010061",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-670674045",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-145910812",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-366745178",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-841542093",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-248049178",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-180621102",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-948845732",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-774645386",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-393951344",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-491883128",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-756437484",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-020641551",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-738460934",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-554357867",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-119326551",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-541141421",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-647464734",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-745304649",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-682019727",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-163265423",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-227990801",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-610355894",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-419634394",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-030531712",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-113219423",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-953660267",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-146284798",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-220390510",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-408627892",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-048812932",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-182867614",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-561106794",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-634063508",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-560953260",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-814069049",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-001955229",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-090881718",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-935495255",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-678154335",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-738132107",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-259724853",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-976974922",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-911249867",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-449425630",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-023131514",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-480961219",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-800321245",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-315894714",
-    "status": "Done",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-625362693",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-073608567",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-736947719",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-278854668",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-444688859",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-660639195",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-051412900",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-700587511",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-056644672",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-027877937",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-822214250",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-257953011",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-161294423",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-858590521",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-808796825",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-820310795",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-325591387",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-661715626",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-827792003",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-782336235",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-606284070",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-814010202",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-302946561",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-934412040",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-050774717",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-076935644",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-089483363",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-029132774",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-614894529",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-285984051",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-291119248",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-909553920",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-331049548",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-761550316",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-025008224",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-780902944",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-402856776",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-287471829",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-517058720",
-    "status": "Done",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-065950653",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-764862114",
-    "status": "No checking",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-031105051",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-252108048",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-759747342",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-909211906",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-565895319",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-984254590",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-385447496",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-354224839",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-046786532",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-954501761",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-796026445",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-291972625",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-228218476",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-278473649",
-    "status": "Done",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-189477844",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-052380751",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-167563048",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-942707630",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-849129932",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-243443888",
-    "status": "No checking",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-495670153",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-912167113",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-962252665",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-606058089",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-652178659",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-356362758",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-416305040",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-730068783",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-183563157",
-    "status": "Ongoing",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-040363138",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-364778133",
-    "status": "Done",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-632081192",
-    "status": "Done",
-    "line": "B12",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-509456156",
-    "status": "Ongoing",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-125411497",
-    "status": "No checking",
-    "line": "B12",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-102953930",
-    "status": "Ongoing",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-974052536",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-739515877",
-    "status": "Done",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-049385467",
-    "status": "No checking",
-    "line": "B13",
-    "department": "AME",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-891182310",
-    "status": "No checking",
-    "line": "B11",
-    "department": "RE",
-    "type": "FATP"
-  },
-  {
-    "fixture": "FTX-369268162",
-    "status": "No checking",
-    "line": "B11",
-    "department": "AME",
-    "type": "FATP"
-  }
-]
+{
+  "Success": true,
+  "Message": "Get data OK!",
+  "Data": [
+    {
+      "Number_Order": 1,
+      "EQ_SN": "9200000170506134",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 2,
+      "EQ_SN": "9200000190500471",
+      "EQ_Name": "Robot-Shipper",
+      "EQ_Model": "Shipper Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 3,
+      "EQ_SN": "9200000190500580",
+      "EQ_Name": "Robot-KB",
+      "EQ_Model": "KB Auto Screw Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 4,
+      "EQ_SN": "9200000190500593",
+      "EQ_Name": "Robot-MP only Demag",
+      "EQ_Model": "TM-Robot Demag",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 5,
+      "EQ_SN": "9200000190500723",
+      "EQ_Name": "Robot-KB",
+      "EQ_Model": "KB Auto Screw Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 6,
+      "EQ_SN": "9200000190500726",
+      "EQ_Name": "Robot-MP only Demag",
+      "EQ_Model": "MP Only Demag Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 7,
+      "EQ_SN": "9200000190502557",
+      "EQ_Name": "Robot-DH2TC",
+      "EQ_Model": "DH2TC alignment Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 8,
+      "EQ_SN": "9200000190502560",
+      "EQ_Name": "Robot-MIC",
+      "EQ_Model": "MIC Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 9,
+      "EQ_SN": "9200000190504796",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "Fasten TP3x screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 10,
+      "EQ_SN": "9200000190506287",
+      "EQ_Name": "Robot-Shipper",
+      "EQ_Model": "Shipper Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 11,
+      "EQ_SN": "9200000200500006",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 12,
+      "EQ_SN": "9200000200500040",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 13,
+      "EQ_SN": "9200000200500045",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 14,
+      "EQ_SN": "9200000200500066",
+      "EQ_Name": "Robot-KB",
+      "EQ_Model": "KB Auto Screw Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 15,
+      "EQ_SN": "9200000200500083",
+      "EQ_Name": "Robot-MP only Demag",
+      "EQ_Model": "MP Only Demag Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 16,
+      "EQ_SN": "9200000200500087",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 17,
+      "EQ_SN": "9200000200500093",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 18,
+      "EQ_SN": "9200000200500095",
+      "EQ_Name": "Robot-TP",
+      "EQ_Model": "TP Auto screw Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 19,
+      "EQ_SN": "9200000200500112",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 20,
+      "EQ_SN": "9200000200500115",
+      "EQ_Name": "Robot-KB",
+      "EQ_Model": "KB Auto Screw Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 21,
+      "EQ_SN": "9200000200507865",
+      "EQ_Name": "螺丝-DH2TC pre-fasten",
+      "EQ_Model": "Fasten DH2TC pre-fasten fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 22,
+      "EQ_SN": "9200000200510990",
+      "EQ_Name": "Robot-X-Ray",
+      "EQ_Model": "X-Ray Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 23,
+      "EQ_SN": "9200000210505704",
+      "EQ_Name": "螺丝-MLB",
+      "EQ_Model": "MLB to TC screw 2x fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 24,
+      "EQ_SN": "9200000210505710",
+      "EQ_Name": "螺丝-Antenna",
+      "EQ_Model": "Fasten 2x ANT corner screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 25,
+      "EQ_SN": "9200000210505719",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "Re-Fasten KB 2x screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 26,
+      "EQ_SN": "9200000210507511",
+      "EQ_Name": "Robot-MIC",
+      "EQ_Model": "MIC Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 27,
+      "EQ_SN": "9200000210507515",
+      "EQ_Name": "Robot-Speaker",
+      "EQ_Model": "Speaker Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 28,
+      "EQ_SN": "9200000210507516",
+      "EQ_Name": "Robot-Speaker",
+      "EQ_Model": "Speaker Press Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 29,
+      "EQ_SN": "9200000210507520",
+      "EQ_Name": "Robot-Backlight",
+      "EQ_Model": "KB Shield Press Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 30,
+      "EQ_SN": "9200000210507521",
+      "EQ_Name": "Robot-TP",
+      "EQ_Model": "TP Auto screw Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 31,
+      "EQ_SN": "9200000210507522",
+      "EQ_Name": "Robot-KB",
+      "EQ_Model": "KB Auto Screw Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 32,
+      "EQ_SN": "9200000210507524",
+      "EQ_Name": "Robot-KB",
+      "EQ_Model": "KB Auto Screw Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 33,
+      "EQ_SN": "9200000210507525",
+      "EQ_Name": "Robot-MIC",
+      "EQ_Model": "MIC Press Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 34,
+      "EQ_SN": "9200000210507531",
+      "EQ_Name": "Robot-MESA",
+      "EQ_Model": "Mesa Auto Screw Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 35,
+      "EQ_SN": "9200000210507535",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "Pre-Fasten KB 2x screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 36,
+      "EQ_SN": "9200000210507541",
+      "EQ_Name": "螺丝-AJ cowling",
+      "EQ_Model": "Fasten AJ cowling fasten fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 37,
+      "EQ_SN": "9200000210507543",
+      "EQ_Name": "螺丝-BMU",
+      "EQ_Model": "Fasten 1x BMU screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 38,
+      "EQ_SN": "9200000210507546",
+      "EQ_Name": "螺丝-Mesa cowling",
+      "EQ_Model": "Fasten Mesa cowling fasten fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 39,
+      "EQ_SN": "9200000210509738",
+      "EQ_Name": "螺丝-Antenna",
+      "EQ_Model": "Fasten ANT clip screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 40,
+      "EQ_SN": "9200000210509740",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-X cowling 1x screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 41,
+      "EQ_SN": "9200000210509742",
+      "EQ_Name": "螺丝-ANTENNA cowling",
+      "EQ_Model": "Fasten ANT cowling fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 42,
+      "EQ_SN": "9200000210509766",
+      "EQ_Name": "螺丝-DH2TC pre-fasten",
+      "EQ_Model": "Fasten DH2TC pre-fasten fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 43,
+      "EQ_SN": "9200000210510250",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-X cowling 2x screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 44,
+      "EQ_SN": "9200000210510259",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "Fasten TP4x screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 45,
+      "EQ_SN": "9200000210510260",
+      "EQ_Name": "螺丝-FAN",
+      "EQ_Model": "Fasten Fan 4x screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 46,
+      "EQ_SN": "9200000210510265",
+      "EQ_Name": "螺丝-MLB",
+      "EQ_Model": "Fasten MLB screw#1 fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 47,
+      "EQ_SN": "9200000210510273",
+      "EQ_Name": "螺丝-MLB",
+      "EQ_Model": "Fasten MLB screw#2 fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 48,
+      "EQ_SN": "9200000210510344",
+      "EQ_Name": "Robot-MESA",
+      "EQ_Model": "Mesa Auto Screw Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 49,
+      "EQ_SN": "9200000210510345",
+      "EQ_Name": "Robot-Backlight",
+      "EQ_Model": "KB Shield Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 50,
+      "EQ_SN": "9200000210511779",
+      "EQ_Name": "Robot-Backlight",
+      "EQ_Model": "KB Shield Press Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 51,
+      "EQ_SN": "9200000220502668",
+      "EQ_Name": "Robot-AOI",
+      "EQ_Model": "System AOI Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 52,
+      "EQ_SN": "9200000220504590",
+      "EQ_Name": "Robot-TP",
+      "EQ_Model": "TP Auto screw Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 53,
+      "EQ_SN": "9200000220505640",
+      "EQ_Name": "Robot-TP2TC",
+      "EQ_Model": "TP2TC Fleet measurement Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 54,
+      "EQ_SN": "9200000220505837",
+      "EQ_Name": "Robot-X-Ray",
+      "EQ_Model": "X-Ray Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 55,
+      "EQ_SN": "9200000220505840",
+      "EQ_Name": "Robot-TP2TC",
+      "EQ_Model": "TP2TC Fleet measurement Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 56,
+      "EQ_SN": "9200000220505841",
+      "EQ_Name": "Robot-TP",
+      "EQ_Model": "TP Auto screw Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 57,
+      "EQ_SN": "9200000220506290",
+      "EQ_Name": "Robot-AOI",
+      "EQ_Model": "System AOI Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 58,
+      "EQ_SN": "9200000220506292",
+      "EQ_Name": "Robot-TP2TC",
+      "EQ_Model": "TP2TC Fleet measurement Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 59,
+      "EQ_SN": "9200000220507795",
+      "EQ_Name": "Robot-MESA",
+      "EQ_Model": "Mesa Auto Screw Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 60,
+      "EQ_SN": "9200000220508771",
+      "EQ_Name": "螺丝-TP cowling",
+      "EQ_Model": "Fasten TP cowling fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 61,
+      "EQ_SN": "9200000220509109",
+      "EQ_Name": "Robot-X-Ray",
+      "EQ_Model": "X-Ray Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 62,
+      "EQ_SN": "9200000220509110",
+      "EQ_Name": "Robot-DH2TC",
+      "EQ_Model": "DH2TC alignment Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 63,
+      "EQ_SN": "9200000220510061",
+      "EQ_Name": "螺丝- LAS cowling",
+      "EQ_Model": "Fasten LAS cowling fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 64,
+      "EQ_SN": "9200000220510130",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-C cowling 2x screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 65,
+      "EQ_SN": "9200000220510133",
+      "EQ_Name": "螺丝-LP",
+      "EQ_Model": "Fasten EDP/CAM cowling fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 66,
+      "EQ_SN": "9200000220510134",
+      "EQ_Name": "螺丝-LP",
+      "EQ_Model": "Fasten LP cowling fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 67,
+      "EQ_SN": "9200000220510135",
+      "EQ_Name": "螺丝- Mesa T cowling",
+      "EQ_Model": "Fasten mesa“T”cowling fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 68,
+      "EQ_SN": "9200000220510136",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-C cowling 2x screws fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 69,
+      "EQ_SN": "9200000220510137",
+      "EQ_Name": "螺丝-MLB",
+      "EQ_Model": "Fasten 2x Mid-wall screws fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 70,
+      "EQ_SN": "9200000220510643",
+      "EQ_Name": "Packing Machine",
+      "EQ_Model": "OPP wrap machine",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 71,
+      "EQ_SN": "9200000220512498",
+      "EQ_Name": "包装-称重",
+      "EQ_Model": "Auto weight machine",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 72,
+      "EQ_SN": "9200000220570064",
+      "EQ_Name": "Robot-AOI",
+      "EQ_Model": "System AOI Robot",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 73,
+      "EQ_SN": "9200000220570066",
+      "EQ_Name": "Robot-Speaker",
+      "EQ_Model": "Speaker Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 74,
+      "EQ_SN": "9200000220570113",
+      "EQ_Name": "Robot-X-Ray",
+      "EQ_Model": "X-Ray Robot",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 75,
+      "EQ_SN": "9200000230503049",
+      "EQ_Name": "翻转-auto flip machine",
+      "EQ_Model": "翻转-auto flip machine",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 76,
+      "EQ_SN": "9200000240502157",
+      "EQ_Name": "翻转-auto flip machine",
+      "EQ_Model": "翻转-auto flip machine",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 77,
+      "EQ_SN": "9200000619050056",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 78,
+      "EQ_SN": "9200000619050059",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 79,
+      "EQ_SN": "9200000619050137",
+      "EQ_Name": "量测-KB PEM",
+      "EQ_Model": "KB screw/PEM inspection fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 80,
+      "EQ_SN": "9200000619050139",
+      "EQ_Name": "量测-KB PEM",
+      "EQ_Model": "KB screw/PEM inspection fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 81,
+      "EQ_SN": "9200000619050696",
+      "EQ_Name": "压合-喇叭",
+      "EQ_Model": "Speaker press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 82,
+      "EQ_SN": "9200000619050711",
+      "EQ_Name": "压合-背光纸",
+      "EQ_Model": "KB backlight press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 83,
+      "EQ_SN": "9200000619050717",
+      "EQ_Name": "压合-背光纸",
+      "EQ_Model": "KB backlight press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 84,
+      "EQ_SN": "9200000619050733",
+      "EQ_Name": "螺丝-Mesa",
+      "EQ_Model": "Mesa alignment and auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 85,
+      "EQ_SN": "9200000619050771",
+      "EQ_Name": "螺丝-Mesa",
+      "EQ_Model": "Mesa alignment and auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 86,
+      "EQ_SN": "9200000619050902",
+      "EQ_Name": "组装-Base",
+      "EQ_Model": "BC install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 87,
+      "EQ_SN": "9200000619050907",
+      "EQ_Name": "组装-Base",
+      "EQ_Model": "BC install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 88,
+      "EQ_SN": "9200000619050923",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 89,
+      "EQ_SN": "9200000619050957",
+      "EQ_Name": "外观检测-KB",
+      "EQ_Model": "KB OCR",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 90,
+      "EQ_SN": "9200000619051120",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "TP alignment and auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 91,
+      "EQ_SN": "9200000619051664",
+      "EQ_Name": "组装-Base",
+      "EQ_Model": "BC install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 92,
+      "EQ_SN": "9200000619051790",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 93,
+      "EQ_SN": "9200000619051793",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 94,
+      "EQ_SN": "9200000619051794",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 95,
+      "EQ_SN": "9200000619051795",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 96,
+      "EQ_SN": "9200000619051796",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 97,
+      "EQ_SN": "9200000619051797",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 98,
+      "EQ_SN": "9200000619051798",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 99,
+      "EQ_SN": "9200000619051799",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 100,
+      "EQ_SN": "9200000619051801",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 101,
+      "EQ_SN": "9200000619051808",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 102,
+      "EQ_SN": "9200000619051809",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 103,
+      "EQ_SN": "9200000619051911",
+      "EQ_Name": "压合-喇叭",
+      "EQ_Model": "Speaker press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 104,
+      "EQ_SN": "9200000619052323",
+      "EQ_Name": "量测-Magforce",
+      "EQ_Model": "Magforce all in one fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 105,
+      "EQ_SN": "9200000619052324",
+      "EQ_Name": "量测-OCM",
+      "EQ_Model": "online correlation system fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 106,
+      "EQ_SN": "9200000620050004",
+      "EQ_Name": "组装-Mesa",
+      "EQ_Model": "Mesa domeshim placement fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 107,
+      "EQ_SN": "9200000620050033",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 108,
+      "EQ_SN": "9200000620050034",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 109,
+      "EQ_SN": "9200000620050239",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 110,
+      "EQ_SN": "9200000620050362",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 111,
+      "EQ_SN": "9200000620050363",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 112,
+      "EQ_SN": "9200000620050364",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 113,
+      "EQ_SN": "9200000620050365",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 114,
+      "EQ_SN": "9200000620050371",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP Gap/Offset Measurement fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 115,
+      "EQ_SN": "9200000620050377",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP/TC height measurement fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 116,
+      "EQ_SN": "9200000620050385",
+      "EQ_Name": "组装-Mesa",
+      "EQ_Model": "Mesa domeshim placement fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 117,
+      "EQ_SN": "9200000620050404",
+      "EQ_Name": "量测-KB PEM",
+      "EQ_Model": "KB screw/PEM inspection fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 118,
+      "EQ_SN": "9200000620050408",
+      "EQ_Name": "外观检测-KB",
+      "EQ_Model": "KB OCR",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 119,
+      "EQ_SN": "9200000620050409",
+      "EQ_Name": "外观检测-KB",
+      "EQ_Model": "KB OCR",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 120,
+      "EQ_SN": "9200000620050411",
+      "EQ_Name": "外观检测-KB",
+      "EQ_Model": "KB OCR",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 121,
+      "EQ_SN": "9200000620050423",
+      "EQ_Name": "压合-背光纸",
+      "EQ_Model": "KB backlight press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 122,
+      "EQ_SN": "9200000620050434",
+      "EQ_Name": "压合-背光纸",
+      "EQ_Model": "KB backlight press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 123,
+      "EQ_SN": "9200000620050447",
+      "EQ_Name": "量测-KB PEM",
+      "EQ_Model": "KB screw/PEM inspection fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 124,
+      "EQ_SN": "9200000620050600",
+      "EQ_Name": "螺丝-Mesa",
+      "EQ_Model": "Mesa alignment and auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 125,
+      "EQ_SN": "9200000620050601",
+      "EQ_Name": "螺丝-Mesa",
+      "EQ_Model": "Mesa alignment and auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 126,
+      "EQ_SN": "9200000620050641",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 127,
+      "EQ_SN": "9200000620050642",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 128,
+      "EQ_SN": "9200000620050643",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 129,
+      "EQ_SN": "9200000620050644",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 130,
+      "EQ_SN": "9200000620050645",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 131,
+      "EQ_SN": "9200000620050767",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 132,
+      "EQ_SN": "9200000620050768",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 133,
+      "EQ_SN": "9200000620050771",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 134,
+      "EQ_SN": "9200000620050789",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 135,
+      "EQ_SN": "9200000620050793",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 136,
+      "EQ_SN": "9200000620050795",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 137,
+      "EQ_SN": "9200000620050796",
+      "EQ_Name": "外观检测-AOI",
+      "EQ_Model": "system AOI fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 138,
+      "EQ_SN": "9200000620050799",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 139,
+      "EQ_SN": "9200000620050801",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 140,
+      "EQ_SN": "9200000620050892",
+      "EQ_Name": "外观检测-AOI",
+      "EQ_Model": "system AOI fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 141,
+      "EQ_SN": "9200000620050893",
+      "EQ_Name": "量测-Magforce",
+      "EQ_Model": "Magforce all in one fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 142,
+      "EQ_SN": "9200000620050956",
+      "EQ_Name": "外观检测-AOI",
+      "EQ_Model": "COS AOI fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 143,
+      "EQ_SN": "9200000620050957",
+      "EQ_Name": "压合-Mic",
+      "EQ_Model": "Mic press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 144,
+      "EQ_SN": "9200000620050958",
+      "EQ_Name": "压合-Mic",
+      "EQ_Model": "Mic press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 145,
+      "EQ_SN": "9200000620050959",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 146,
+      "EQ_SN": "9200000620050960",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 147,
+      "EQ_SN": "9200000620050961",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 148,
+      "EQ_SN": "9200000621050014",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 149,
+      "EQ_SN": "9200000621051177",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 150,
+      "EQ_SN": "9200000621051178",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 151,
+      "EQ_SN": "9200000621051427",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 152,
+      "EQ_SN": "9200000621051428",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 153,
+      "EQ_SN": "9200000621051429",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 154,
+      "EQ_SN": "9200000621051436",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 155,
+      "EQ_SN": "9200000621051472",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP Gap/Offset Measurement fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 156,
+      "EQ_SN": "9200000621051491",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP Gap/Offset Measurement fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 157,
+      "EQ_SN": "9200000621051492",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP Gap/Offset Measurement fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 158,
+      "EQ_SN": "9200000621051505",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 159,
+      "EQ_SN": "9200000621051513",
+      "EQ_Name": "压合-喇叭",
+      "EQ_Model": "Speaker press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 160,
+      "EQ_SN": "9200000621051514",
+      "EQ_Name": "压合-喇叭",
+      "EQ_Model": "Speaker press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 161,
+      "EQ_SN": "9200000621051555",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 162,
+      "EQ_SN": "9200000621051562",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 163,
+      "EQ_SN": "9200000621051567",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 164,
+      "EQ_SN": "9200000621051579",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP/TC height measurement fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 165,
+      "EQ_SN": "9200000621051582",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "TP alignment and auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 166,
+      "EQ_SN": "9200000621051584",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "TP alignment and auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 167,
+      "EQ_SN": "9200000621051624",
+      "EQ_Name": "点胶-TM",
+      "EQ_Model": "TM gel disensing fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 168,
+      "EQ_SN": "9200000621051649",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 169,
+      "EQ_SN": "9200000621051650",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 170,
+      "EQ_SN": "9200000621051651",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 171,
+      "EQ_SN": "9200000621051652",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 172,
+      "EQ_SN": "9200000621051654",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 173,
+      "EQ_SN": "9200000621051656",
+      "EQ_Name": "压合-黄皮箱",
+      "EQ_Model": "Shipper press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 174,
+      "EQ_SN": "9200000621051657",
+      "EQ_Name": "压合-黄皮箱",
+      "EQ_Model": "Shipper press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 175,
+      "EQ_SN": "9200000621051699",
+      "EQ_Name": "点胶-TM",
+      "EQ_Model": "TM gel disensing fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 176,
+      "EQ_SN": "9200000621051732",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 177,
+      "EQ_SN": "9200000621051733",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 178,
+      "EQ_SN": "9200000621051738",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 179,
+      "EQ_SN": "9200000621051739",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 180,
+      "EQ_SN": "9200000621051740",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 181,
+      "EQ_SN": "9200000621051741",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 182,
+      "EQ_SN": "9200000621051742",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 183,
+      "EQ_SN": "9200000621051743",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 184,
+      "EQ_SN": "9200000621051746",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 185,
+      "EQ_SN": "9200000621051752",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 186,
+      "EQ_SN": "9200000621051754",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 187,
+      "EQ_SN": "9200000621051785",
+      "EQ_Name": "螺丝-LCM",
+      "EQ_Model": "DH alignment and press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 188,
+      "EQ_SN": "9200000621051786",
+      "EQ_Name": "螺丝-LCM",
+      "EQ_Model": "DH alignment and press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 189,
+      "EQ_SN": "9200000621051787",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 190,
+      "EQ_SN": "9200000621051788",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 191,
+      "EQ_SN": "9200000621051795",
+      "EQ_Name": "螺丝-LCM",
+      "EQ_Model": "DH alignment and press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 192,
+      "EQ_SN": "9200000621051796",
+      "EQ_Name": "螺丝-LCM",
+      "EQ_Model": "DH alignment and press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 193,
+      "EQ_SN": "9200000621051806",
+      "EQ_Name": "组装-Mesa",
+      "EQ_Model": "Mesa domeshim placement fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 194,
+      "EQ_SN": "9200000621051811",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 195,
+      "EQ_SN": "9200000621051828",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 196,
+      "EQ_SN": "9200000621051835",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 197,
+      "EQ_SN": "9200000621051846",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 198,
+      "EQ_SN": "9200000621052133",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 199,
+      "EQ_SN": "9200000621052154",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 200,
+      "EQ_SN": "9200000621052155",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 201,
+      "EQ_SN": "9200000621052164",
+      "EQ_Name": "组装-Shim",
+      "EQ_Model": "TP REC/round shim selection fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 202,
+      "EQ_SN": "9200000621052614",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 203,
+      "EQ_SN": "9200000621052615",
+      "EQ_Name": "点胶-TM",
+      "EQ_Model": "TM gel disensing fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 204,
+      "EQ_SN": "9200000621052627",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 205,
+      "EQ_SN": "9200000621052628",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 206,
+      "EQ_SN": "9200000621052629",
+      "EQ_Name": "量测-BC",
+      "EQ_Model": "BC2TC fleet fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 207,
+      "EQ_SN": "9200000621052630",
+      "EQ_Name": "量测-DH",
+      "EQ_Model": "DH2TC fleet fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 208,
+      "EQ_SN": "9200000621052631",
+      "EQ_Name": "量测-IO",
+      "EQ_Model": "IO2TC fleet fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 209,
+      "EQ_SN": "9200000621052632",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP2TC fleet fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 210,
+      "EQ_SN": "9200000621052633",
+      "EQ_Name": "量测-X-ray",
+      "EQ_Model": "X-ray fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 211,
+      "EQ_SN": "9200000621052634",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 212,
+      "EQ_SN": "9200000621052635",
+      "EQ_Name": "组装-ripcord",
+      "EQ_Model": "Ripcord install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 213,
+      "EQ_SN": "9200000621052636",
+      "EQ_Name": "组装-喷墨打印",
+      "EQ_Model": "DPO fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 214,
+      "EQ_SN": "9200000623050445",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 215,
+      "EQ_SN": "9200000623050446",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 216,
+      "EQ_SN": "9200000623050447",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 217,
+      "EQ_SN": "9200000623050454",
+      "EQ_Name": "压合-黄皮箱",
+      "EQ_Model": "Shipper press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 218,
+      "EQ_SN": "9200000623050455",
+      "EQ_Name": "压合-黄皮箱",
+      "EQ_Model": "Shipper press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 219,
+      "EQ_SN": "9200000623051115",
+      "EQ_Name": "贴附-PCM",
+      "EQ_Model": "PCM auto install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 220,
+      "EQ_SN": "9200000623051116",
+      "EQ_Name": "组装-Shim",
+      "EQ_Model": "TP REC/round shim selection fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 221,
+      "EQ_SN": "9200000623051120",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 222,
+      "EQ_SN": "9200000623051121",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 223,
+      "EQ_SN": "9200000623051122",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 224,
+      "EQ_SN": "9200000623051123",
+      "EQ_Name": "贴附-PCM",
+      "EQ_Model": "PCM auto install fixture",
+      "Line": "B11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 225,
+      "EQ_SN": "9200000624050521",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 226,
+      "EQ_SN": "9200000624050522",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 227,
+      "EQ_SN": "9200000624050523",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 228,
+      "EQ_SN": "9200000624050524",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 229,
+      "EQ_SN": "9200000624050525",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 230,
+      "EQ_SN": "9200000624050526",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 231,
+      "EQ_SN": "9200000624050527",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 232,
+      "EQ_SN": "9200000624050528",
+      "EQ_Name": "组装-KB PEM",
+      "EQ_Model": "KB PEM install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 233,
+      "EQ_SN": "9200000624050529",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 234,
+      "EQ_SN": "9200000624050530",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 235,
+      "EQ_SN": "9200000624050531",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 236,
+      "EQ_SN": "9200000624050532",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 237,
+      "EQ_SN": "9200000624050533",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 238,
+      "EQ_SN": "9200000624050534",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "KB auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 239,
+      "EQ_SN": "9200000624050535",
+      "EQ_Name": "量测-KB PEM",
+      "EQ_Model": "KB screw/PEM inspection fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 240,
+      "EQ_SN": "9200000624050536",
+      "EQ_Name": "量测-KB PEM",
+      "EQ_Model": "KB screw/PEM inspection fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 241,
+      "EQ_SN": "9200000624050537",
+      "EQ_Name": "压合-背光纸",
+      "EQ_Model": "KB backlight press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 242,
+      "EQ_SN": "9200000624050538",
+      "EQ_Name": "压合-背光纸",
+      "EQ_Model": "KB backlight press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 243,
+      "EQ_SN": "9200000624050539",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 244,
+      "EQ_SN": "9200000624050540",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 245,
+      "EQ_SN": "9200000624050541",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 246,
+      "EQ_SN": "9200000624050542",
+      "EQ_Name": "组装-Mesa",
+      "EQ_Model": "Mesa domeshim placement fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 247,
+      "EQ_SN": "9200000624050543",
+      "EQ_Name": "组装-Mesa",
+      "EQ_Model": "Mesa domeshim placement fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 248,
+      "EQ_SN": "9200000624050544",
+      "EQ_Name": "螺丝-Mesa",
+      "EQ_Model": "Mesa alignment and auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 249,
+      "EQ_SN": "9200000624050545",
+      "EQ_Name": "螺丝-Mesa",
+      "EQ_Model": "Mesa alignment and auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 250,
+      "EQ_SN": "9200000624050546",
+      "EQ_Name": "压合-喇叭",
+      "EQ_Model": "Speaker press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 251,
+      "EQ_SN": "9200000624050547",
+      "EQ_Name": "压合-喇叭",
+      "EQ_Model": "Speaker press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 252,
+      "EQ_SN": "9200000624050548",
+      "EQ_Name": "压合-Mic",
+      "EQ_Model": "Mic press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 253,
+      "EQ_SN": "9200000624050549",
+      "EQ_Name": "压合-Mic",
+      "EQ_Model": "Mic press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 254,
+      "EQ_SN": "9200000624050550",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 255,
+      "EQ_SN": "9200000624050551",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 256,
+      "EQ_SN": "9200000624050552",
+      "EQ_Name": "组装-电池",
+      "EQ_Model": "Battery alignment and press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 257,
+      "EQ_SN": "9200000624050553",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP/TC height measurement fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 258,
+      "EQ_SN": "9200000624050554",
+      "EQ_Name": "组装-Shim",
+      "EQ_Model": "TP REC/round shim selection fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 259,
+      "EQ_SN": "9200000624050555",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "TP alignment and auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 260,
+      "EQ_SN": "9200000624050556",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "TP alignment and auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 261,
+      "EQ_SN": "9200000624050557",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "TP alignment and auto screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 262,
+      "EQ_SN": "9200000624050558",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP Gap/Offset Measurement fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 263,
+      "EQ_SN": "9200000624050559",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP Gap/Offset Measurement fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 264,
+      "EQ_SN": "9200000624050560",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 265,
+      "EQ_SN": "9200000624050561",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 266,
+      "EQ_SN": "9200000624050562",
+      "EQ_Name": "组装-AJ",
+      "EQ_Model": "Audio Jack install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 267,
+      "EQ_SN": "9200000624050563",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 268,
+      "EQ_SN": "9200000624050564",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 269,
+      "EQ_SN": "9200000624050565",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 270,
+      "EQ_SN": "9200000624050566",
+      "EQ_Name": "组装-USB-C",
+      "EQ_Model": "USB-C install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 271,
+      "EQ_SN": "9200000624050568",
+      "EQ_Name": "贴附-PCM",
+      "EQ_Model": "PCM auto install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 272,
+      "EQ_SN": "9200000624050569",
+      "EQ_Name": "点胶-TM",
+      "EQ_Model": "TM gel disensing fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 273,
+      "EQ_SN": "9200000624050570",
+      "EQ_Name": "点胶-TM",
+      "EQ_Model": "TM gel disensing fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 274,
+      "EQ_SN": "9200000624050571",
+      "EQ_Name": "点胶-TM",
+      "EQ_Model": "TM gel disensing fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 275,
+      "EQ_SN": "9200000624050572",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 276,
+      "EQ_SN": "9200000624050573",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 277,
+      "EQ_SN": "9200000624050574",
+      "EQ_Name": "组装-TM",
+      "EQ_Model": "Thermal module spring install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 278,
+      "EQ_SN": "9200000624050575",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 279,
+      "EQ_SN": "9200000624050576",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 280,
+      "EQ_SN": "9200000624050577",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 281,
+      "EQ_SN": "9200000624050578",
+      "EQ_Name": "螺丝-LCM",
+      "EQ_Model": "DH alignment and press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 282,
+      "EQ_SN": "9200000624050579",
+      "EQ_Name": "螺丝-LCM",
+      "EQ_Model": "DH alignment and press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 283,
+      "EQ_SN": "9200000624050580",
+      "EQ_Name": "外观检测-AOI",
+      "EQ_Model": "system AOI fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 284,
+      "EQ_SN": "9200000624050581",
+      "EQ_Name": "组装-Base",
+      "EQ_Model": "BC install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 285,
+      "EQ_SN": "9200000624050582",
+      "EQ_Name": "组装-Base",
+      "EQ_Model": "BC install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 286,
+      "EQ_SN": "9200000624050583",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 287,
+      "EQ_SN": "9200000624050584",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 288,
+      "EQ_SN": "9200000624050585",
+      "EQ_Name": "螺丝-Base",
+      "EQ_Model": "BC Vent fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 289,
+      "EQ_SN": "9200000624050586",
+      "EQ_Name": "量测-Magforce",
+      "EQ_Model": "Magforce all in one fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 290,
+      "EQ_SN": "9200000624050587",
+      "EQ_Name": "量测-TP",
+      "EQ_Model": "TP2TC fleet fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 291,
+      "EQ_SN": "9200000624050588",
+      "EQ_Name": "量测-DH",
+      "EQ_Model": "DH2TC fleet fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 292,
+      "EQ_SN": "9200000624050589",
+      "EQ_Name": "量测-BC",
+      "EQ_Model": "BC2TC fleet fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 293,
+      "EQ_SN": "9200000624050590",
+      "EQ_Name": "量测-IO",
+      "EQ_Model": "IO2TC fleet fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 294,
+      "EQ_SN": "9200000624050591",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 295,
+      "EQ_SN": "9200000624050592",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 296,
+      "EQ_SN": "9200000624050593",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 297,
+      "EQ_SN": "9200000624050594",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 298,
+      "EQ_SN": "9200000624050595",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 299,
+      "EQ_SN": "9200000624050596",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 300,
+      "EQ_SN": "9200000624050597",
+      "EQ_Name": "压合-黄皮箱",
+      "EQ_Model": "Shipper press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 301,
+      "EQ_SN": "9200000624050598",
+      "EQ_Name": "压合-黄皮箱",
+      "EQ_Model": "Shipper press fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 302,
+      "EQ_SN": "9200000624050599",
+      "EQ_Name": "量测-X-ray",
+      "EQ_Model": "X-ray fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 303,
+      "EQ_SN": "9200000624050600",
+      "EQ_Name": "外观检测-KB",
+      "EQ_Model": "KB OCR",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 304,
+      "EQ_SN": "9200000624050601",
+      "EQ_Name": "外观检测-KB",
+      "EQ_Model": "KB OCR",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 305,
+      "EQ_SN": "9200000624050602",
+      "EQ_Name": "外观检测-AOI",
+      "EQ_Model": "COS AOI fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 306,
+      "EQ_SN": "9200000624050618",
+      "EQ_Name": "螺丝-KB",
+      "EQ_Model": "Re-Fasten KB 2x screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 307,
+      "EQ_SN": "9200000624050619",
+      "EQ_Name": "螺丝-BMU",
+      "EQ_Model": "Fasten 1x BMU screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 308,
+      "EQ_SN": "9200000624050620",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "Fasten TP4x screws fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 309,
+      "EQ_SN": "9200000624050621",
+      "EQ_Name": "螺丝-TP",
+      "EQ_Model": "Fasten TP3x screws fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 310,
+      "EQ_SN": "9200000624050622",
+      "EQ_Name": "螺丝-FAN",
+      "EQ_Model": "Fasten Fan 4x screws fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 311,
+      "EQ_SN": "9200000624050623",
+      "EQ_Name": "螺丝-MLB",
+      "EQ_Model": "Fasten MLB screw#1 fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 312,
+      "EQ_SN": "9200000624050624",
+      "EQ_Name": "螺丝-MLB",
+      "EQ_Model": "Fasten MLB screw#2 fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 313,
+      "EQ_SN": "9200000624050625",
+      "EQ_Name": "螺丝-Mesa cowling",
+      "EQ_Model": "Fasten Mesa cowling fasten fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 314,
+      "EQ_SN": "9200000624050626",
+      "EQ_Name": "螺丝-MPM cowling",
+      "EQ_Model": "Fasten MPM cowling fasten fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 315,
+      "EQ_SN": "9200000624050627",
+      "EQ_Name": "螺丝-AJ cowling",
+      "EQ_Model": "Fasten AJ cowling fasten fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 316,
+      "EQ_SN": "9200000624050628",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-X cowling 2x screws fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 317,
+      "EQ_SN": "9200000624050629",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-X cowling 1x screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 318,
+      "EQ_SN": "9200000624050630",
+      "EQ_Name": "螺丝-USB-C cowling",
+      "EQ_Model": "Fasten USB-C cowling 2x screws fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 319,
+      "EQ_SN": "9200000624050631",
+      "EQ_Name": "螺丝-DH2TC pre-fasten",
+      "EQ_Model": "Fasten DH2TC pre-fasten fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 320,
+      "EQ_SN": "9200000624050632",
+      "EQ_Name": "螺丝-Antenna",
+      "EQ_Model": "Fasten 2x ANT corner screws fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 321,
+      "EQ_SN": "9200000624050633",
+      "EQ_Name": "螺丝-LP",
+      "EQ_Model": "Fasten LP cowling fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 322,
+      "EQ_SN": "9200000624050634",
+      "EQ_Name": "螺丝-LP",
+      "EQ_Model": "Fasten EDP/CAM cowling fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 323,
+      "EQ_SN": "9200000624050635",
+      "EQ_Name": "螺丝-Antenna",
+      "EQ_Model": "Fasten ANT clip screw fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 324,
+      "EQ_SN": "9200000624050636",
+      "EQ_Name": "螺丝-ANTENNA cowling",
+      "EQ_Model": "Fasten ANT cowling fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 325,
+      "EQ_SN": "9200000624050637",
+      "EQ_Name": "螺丝- LAS cowling",
+      "EQ_Model": "Fasten LAS cowling fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 326,
+      "EQ_SN": "9200000624050638",
+      "EQ_Name": "螺丝-TP cowling",
+      "EQ_Model": "Fasten TP cowling fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 327,
+      "EQ_SN": "9200000624050639",
+      "EQ_Name": "组装-ripcord",
+      "EQ_Model": "Ripcord install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 328,
+      "EQ_SN": "9200000624050640",
+      "EQ_Name": "组装-ripcord",
+      "EQ_Model": "Ripcord install fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 329,
+      "EQ_SN": "9200000624050641",
+      "EQ_Name": "组装-喷墨打印",
+      "EQ_Model": "DPO fixture",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 330,
+      "EQ_SN": "9200000624050642",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 331,
+      "EQ_SN": "9200000624050643",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 332,
+      "EQ_SN": "9200000624050644",
+      "EQ_Name": "LCD 测试",
+      "EQ_Model": "Pull test",
+      "Line": "E11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 333,
+      "EQ_SN": "9200000624050817",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 334,
+      "EQ_SN": "9200000624050818",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 335,
+      "EQ_SN": "9200000624050819",
+      "EQ_Name": "组装-背光纸",
+      "EQ_Model": "KB backlight install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 336,
+      "EQ_SN": "9200000624050820",
+      "EQ_Name": "压合-Mic",
+      "EQ_Model": "Mic press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 337,
+      "EQ_SN": "9200000624050821",
+      "EQ_Name": "压合-Mic",
+      "EQ_Model": "Mic press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 338,
+      "EQ_SN": "9200000624050825",
+      "EQ_Name": "贴附-PCM",
+      "EQ_Model": "PCM auto install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 339,
+      "EQ_SN": "9200000624050826",
+      "EQ_Name": "加热-PCM",
+      "EQ_Model": "PCM heated press fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 340,
+      "EQ_SN": "9200000624050827",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 341,
+      "EQ_SN": "9200000624050828",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 342,
+      "EQ_SN": "9200000624050830",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 343,
+      "EQ_SN": "9200000624050831",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 344,
+      "EQ_SN": "9200000624050832",
+      "EQ_Name": "镭雕-Base",
+      "EQ_Model": "Laser etching fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 345,
+      "EQ_SN": "9200000624050833",
+      "EQ_Name": "量测-X-ray",
+      "EQ_Model": "X-ray fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 346,
+      "EQ_SN": "9200000624050834",
+      "EQ_Name": "外观检测-AOI",
+      "EQ_Model": "COS AOI fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 347,
+      "EQ_SN": "9200000624050840",
+      "EQ_Name": "组装-ripcord",
+      "EQ_Model": "Ripcord install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 348,
+      "EQ_SN": "9200000624050841",
+      "EQ_Name": "组装-ripcord",
+      "EQ_Model": "Ripcord install fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 349,
+      "EQ_SN": "9200000624050842",
+      "EQ_Name": "组装-喷墨打印",
+      "EQ_Model": "DPO fixture",
+      "Line": "C11",
+      "Status": "No checking"
+    },
+    {
+      "Number_Order": 350,
+      "EQ_SN": "9700000190500312",
+      "EQ_Name": "Robot-BATT",
+      "EQ_Model": "Battery Press Robot",
+      "Line": "B11",
+      "Status": "No checking"
+    }
+  ]
+}
