@@ -8,6 +8,7 @@ using Shared.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -69,38 +70,67 @@ namespace Application.Services
                 .ToList();
         }
 
-        public async Task<ApiResponse<FixtureFilterOptionDto>> GetFilterOptionsAsync()
+        public async Task<Result<FixtureFilterOptionDto>> GetFilterOptionsAsync()
         {
             try
             {
-                var typeResult = await _fixtureRepository.GetTypesAsync();
-                var lineResult = await _fixtureRepository.GetLinesAsync();
-                var departmentResult = await _fixtureRepository.GetDepartmentsAsync();
+                var types = await _fixtureRepository.GetTypesAsync();
+                var lines = await _fixtureRepository.GetLinesAsync();
+                var departments = await _fixtureRepository.GetDepartmentsAsync();
 
-                var success = typeResult.Result.IsPass() && lineResult.Result.IsPass() && departmentResult.Result.IsPass();
+                //var success = typeResult.Result.IsPass() && lineResult.Result.IsPass() && departmentResult.Result.IsPass();
 
-                return new ApiResponse<FixtureFilterOptionDto>
+                var result = new FixtureFilterOptionDto
                 {
-                    Success = success,
-                    Message = success ? "Get filter options OK!" : "Get filter options failed.",
-                    Data = success ? new FixtureFilterOptionDto
-                    {
-                        Types = typeResult.Data,
-                        Lines = lineResult.Data,
-                        Departments = departmentResult.Data
-                    } : null
+                    Types = types,
+                    Lines = lines,
+                    Departments = departments
                 };
+
+                return Result<FixtureFilterOptionDto>.Ok(result, "Success");
+            }
+            catch (SqlException ex)
+            {
+                return Result<FixtureFilterOptionDto>.Fail(ex.Message, "DB_ERROR");
             }
             catch (Exception ex)
             {
-                return new ApiResponse<FixtureFilterOptionDto>
-                {
-                    Success = false,
-                    Message = ex.Message,
-                    Data = null
-                };
+                return Result<FixtureFilterOptionDto>.Fail(ex.Message, "SYSTEM_ERROR");
             }
         }
+
+        //public async Task<ApiResponse<FixtureFilterOptionDto>> GetFilterOptionsAsync()
+        //{
+        //    try
+        //    {
+        //        var typeResult = await _fixtureRepository.GetTypesAsync();
+        //        var lineResult = await _fixtureRepository.GetLinesAsync();
+        //        var departmentResult = await _fixtureRepository.GetDepartmentsAsync();
+
+        //        var success = typeResult.Result.IsPass() && lineResult.Result.IsPass() && departmentResult.Result.IsPass();
+
+        //        return new ApiResponse<FixtureFilterOptionDto>
+        //        {
+        //            Success = success,
+        //            Message = success ? "Get filter options OK!" : "Get filter options failed.",
+        //            Data = success ? new FixtureFilterOptionDto
+        //            {
+        //                Types = typeResult.Data,
+        //                Lines = lineResult.Data,
+        //                Departments = departmentResult.Data
+        //            } : null
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new ApiResponse<FixtureFilterOptionDto>
+        //        {
+        //            Success = false,
+        //            Message = ex.Message,
+        //            Data = null
+        //        };
+        //    }
+        //}
 
         public async Task<ApiResponse<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
         {

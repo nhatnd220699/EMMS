@@ -221,7 +221,7 @@ namespace Infrastructure.Repositories
             return "[" + string.Join(",", imagePaths.Select(x => "\"" + EscapeJsonString(x) + "\"")) + "]";
         }
 
-        private async Task<DataDto<List<string>>> GetStringListAsync(string funcType)
+        private async Task<List<string>> GetStringListAsync(string funcType)
         {
             using (var conn = _db.CreateConnection())
             {
@@ -234,39 +234,87 @@ namespace Infrastructure.Repositories
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
 
-                    var rows = await multi.ReadAsync<dynamic>();
-                    var data = rows
-                                .Select(x => ((IDictionary<string, object>)x)
-                                    .Values
-                                    .FirstOrDefault()?.ToString())
-                                .Where(x => !string.IsNullOrWhiteSpace(x))
-                                .ToList();
-
-
-                    return new DataDto<List<string>>
+                    if (result == null)
                     {
-                        Result = result?.Result,
-                        Message = result?.Message,
-                        Data = data
-                    };
+                        throw new Exception("Stored procedure returned no status.");
+                    }
+
+                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new Exception(result.Message);
+                    }
+
+                    var rows = await multi.ReadAsync<dynamic>();
+
+                    return rows
+                        .Select(x => ((IDictionary<string, object>)x)
+                            .Values
+                            .FirstOrDefault()?.ToString())
+                        .Where(x => !string.IsNullOrWhiteSpace(x))
+                        .ToList();
                 }
             }
         }
 
-        public Task<DataDto<List<string>>> GetTypesAsync()
+        public Task<List<string>> GetTypesAsync()
         {
             return GetStringListAsync("Get_Type");
         }
-
-        public Task<DataDto<List<string>>> GetLinesAsync()
+        public Task<List<string>> GetLinesAsync()
         {
             return GetStringListAsync("Get_Line");
         }
-
-        public Task<DataDto<List<string>>> GetDepartmentsAsync()
+        public Task<List<string>> GetDepartmentsAsync()
         {
             return GetStringListAsync("Get_Dept");
         }
+
+        //private async Task<DataDto<List<string>>> GetStringListAsync(string funcType)
+        //{
+        //    using (var conn = _db.CreateConnection())
+        //    {
+        //        using (var multi = await conn.QueryMultipleAsync(
+        //            "Maintenance_Fixture_Portal",
+        //            BuildParameters(funcType),
+        //            commandType: CommandType.StoredProcedure,
+        //            commandTimeout: 180)
+        //        )
+        //        {
+        //            var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+        //            var rows = await multi.ReadAsync<dynamic>();
+        //            var data = rows
+        //                        .Select(x => ((IDictionary<string, object>)x)
+        //                            .Values
+        //                            .FirstOrDefault()?.ToString())
+        //                        .Where(x => !string.IsNullOrWhiteSpace(x))
+        //                        .ToList();
+
+
+        //            return new DataDto<List<string>>
+        //            {
+        //                Result = result?.Result,
+        //                Message = result?.Message,
+        //                Data = data
+        //            };
+        //        }
+        //    }
+        //}
+
+        //public Task<DataDto<List<string>>> GetTypesAsync()
+        //{
+        //    return GetStringListAsync("Get_Type");
+        //}
+
+        //public Task<DataDto<List<string>>> GetLinesAsync()
+        //{
+        //    return GetStringListAsync("Get_Line");
+        //}
+
+        //public Task<DataDto<List<string>>> GetDepartmentsAsync()
+        //{
+        //    return GetStringListAsync("Get_Dept");
+        //}
 
         public async Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
         {

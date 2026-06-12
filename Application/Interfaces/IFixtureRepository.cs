@@ -8,9 +8,12 @@ namespace Application.Interfaces
 {
     public interface IFixtureRepository
     {
-        Task<DataDto<List<string>>> GetTypesAsync();
-        Task<DataDto<List<string>>> GetLinesAsync();
-        Task<DataDto<List<string>>> GetDepartmentsAsync();
+        Task<List<string>> GetTypesAsync();
+        Task<List<string>> GetLinesAsync();
+        Task<List<string>> GetDepartmentsAsync();
+        //Task<DataDto<List<string>>> GetTypesAsync();
+        //Task<DataDto<List<string>>> GetLinesAsync();
+        //Task<DataDto<List<string>>> GetDepartmentsAsync();
         //Task<DataDto<FixtureFilterOptionDto>> GetFilterOptionsAsync();
         Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn);
         //Task<DataDto<FixtureMonthlyDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn);

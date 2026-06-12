@@ -615,8 +615,8 @@
         };
 
         /**
-            * KPI Updates
-            */
+        * KPI Updates
+        */
         const updateKPIs = async () => {
             const counts = FIXTURE_DATASET.reduce((acc, curr) => {
                 acc[curr.status] = (acc[curr.status] || 0) + 1;
@@ -826,8 +826,8 @@
         };
 
         /**
-            * Navbar Title Sync Logic
-            */
+        * Navbar Title Sync Logic
+        */
         const updateNavbarTitle = (element) => {
             const titleEl = document.getElementById("navbar-dynamic-title");
             if (!titleEl || !element) return;

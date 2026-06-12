@@ -46,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ApiResponse.cs" />
+    <Compile Include="Common\ApiResponseNew.cs" />
     <Compile Include="Common\DataDto.cs" />
+    <Compile Include="Common\Result.cs" />
     <Compile Include="DTOs\FilterDto.cs" />
     <Compile Include="DTOs\FixtureDaily2Dto.cs" />
     <Compile Include="DTOs\FixtureDailyHeaderRawDto.cs" />

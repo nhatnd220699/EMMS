@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace EMMS.Controllers
 {
@@ -81,18 +82,47 @@ namespace EMMS.Controllers
                 if (!IsLoggedIn()) return LoginRequired<FixtureFilterOptionDto>();
 
                 var result = await _fixtureService.GetFilterOptionsAsync();
-                return Ok(result);
+               
+                if (!result.Success)
+                {
+                    switch (result.ErrorCode)
+                    {
+                        case "DB_ERROR":
+                            return Content(HttpStatusCode.InternalServerError, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                        default:
+                            return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                    }
+                }
+
+                return Ok(ApiResponseNew<FixtureFilterOptionDto>.Ok(result.Data, result.Message));
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponse<FixtureFilterOptionDto>
-                {
-                    Success = false,
-                    Message = ex.GetBaseException().Message,
-                    Data = null
-                });
+                return InternalServerError(ex);
             }
         }
+
+        //[HttpGet]
+        //[Route("options")]
+        //public async Task<IHttpActionResult> GetFilterOptions()
+        //{
+        //    try
+        //    {
+        //        if (!IsLoggedIn()) return LoginRequired<FixtureFilterOptionDto>();
+
+        //        var result = await _fixtureService.GetFilterOptionsAsync();
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new ApiResponse<FixtureFilterOptionDto>
+        //        {
+        //            Success = false,
+        //            Message = ex.GetBaseException().Message,
+        //            Data = null
+        //        });
+        //    }
+        //}
 
         [HttpGet]
         [Route("dashboard")]
@@ -182,35 +212,6 @@ namespace EMMS.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("daily/save")]
-        //public async Task<IHttpActionResult> SaveFixtureDaily()
-        //{
-        //    try
-        //    {
-        //        var httpRequest = HttpContext.Current.Request;
-        //        var fixture = BuildFixtureFromRequest(httpRequest);
-
-        //        var type = GetFormValue(httpRequest, "type", "FATP");
-        //        var line = GetFormValue(httpRequest, "line", "");
-        //        var department = GetFormValue(httpRequest, "department", "");
-
-        //        SaveImageFiles(httpRequest, fixture);
-
-        //        var result = await _fixtureService.SaveFixtureDailyAsync(type, line, department, fixture);
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Ok(new ApiResponse<FixtureDailyDto>
-        //        {
-        //            Success = false,
-        //            Message = ex.GetBaseException().Message,
-        //            Data = null
-        //        });
-        //    }
-        //}
-
         [HttpPost]
         [Route("image/getInfo")]
         public async Task<IHttpActionResult> GetImageInfo()
@@ -260,8 +261,7 @@ namespace EMMS.Controllers
 
                 if (request == null || request.Form.Count == 0)
                 {
-                    return Content(HttpStatusCode.BadRequest,
-                        new { success = false, message = "Form no data" });
+                    return Content(HttpStatusCode.BadRequest, new { success = false, message = "Form no data" });
                 }
 
                 var model = _fixtureMapper.Map(request);
