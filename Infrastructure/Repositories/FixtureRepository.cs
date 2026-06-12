@@ -300,7 +300,7 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<DataDto<FixtureMonthlyRawDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn)
+        public async Task<DataDto<FixtureMonthlyRawDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay)
         {
             try
             {
@@ -308,7 +308,7 @@ namespace Infrastructure.Repositories
                 {
                     using (var multi = await conn.QueryMultipleAsync(
                         "Maintenance_Fixture_Portal",
-                        BuildParameters("Get_Equipment_By_Month", type, line, department, eqSn),
+                        BuildParameters("Get_Equipment_By_Month", type, line, department, eqSn, chkDay),
                         commandType: CommandType.StoredProcedure,
                         commandTimeout: 180)
                     )

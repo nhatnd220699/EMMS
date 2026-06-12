@@ -48,6 +48,7 @@
     <Compile Include="Common\ApiResponse.cs" />
     <Compile Include="Common\DataDto.cs" />
     <Compile Include="DTOs\FilterDto.cs" />
+    <Compile Include="DTOs\FixtureDaily2Dto.cs" />
     <Compile Include="DTOs\FixtureDailyHeaderRawDto.cs" />
     <Compile Include="DTOs\FixtureDailyRawDto.cs" />
     <Compile Include="DTOs\FixtureDailyRowRawDto.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="DTOs\FixtureMonthlyRawDto.cs" />
     <Compile Include="DTOs\FixtureMonthlyRowRawDto.cs" />
     <Compile Include="DTOs\ResultMessageDto.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Mapper;
 using Application.Services;
 using Infrastructure.Repositories;
 using Shared.Common;
@@ -24,9 +25,51 @@ namespace EMMS.Controllers
     public class FixtureController : ApiController
     {
         private readonly IFixtureService _fixtureService;
+        private readonly IFixtureMapper _fixtureMapper;
+
         public FixtureController()
         {
-            _fixtureService = new FixtureService(new FixtureRepository());
+            _fixtureService = new FixtureService(new FixtureRepository(), new FileService());
+            _fixtureMapper = new FixtureMapper();
+        }
+
+        private bool IsLoggedIn()
+        {
+            return HttpContext.Current != null
+                && HttpContext.Current.Session != null
+                && HttpContext.Current.Session["UserId"] != null;
+        }
+
+        private string GetCurrentUserId()
+        {
+            if (!IsLoggedIn()) return "";
+
+            return HttpContext.Current.Session["UserId"].ToString();
+        }
+
+        private IHttpActionResult LoginRequired<T>()
+        {
+            return Content(HttpStatusCode.Unauthorized, new ApiResponse<T>
+            {
+                Success = false,
+                Message = "LOGIN_REQUIRED",
+                Data = default(T)
+            });
+        }
+
+        private void ApplySessionUserToFixture(FixtureDailyDto fixture)
+        {
+            var currentUserId = GetCurrentUserId();
+            if (fixture == null || fixture.CheckItems == null || string.IsNullOrWhiteSpace(currentUserId))
+                return;
+
+            foreach (var item in fixture.CheckItems)
+            {
+                if (fixture.IsApproverMode)
+                    item.Approval_ID = currentUserId;
+                else
+                    item.Upload_ID = currentUserId;
+            }
         }
 
         [HttpGet]
@@ -35,6 +78,8 @@ namespace EMMS.Controllers
         {
             try
             {
+                if (!IsLoggedIn()) return LoginRequired<FixtureFilterOptionDto>();
+
                 var result = await _fixtureService.GetFilterOptionsAsync();
                 return Ok(result);
             }
@@ -55,6 +100,8 @@ namespace EMMS.Controllers
         {
             try
             {
+                if (!IsLoggedIn()) return LoginRequired<List<FixtureDashboardDto>>();
+
                 var result = await _fixtureService.GetFixtureDashboardsAsync(type, line, department, fixtureSN);
                 return Ok(result);
             }
@@ -71,10 +118,12 @@ namespace EMMS.Controllers
 
         [HttpGet]
         [Route("monthly")]
-        public async Task<IHttpActionResult> GetFixtureMonthly(string eqSn, string type = "FATP", string line = "", string department = "")
+        public async Task<IHttpActionResult> GetFixtureMonthly(string eqSn, string type = "FATP", string line = "", string department = "", string month = "")
         {
             try
             {
+                if (!IsLoggedIn()) return LoginRequired<FixtureMonthlyDto>();
+
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {
                     return Ok(new ApiResponse<FixtureMonthlyDto>
@@ -85,7 +134,8 @@ namespace EMMS.Controllers
                     });
                 }
 
-                var result = await _fixtureService.GetFixtureMonthlyAsync(type, line, department, eqSn);
+                var chkDay = ToMonthChkDay(month);
+                var result = await _fixtureService.GetFixtureMonthlyAsync(type, line, department, eqSn, chkDay);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -107,6 +157,8 @@ namespace EMMS.Controllers
             {
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {
+                    if (!IsLoggedIn()) return LoginRequired<FixtureDailyDto>();
+
                     return Ok(new ApiResponse<FixtureDailyDto>
                     {
                         Success = false,
@@ -199,6 +251,41 @@ namespace EMMS.Controllers
 
 
         [HttpPost]
+        [Route("daily/submit2")]
+        public async Task<IHttpActionResult> SaveFixture2()
+        {
+            try
+            {
+                var request = HttpContext.Current.Request;
+
+                if (request == null || request.Form.Count == 0)
+                {
+                    return Content(HttpStatusCode.BadRequest,
+                        new { success = false, message = "Form no data" });
+                }
+
+                var model = _fixtureMapper.Map(request);
+
+                var result = await _fixtureService.SaveFixtureDaily2Async(model, request.Files);
+
+
+                return Ok(new
+                {
+                    success = result.Success,
+                    message = result.Success ? "Saved successfully" : "Save fail!"
+                });
+
+            }
+
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+        }
+
+
+        [HttpPost]
         [Route("daily/submit")]
         public async Task<IHttpActionResult> SaveFixture()
         {
@@ -248,6 +335,7 @@ namespace EMMS.Controllers
                 }
 
                 var rootFolder = ConfigurationManager.AppSettings["FixtureImageRoot"];
+                var relativeImgPath = ConfigurationManager.AppSettings["RelativeImgPath"] ?? "";
 
                 // build folder theo ngày
                 var today = DateTime.Now;
@@ -277,29 +365,49 @@ namespace EMMS.Controllers
                     // ảnh cũ
                     if (item.ExistingImagePaths != null)
                     {
-                        imagePaths.AddRange(item.ExistingImagePaths);
+                        //format lại path của ảnh cũ
+                        var formattedPaths = item.ExistingImagePaths
+                                .Where(p => !string.IsNullOrWhiteSpace(p))
+                                .Select(p =>
+                                    p.StartsWith(relativeImgPath, StringComparison.OrdinalIgnoreCase)
+                                        ? p.Substring(relativeImgPath.Length) // cắt bỏ prefix
+                                        : p
+                                )
+                                .ToList();
+
+                        imagePaths.AddRange(formattedPaths);
                     }
 
                     // ảnh mới
                     if (item.NewFiles != null)
                     {
+                        int fileIndex = 1;
                         foreach (var file in item.NewFiles)
                         {
                             if (file == null || file.ContentLength == 0) continue;
 
+                            // sanitize (khuyến nghị)
+                            var eqSnSafe = (model.EQ_SN ?? "").Replace(" ", "").Replace("/", "_");
+                            var mtNoSafe = (item.MT_No ?? "").Replace(" ", "").Replace("/", "_");
+
                             var ext = Path.GetExtension(file.FileName);
 
-                            var fileName = $"{Guid.NewGuid()}{ext}";
+                            var guidPart = Guid.NewGuid().ToString("N"); // không có dấu -
+
+                            //var fileName = $"{Guid.NewGuid()}{ext}";
+
+                            var fileName = $"{eqSnSafe}_{mtNoSafe}_{fileIndex}_{guidPart}{ext}";
 
                             var physicalPath = Path.Combine(fullFolder, fileName);
 
                             file.SaveAs(physicalPath);
 
                             // Logical path trả về
-                            var relativePath = $"Fixture/{subFolder.Replace("\\", "/")}/{fileName}";
+                            var relativePath = $"/{subFolder.Replace("\\", "/")}/{fileName}";
 
                             imagePaths.Add(relativePath);
 
+                            fileIndex++;
                         }
                     }
 
@@ -439,6 +547,26 @@ namespace EMMS.Controllers
                 return result.ToString("yyyyMMdd");
 
             return DateTime.TryParse(date, out result) ? result.ToString("yyyyMMdd") : "";
+        }
+
+        private string ToMonthChkDay(string month)
+        {
+            if (string.IsNullOrWhiteSpace(month)) return "";
+
+            DateTime result;
+            if (DateTime.TryParseExact(month, "yyyy-MM", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                return new DateTime(result.Year, result.Month, 1).ToString("yyyyMMdd");
+
+            if (DateTime.TryParseExact(month, "yyyyMM", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                return new DateTime(result.Year, result.Month, 1).ToString("yyyyMMdd");
+
+            if (DateTime.TryParseExact(month, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                return new DateTime(result.Year, result.Month, 1).ToString("yyyyMMdd");
+
+            if (DateTime.TryParseExact(month, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                return new DateTime(result.Year, result.Month, 1).ToString("yyyyMMdd");
+
+            return DateTime.TryParse(month, out result) ? new DateTime(result.Year, result.Month, 1).ToString("yyyyMMdd") : "";
         }
 
         //private string GetFormValue(HttpRequest request, string key, string defaultValue = "")

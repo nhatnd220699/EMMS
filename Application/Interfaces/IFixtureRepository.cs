@@ -14,7 +14,7 @@ namespace Application.Interfaces
         //Task<DataDto<FixtureFilterOptionDto>> GetFilterOptionsAsync();
         Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn);
         //Task<DataDto<FixtureMonthlyDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn);
-        Task<DataDto<FixtureMonthlyRawDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn);
+        Task<DataDto<FixtureMonthlyRawDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay);
         //Task<DataDto<FixtureDto>> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode);
         Task<DataDto<FixtureDailyRawDto>> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode);
         //Task<DataDto<FixtureDailyDto>> SaveFixtureDailyAsync(string type, string line, string department, FixtureDailyDto fixture);

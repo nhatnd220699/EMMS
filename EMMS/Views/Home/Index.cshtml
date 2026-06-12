@@ -1,5 +1,10 @@
-﻿@{
-    ViewBag.Title = "Fixture Maintenance";
+﻿@using System.Web
+@{
+    ViewBag.Title = "Fixture Management";
+    var currentRoleFromSession = (Session["CurrentRole"] ?? "uploader").ToString();
+    var currentUserIdFromSession = (Session["UserId"] ?? "").ToString();
+    var currentUserNameFromSession = (Session["UserName"] ?? "").ToString();
+    var roleFromSession = (Session["Role"] ?? "").ToString();
 }
 
 @section styles {
@@ -15,7 +20,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">Total</small>
+                                   style="font-size: 12px">Total Maintenance</small>
                             <h4 class="mb-0 fw-bold" id="kpi-total">50</h4>
                         </div>
                         <div class="kpi-icon-box bg-light text-primary">
@@ -29,8 +34,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
-                                No
-                                checking
+                                No Maintenance
                             </small>
                             <h4 class="mb-0 fw-bold text-danger" id="kpi-maintenance">
                                 0
@@ -47,7 +51,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">Ongoing</small>
+                                   style="font-size: 12px">Maintenance Ongoing</small>
                             <!-- <h4 class="mb-0 fw-bold" id="kpi-waiting" style="color: var(--tertiary);">0</h4> -->
                             <h4 class="mb-0 fw-bold text-warning" id="kpi-waiting">
                                 0
@@ -64,7 +68,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">Done</small>
+                                   style="font-size: 12px">Maintenance Done</small>
                             <h4 class="mb-0 fw-bold text-success" id="kpi-completed">
                                 0
                             </h4>
@@ -144,6 +148,14 @@
                 <div>
                     <h5 class="fw-bold mb-1" id="maintenanceModalLabel">Machine</h5>
                     <p class="text-muted small mb-0" id="modalFixtureId">Fixture ID: --</p>
+                </div>
+                <div class="d-flex align-items-center gap-2 ms-auto me-3">
+                    <label class="small text-muted fw-semibold mb-0" for="monthlyReportMonth">Month:</label>
+                    <input class="form-control form-control-sm" id="monthlyReportMonth" style="width: 150px" type="month" />
+                    <button class="btn btn-sm btn-primary d-flex align-items-center gap-1" id="monthlyReportSearchBtn" type="button">
+                        <span class="material-symbols-outlined fs-6">search</span>
+                        Search
+                    </button>
                 </div>
                 <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
@@ -264,15 +276,15 @@
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     @*<div class="btn-group border rounded" role="group">
-                        <input autocomplete="off" checked="" class="btn-check" id="roleUploader" name="roleToggle"
-                               type="radio" />
-                        <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
-                               for="roleUploader">Uploader Mode</label>
-                        <input autocomplete="off" class="btn-check" id="roleApprover" name="roleToggle"
-                               type="radio" />
-                        <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
-                               for="roleApprover">Approver Mode</label>
-                    </div>*@
+                            <input autocomplete="off" checked="" class="btn-check" id="roleUploader" name="roleToggle"
+                                   type="radio" />
+                            <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
+                                   for="roleUploader">Uploader Mode</label>
+                            <input autocomplete="off" class="btn-check" id="roleApprover" name="roleToggle"
+                                   type="radio" />
+                            <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
+                                   for="roleApprover">Approver Mode</label>
+                        </div>*@
                     <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
                 </div>
             </div>
@@ -384,14 +396,22 @@
         let activeFixture = null;
         let activeFixtureObject = null;
         let activeMonthlyData = null;
+        let activeMonthlyMonth = "";
         let activeDailyData = null;
         let activeDetailDay = null;
         let activeDetailDate = null;
         let activeMaintenanceItems = [];
-        let currentRole = "uploader";
-        let uploadedFiles = {};
-        const DEFAULT_UPLOAD_ID = "V5070000";
-        const DEFAULT_APPROVAL_ID = "V4070216";
+        let currentRole = "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
+       let uploadedFiles = {};
+       const CURRENT_USER_ID = "@HttpUtility.JavaScriptStringEncode(currentUserIdFromSession)";
+       const CURRENT_USER_NAME = "@HttpUtility.JavaScriptStringEncode(currentUserNameFromSession)";
+       const CURRENT_SESSION_ROLE = "@HttpUtility.JavaScriptStringEncode(roleFromSession)";
+       const CAN_APPROVE = CURRENT_SESSION_ROLE.toLowerCase() === "admin";
+       const DEFAULT_UPLOAD_ID = CURRENT_USER_ID || "V5070000";
+       const DEFAULT_APPROVAL_ID = CURRENT_USER_ID || "V4070216";
+
+
+
         let isApproved;
 
         let startEdit = false;
@@ -461,6 +481,12 @@
 
         const fetchJson = async (url) => {
             const response = await fetch(url, { method: "GET" });
+
+             if (response.status === 401) {
+                 window.location.href = '@Url.Action("Index", "Login")';
+                 return null;
+             }
+
             const text = await response.text();
             let data = null;
 
@@ -488,6 +514,57 @@
             });
 
             return query.toString();
+        };
+
+        const getCurrentMonthValue = () => {
+            const now = new Date();
+            return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        };
+
+        const toMonthInputValue = (year, month) => {
+            const y = parseInt(year);
+            const m = parseInt(month);
+
+            if (!y || !m) return "";
+
+            return `${y}-${String(m).padStart(2, "0")}`;
+        };
+
+        const getMonthlyInputValue = () => {
+            const input = document.getElementById("monthlyReportMonth");
+            return input ? input.value : "";
+        };
+
+        const setMonthlyLoading = () => {
+            document.getElementById("maintenance-body").innerHTML =
+                '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly report...</td></tr>';
+        };
+
+        const bindMonthlyHeader = (fixture) => {
+            const reportYear = getProp(activeMonthlyData, "year", "Year") || "";
+            const reportMonth = getProp(activeMonthlyData, "month", "Month") || "";
+
+            document.getElementById("maintenanceModalLabel").textContent =
+                getProp(activeMonthlyData, "eQ_Name", "EQ_Name") || fixture.eqName || "Machine";
+            document.getElementById("modalLine").textContent =
+                getProp(activeMonthlyData, "line", "Line") || fixture.line || "";
+            document.getElementById("modalShift").textContent =
+                getProp(activeMonthlyData, "shift", "Shift") || "";
+            document.getElementById("modalYear").textContent = reportYear;
+            document.getElementById("modalMonth").textContent = reportMonth;
+            document.getElementById("modalDeviceName").textContent =
+                getProp(activeMonthlyData, "eQ_Name", "EQ_Name") || "";
+            document.getElementById("modalDeviceMod").textContent =
+                getProp(activeMonthlyData, "eQ_Model", "EQ_Model") || "";
+            document.getElementById("modalDeviceNo").textContent =
+                getProp(activeMonthlyData, "eQ_SN", "EQ_SN") || fixture.fixture || "";
+
+            const monthValue = toMonthInputValue(reportYear, reportMonth);
+            if (monthValue) {
+                const input = document.getElementById("monthlyReportMonth");
+                if (input) input.value = monthValue;
+                activeMonthlyMonth = monthValue;
+            }
         };
 
         const normalizeDateText = (value) => {
@@ -527,7 +604,7 @@
 
         const loadFilterOptions = async () => {
             try {
-                const options = await fetchJson("/api/fixture/options");
+                const options = await fetchJson("api/fixture/options");
 
                 fillSelect("type", getProp(options, "types", "Types"), "All type");
                 fillSelect("line", getProp(options, "lines", "Lines"), "All line");
@@ -569,7 +646,7 @@
                     fixtureSN: DATASET.fixtureSNInput
                 };
                 const query = buildQuery(params);
-                const data = await fetchJson(`/api/fixture/dashboard${query ? `?${query}` : ""}`);
+                const data = await fetchJson(`api/fixture/dashboard${query ? `?${query}` : ""}`);
                 FIXTURE_DATASET = (data || [])
                     .map(normalizeFixture)
                     .sort((a, b) => (Number(a.numberOrder) || 0) - (Number(b.numberOrder) || 0));
@@ -612,18 +689,18 @@
                         "col-6 col-sm-4 col-md-3 col-lg-3 col-xxl-2 fixture-grid-item";
                     col.style.animationDelay = `${idx * 0.015}s`;
                     col.innerHTML = `
-                                    <div class="fixture-card h-100">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
-                                            <div class="status-dot ${style.dot} shadow-sm"></div>
+                                        <div class="fixture-card h-100">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
+                                                <div class="status-dot ${style.dot} shadow-sm"></div>
+                                            </div>
+                                            <div class="mb-1">
+                                                <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
+                                            </div>
+                                            <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
+                                            <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
                                         </div>
-                                        <div class="mb-1">
-                                            <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
-                                        </div>
-                                        <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
-                                        <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
-                                    </div>
-                                `;
+                                    `;
 
                     // Add click event for modal
                     col.addEventListener("click", () => openMaintenanceModal(fix));
@@ -779,6 +856,11 @@
             }
 
             // Fill modal details
+            activeMonthlyMonth = getCurrentMonthValue();
+            const monthlyInput = document.getElementById("monthlyReportMonth");
+            if (monthlyInput) monthlyInput.value = activeMonthlyMonth;
+
+            // Fill modal details
             document.getElementById("maintenanceModalLabel").textContent = fixture.eqName || "Machine";
             document.getElementById("modalFixtureId").textContent =
                 `Fixture ID: ${fixture.fixture ?? ""}`;
@@ -789,8 +871,9 @@
             document.getElementById("modalDeviceName").textContent = fixture.eqName ?? "";
             document.getElementById("modalDeviceMod").textContent = fixture.eqModel ?? "";
             document.getElementById("modalDeviceNo").textContent = fixture.fixture ?? "";
-            document.getElementById("maintenance-body").innerHTML =
-                '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly report...</td></tr>';
+            //document.getElementById("maintenance-body").innerHTML =
+            //    '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly report...</td></tr>';
+            setMonthlyLoading();
 
             maintenanceModalInstance.show();
 
@@ -802,7 +885,7 @@
                     eqSn: fixture.fixture
                 };
                 const query = buildQuery(params);
-                activeMonthlyData = await fetchJson(`/api/fixture/monthly?${query}`);
+                activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
 
                 document.getElementById("maintenanceModalLabel").textContent =
@@ -876,7 +959,7 @@
                     isApproverMode: currentRole === "approver"
                 };
                 const query = buildQuery(params);
-                activeDailyData = await fetchJson(`/api/fixture/daily?${query}`);
+                activeDailyData = await fetchJson(`api/fixture/daily?${query}`);
                 renderDetailRows();
             } catch (error) {
                 document.getElementById("detail-form-body").innerHTML =
@@ -920,18 +1003,18 @@
             div._path = existingPath;
 
             div.innerHTML = `
-                            <a href="${url}" data-mtNo="${rowId}" data-fancybox="gallery-${rowId}">
-                                <img src="${url}" alt="preview" >
-                            </a>
-                            ${currentRole === "uploader"
+                                <a href="${url}" data-mtNo="${rowId}" data-fancybox="gallery-${rowId}">
+                                    <img src="${url}" alt="preview" >
+                                </a>
+                                ${currentRole === "uploader"
                     ? `
-                                <button type="button" class="remove-btn">
-                                    <span class="material-symbols-outlined">close</span>
-                                </button>
-                            `
+                                    <button type="button" class="remove-btn">
+                                        <span class="material-symbols-outlined">close</span>
+                                    </button>
+                                `
                     : ""
                 }
-                        `;
+                            `;
 
             div.querySelector(".remove-btn")?.addEventListener("click", () => {
                 if (div._file && div._url) URL.revokeObjectURL(div._url); //cleanup
@@ -945,7 +1028,7 @@
             const formData = new FormData();
             formData.append("file", fileList[0]);
 
-            const response = await fetch('/api/fixture/image/getInfo', {
+            const response = await fetch('api/fixture/image/getInfo', {
                 method: 'POST',
                 body: formData
             });
@@ -953,7 +1036,7 @@
             return resulcheckImageTimet = await response.json();
         }
 
-        function checkImageTime (timestamp, rowId) {
+        function checkImageTime(timestamp, rowId) {
             // Parse chuỗi
             const parts = timestamp.split(" ");
 
@@ -1002,11 +1085,11 @@
             const resultArr = IMAGE_CHECK[rowId] || [];
 
             let resultUploader = 'NA';
-            if (resultArr.includes('NA')){
+            if (resultArr.includes('NA')) {
                 resultUploader = 'NA';
             }
 
-            if (resultArr.includes('NG')){
+            if (resultArr.includes('NG')) {
                 resultUploader = 'NG';
             }
 
@@ -1048,7 +1131,7 @@
             const editBtn = document.querySelector('#editUploader');
             const cancelBtn = document.querySelector('#cancelUploader');
             const approveBtn = document.querySelector('#approveAll');
-   
+
             if (isToday(activeDetailDate)) {
                 if (role == "uploader") {
                     approverAction.classList.add('d-none');
@@ -1075,7 +1158,13 @@
                     }
                     else if (isApproved) {
                         // đã ký rồi → chỉ hiện EDIT (readonly)
-                        editBtn.classList.remove('d-none');
+                        //editBtn.classList.remove('d-none');
+
+                        //if (buttonClick) {
+                        //    editBtn.classList.add('d-none');
+                        //    saveBtn.classList.remove('d-none');
+                        //    cancelBtn.classList.remove('d-none');
+                        //}
                     }
                 }
                 else if (role == "approver") {
@@ -1084,7 +1173,7 @@
 
                     if (!isUploaded) {
                         // CHƯA upload → KHÔNG cho ký
-                        console.log("Chưa upload -> không thể approve");
+                        //console.log("Chưa upload -> không thể approve");
                     }
                     else if (isUploaded && !isApproved) {
                         // đủ điều kiện ký
@@ -1121,18 +1210,18 @@
 
                 let images = (item.ExistingImagePaths || []).map(url => {
                     return `
-                        <div class="gallery-item" data-path="${url}">
-                            <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
-                                <img src="${url}" alt="preview">
-                            </a>
-                            ${currentRole == "uploader" && (!isApproved || startEdit)
-                                ?`<button type="button" class="remove-btn">
-                                    <span class="material-symbols-outlined">close</span>
-                                </button>
-                                `
-                                : ''}
-                        </div>
-                    `
+                            <div class="gallery-item" data-path="${url}">
+                                <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
+                                    <img src="${url}" alt="preview">
+                                </a>
+                                ${currentRole == "uploader" && (!isApproved || startEdit)
+                            ? `<button type="button" class="remove-btn">
+                                        <span class="material-symbols-outlined">close</span>
+                                    </button>
+                                    `
+                            : ''}
+                            </div>
+                        `
                 }).join('');
 
                 PREVIEW_IMAGE[mtNo] = false;
@@ -1141,18 +1230,18 @@
                 // Image Cell Logic
                 let imageCellHtml = "";
                 if (currentRole === "uploader") {
-                    if (!isApproved || startEdit) {
+                    if (!isUploaded || startEdit) {
                         imageCellHtml = `
-                                    <div>
-                                        <div class="upload-zone mx-auto" onclick="document.getElementById('input_${mtNo}').click()">
-                                            <span class="material-symbols-outlined fs-2">add_a_photo</span>
-                                            <input type="file" id="input_${mtNo}" class="d-none" accept="image/*" onchange="handleFileUpload( this, ${mtNo} )">
+                                        <div>
+                                            <div class="upload-zone mx-auto" onclick="document.getElementById('input_${mtNo}').click()">
+                                                <span class="material-symbols-outlined fs-2">add_a_photo</span>
+                                                <input type="file" id="input_${mtNo}" class="d-none" accept="image/*" onchange="handleFileUpload( this, ${mtNo} )">
+                                            </div>
+                                            <div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">
+                                                ${images}
+                                            </div>
                                         </div>
-                                        <div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">
-                                            ${images}
-                                        </div>
-                                    </div>
-                                `;
+                                    `;
                     } else {
                         imageCellHtml = `<div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">${images}</div>`;
                     }
@@ -1162,57 +1251,57 @@
 
                 // Maintenance Result Cell Logic
                 let uploaderResultHtml = `
-                                <div class="status-radio flex-column gap-1">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <input type="radio" name="uploader_res_${mtNo}" id="uploader_resOk_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} disabled>
-                                        <label for="uploader_resOk_${mtNo}" class="text-xs">OK</label>
+                                    <div class="status-radio flex-column gap-1">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resOk_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} disabled>
+                                            <label for="uploader_resOk_${mtNo}" class="text-xs">OK</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNg_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} disabled>
+                                            <label for="uploader_resNg_${mtNo}" class="text-xs">NG</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNa_${mtNo}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} disabled>
+                                            <label for="uploader_resNa_${mtNo}" class="text-xs">NA</label>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNg_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} disabled>
-                                        <label for="uploader_resNg_${mtNo}" class="text-xs">NG</label>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNa_${mtNo}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} disabled>
-                                        <label for="uploader_resNa_${mtNo}" class="text-xs">NA</label>
-                                    </div>
-                                </div>
-                            `;
+                                `;
 
                 let approvalResultHtml = `
-                                <div class="status-radio flex-column gap-1 approver-radio">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <input type="radio" name="approver_res_${mtNo}" id="approver_resOk_${mtNo}" data-mt-no="${mtNo}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                        <label for="approver_resOk_${mtNo}" class="text-xs">OK</label>
+                                    <div class="status-radio flex-column gap-1 approver-radio">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="radio" name="approver_res_${mtNo}" id="approver_resOk_${mtNo}" data-mt-no="${mtNo}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                            <label for="approver_resOk_${mtNo}" class="text-xs">OK</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNg_${mtNo}" data-mt-no="${mtNo}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                            <label for="approver_resNg_${mtNo}" class="mtNo-xs">NG</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNa_${mtNo}" data-mt-no="${mtNo}" value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                                            <label for="approver_resNa_${mtNo}" class="text-xs">NA</label>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <input type="radio" name="approver_res_${mtNo}" id="approver_resNg_${mtNo}" data-mt-no="${mtNo}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                        <label for="approver_resNg_${mtNo}" class="mtNo-xs">NG</label>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2">
-                                        <input type="radio" name="approver_res_${mtNo}" id="approver_resNa_${mtNo}" data-mt-no="${mtNo}" value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                        <label for="approver_resNa_${mtNo}" class="text-xs">NA</label>
-                                    </div>
-                                </div>
-                            `;
+                                `;
 
                 // Remark Cell Logic
                 let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${currentRole !== "approver" ? "disabled" : ""}>${remark}</textarea>`;
 
                 tr.innerHTML = `
-                                <td class="text-center number-order">${numberOrder}</td>
-                                <td class="mt-item">
-                                    ${actionText}
-                                </td>
-                                <td class="mt-desc">
-                                    ${methodText}
-                                </td>
-                                <td>${imageCellHtml}</td>
-                                <td>${uploaderResultHtml}</td>
-                                <td class="text-center upload-id-cell">${uploadId}</td>
-                                <td class="approver-only-col">${approvalResultHtml}</td>
-                                <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
-                                <td class="text-center approver-only-col">${remarkHtml}</td>
-                            `;
+                                    <td class="text-center number-order">${numberOrder}</td>
+                                    <td class="mt-item">
+                                        ${actionText}
+                                    </td>
+                                    <td class="mt-desc">
+                                        ${methodText}
+                                    </td>
+                                    <td>${imageCellHtml}</td>
+                                    <td>${uploaderResultHtml}</td>
+                                    <td class="text-center upload-id-cell">${uploadId}</td>
+                                    <td class="approver-only-col">${approvalResultHtml}</td>
+                                    <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
+                                    <td class="text-center approver-only-col">${remarkHtml}</td>
+                                `;
                 body.appendChild(tr);
             });
         };
@@ -1292,16 +1381,16 @@
                 const mtDesc = getProp(item, "mT_Desc", "MT_Desc") || "";
 
                 tr.innerHTML = `
-                                <td class="text-center">${numberOrder}</td>
-                                <td>${mtItem}</td>
-                                <td>${mtDesc}</td>
-                                ${daysHtml}
-                            `;
+                                    <td class="text-center">${numberOrder}</td>
+                                    <td>${mtItem}</td>
+                                    <td>${mtDesc}</td>
+                                    ${daysHtml}
+                                `;
                 body.appendChild(tr);
             });
         };
 
-        const refreshMonthlyModal = async () => {
+        const refreshMonthlyModal = async (showError = false) => {
             if (!activeFixtureObject) return;
 
             try {
@@ -1309,41 +1398,31 @@
                     type: DATASET.type || "FATP",
                     line: DATASET.line,
                     department: DATASET.department,
-                    eqSn: activeFixtureObject.fixture
+                    eqSn: activeFixtureObject.fixture,
+                    month: activeMonthlyMonth || getMonthlyInputValue()
                 };
                 const query = buildQuery(params);
-                activeMonthlyData = await fetchJson(`/api/fixture/monthly?${query}`);
+                activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
+                bindMonthlyHeader(activeFixtureObject);
                 initTable();
             } catch (error) {
-                console.error(error);
+
+                if (showError) {
+                    activeMonthlyData = null;
+                    activeMaintenanceItems = [];
+                    document.getElementById("maintenance-body").innerHTML =
+                        `<tr><td colspan="34" class="text-center py-4 text-danger">${error.message}</td></tr>`;
+                }
             }
         };
 
-        const getRadioValue = (name, defaultValue = "NA") => {
-            const checked = document.querySelector(`input[name="${name}"]:checked`);
-            return checked ? checked.value : defaultValue;
-        };
+        const searchMonthlyReport = async () => {
+            if (!activeFixtureObject) return;
 
-        const postFormData = async (url, formData) => {
-            const response = await fetch(url, {
-                method: "POST",
-                body: formData
-            });
-            const text = await response.text();
-            let data = null;
-
-            try {
-                data = text ? JSON.parse(text) : null;
-            } catch (error) {
-                throw new Error(text || `HTTP ${response.status}`);
-            }
-
-            if (!response.ok || !isSuccessResponse(data)) {
-                throw new Error(getResponseMessage(data));
-            }
-
-            return data;
+            activeMonthlyMonth = getMonthlyInputValue() || getCurrentMonthValue();
+            setMonthlyLoading();
+            await refreshMonthlyModal(true);
         };
 
         const collectDailyData = () => {
@@ -1427,7 +1506,7 @@
             const date = activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date"))
             const shift = getProp(activeDailyData, "shift", "Shift") || "Day"
             const isApproverMode = currentRole === "approver" ? true : false;
-/*            const itemCount = sourceRows.length;*/
+            /*            const itemCount = sourceRows.length;*/
 
             //formData.append("type", type);
             formData.append("Line", line);
@@ -1467,7 +1546,7 @@
             });
 
             try {
-                const res = await fetch('/api/fixture/daily/submit', {
+                const res = await fetch('api/fixture/daily/submit', {
                     method: 'POST',
                     body: formData
                 });
@@ -1479,7 +1558,7 @@
                 } else {
                     alert('Save fail');
                 }
-                console.log(result);
+                //console.log(result);
 
             } catch (err) {
                 console.error(err);
@@ -1586,6 +1665,15 @@
             // Refresh Button
             document.getElementById("refresh-btn").addEventListener("click", () => {
                 updateDisplay(true);
+            });
+
+            document.getElementById("monthlyReportSearchBtn").addEventListener("click", searchMonthlyReport);
+
+            document.getElementById("monthlyReportMonth").addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    searchMonthlyReport();
+                }
             });
 
             // KPI Card Click Events for Unified Filtering
@@ -1727,7 +1815,7 @@
                 }
             });
 
-          
+
         });
     </script>
 }

@@ -1,4 +1,9 @@
-﻿<!-- Top Navigation Bar -->
+﻿@{
+    var navbarUserName = (Session["UserName"] ?? Session["UserId"] ?? "Guest").ToString();
+    var navbarRole = (Session["Role"] ?? "").ToString();
+}
+
+<!-- Top Navigation Bar -->
 <nav class="navbar navbar-expand-lg fixed-top px-3">
     <div class="container-fluid">
         <div class="d-flex align-items-center">
@@ -47,7 +52,7 @@
                                  style="width: 20px; height: 20px">
                                 <span class="fw-bold" style="font-size: 10px">VN</span>
                             </div>
-                            <span class="">Tiếng Việt (VI)</span>
+                            <span class="">Vietnamese (VI)</span>
                         </a>
                     </li>
                     <li class="">
@@ -84,35 +89,32 @@
                     <li>
                         <div class="px-3 py-3 bg-light border-bottom">
                             <p class="mb-0 fw-bold text-dark" style="font-size: 14px">
-                                Alex Nguyen
+                                @navbarUserName
                             </p>
                             <p class="mb-0 text-muted" style="font-size: 12px">
-                                System Administrator
+                                Role: @navbarRole
                             </p>
                         </div>
                     </li>
                     <li>
                         <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
                            style="font-size: 14px">
-                            <span class="material-symbols-outlined fs-5">person</span> Trang
-                            cá nhân
+                            <span class="material-symbols-outlined fs-5">person</span> Profile
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
                            style="font-size: 14px">
-                            <span class="material-symbols-outlined fs-5">settings</span> Cài
-                            đặt tài khoản
+                            <span class="material-symbols-outlined fs-5">settings</span> Account Settings
                         </a>
                     </li>
                     <li>
                         <hr class="dropdown-divider m-0 opacity-10" />
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger" href="#"
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger" href="@Url.Action("Logout", "Login")"
                            style="font-size: 14px">
-                            <span class="material-symbols-outlined fs-5">logout</span> Đăng
-                            xuất
+                            <span class="material-symbols-outlined fs-5">logout</span> Logout
                         </a>
                     </li>
                 </ul>

@@ -7,6 +7,7 @@ using Shared.DTOs;
 using Shared.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -21,10 +22,12 @@ namespace Application.Services
     public class FixtureService : IFixtureService
     {
         private readonly IFixtureRepository _fixtureRepository;
+        private readonly IFileService _fileService;
 
-        public FixtureService(IFixtureRepository fixtureRepository)
+        public FixtureService(IFixtureRepository fixtureRepository, IFileService fileService)
         {
             _fixtureRepository = fixtureRepository;
+            _fileService = fileService;
         }
 
         private string UnescapeJsonString(string value)
@@ -38,6 +41,8 @@ namespace Application.Services
 
         private List<string> ParseImagePaths(string dbImageRaw)
         {
+            var relativeImgPath = ConfigurationManager.AppSettings["RelativeImgPath"];
+
             var result = new List<string>();
             if (string.IsNullOrWhiteSpace(dbImageRaw)) return result;
 
@@ -50,7 +55,7 @@ namespace Application.Services
                 {
                     var value = UnescapeJsonString(match.Groups[1].Value);
                     if (!string.IsNullOrWhiteSpace(value))
-                        result.Add(value.Trim());
+                        result.Add(relativeImgPath+value.Trim());
                 }
 
                 return result.Distinct().ToList();
@@ -129,11 +134,11 @@ namespace Application.Services
             }
         }
 
-        public async Task<ApiResponse<FixtureMonthlyDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn)
+        public async Task<ApiResponse<FixtureMonthlyDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay)
         {
             try
             {
-                var repoResult = await _fixtureRepository.GetFixtureMonthlyAsync(type, line, department, eqSn);
+                var repoResult = await _fixtureRepository.GetFixtureMonthlyAsync(type, line, department, eqSn, chkDay);
 
                 var success = repoResult.Result.IsPass();
 
@@ -247,6 +252,47 @@ namespace Application.Services
                 };
             }
         }
+
+        public async Task<ApiResponse<string>> SaveFixtureDaily2Async(FixtureDaily2Dto model, HttpFileCollection files)
+        {
+
+            var relativeRoot = ConfigurationManager.AppSettings["RelativeImgPath"] ?? "";
+
+            var imageResultBuilder = new StringBuilder();
+
+
+            foreach (var item in model.CheckItems)
+            {
+                var imagePaths = new List<string>();
+
+                // ảnh cũ
+                imagePaths.AddRange(
+                    _fileService.NormalizeOldImagePaths(item.ExistingImagePaths, relativeRoot)
+                );
+
+
+                // ảnh mới
+                var newPaths = _fileService.SaveImageFiles(files, model.EQ_SN, item.MT_No);
+                item.NewImagePaths = newPaths;
+
+                imagePaths.AddRange(newPaths);
+
+
+                // build string business
+                var jsonArray = "[" + string.Join(", ", imagePaths.Select(p => $"\"{p}\"")) + "]";
+
+                imageResultBuilder.Append($"{item.MT_No}={jsonArray};");
+
+            }
+
+            return new ApiResponse<string>
+            {
+                Success = true,
+                Message = "",
+                Data = null
+            };
+        }
+
 
         public async Task<ApiResponse<string>> SaveFixtureDailyAsync(string type, string line, string department, string funcType, string uploadPathImage, FixtureDailyDto fixture)
         {
