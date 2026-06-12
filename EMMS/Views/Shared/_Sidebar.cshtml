@@ -15,19 +15,93 @@
             <span>Fixture Maintenance</span>
         </a>
         @*<div class="mb-1">
-            <a aria-controls="analyticsSubmenu" aria-expanded="false"
-               class="sidebar-item justify-content-between custom-collapse-toggle"
-               data-target="#analyticsSubmenu" role="button">
-                <div class="d-flex align-items-center gap-3">
-                    <span class="material-symbols-outlined">analytics</span>
-                    <span>Analysis</span>
+                <a aria-controls="analyticsSubmenu" aria-expanded="false"
+                   class="sidebar-item justify-content-between custom-collapse-toggle"
+                   data-target="#analyticsSubmenu" role="button">
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="material-symbols-outlined">analytics</span>
+                        <span>Analysis</span>
+                    </div>
+                    <span class="material-symbols-outlined fs-6 expand-icon">expand_more</span>
+                </a>
+                <div class="sidebar-submenu" id="analyticsSubmenu">
+                    <a class="submenu-item" href="#">Fixture performance</a>
+                    <a class="submenu-item" href="">Predictive maintenance</a>
                 </div>
-                <span class="material-symbols-outlined fs-6 expand-icon">expand_more</span>
-            </a>
-            <div class="sidebar-submenu" id="analyticsSubmenu">
-                <a class="submenu-item" href="#">Fixture performance</a>
-                <a class="submenu-item" href="">Predictive maintenance</a>
-            </div>
-        </div>*@
+            </div>*@
     </div>
 </nav>
+
+<script>
+    /**
+    * Navigation & Sidebar Logic
+    */
+    const initSidebarAndNav = () => {
+        const sidebar = document.getElementById("sidebar");
+        const content = document.getElementById("content");
+        const toggle = document.getElementById("sidebarCollapse");
+
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+            content.classList.toggle("active");
+            const icon = toggle.querySelector(".material-symbols-outlined");
+            icon.textContent = sidebar.classList.contains("active") ? "menu_open" : "menu";
+        });
+
+        // Submenu Collapse Logic
+        const subToggles = document.querySelectorAll(".custom-collapse-toggle");
+        subToggles.forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                e.preventDefault();
+                const targetId = btn.getAttribute("data-target");
+                const target = document.querySelector(targetId);
+                const isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+                if (isExpanded) {
+                    btn.setAttribute("aria-expanded", "false");
+                    target.style.maxHeight = target.scrollHeight + "px";
+                    target.offsetHeight;
+                    target.style.maxHeight = "0px";
+                    setTimeout(() => {
+                        if (btn.getAttribute("aria-expanded") === "false")
+                            target.classList.remove("show");
+                    }, 400);
+                } else {
+                    btn.setAttribute("aria-expanded", "true");
+                    target.classList.add("show");
+                    target.style.maxHeight = "0px";
+                    target.offsetHeight;
+                    target.style.maxHeight = target.scrollHeight + "px";
+                    setTimeout(() => {
+                        if (btn.getAttribute("aria-expanded") === "true")
+                            target.style.maxHeight = "none";
+                    }, 400);
+                }
+            });
+        });
+
+        // Sync initial state
+        const currentPath = window.location.pathname;
+        const activeLink = document.querySelector(
+            `.sidebar-item[href="${currentPath}"], .submenu-item[href="${currentPath}"]`,
+        );
+        if (activeLink) {
+            activeLink.classList.add("active");
+            updateNavbarTitle(activeLink);
+
+            let parent = activeLink.closest(".sidebar-submenu");
+            while (parent) {
+                parent.classList.add("show");
+                parent.style.maxHeight = "none";
+                const toggle = document.querySelector(`[data-target="#${parent.id}"]`);
+                if (toggle) toggle.setAttribute("aria-expanded", "true");
+                parent = parent.parentElement.closest(".sidebar-submenu");
+            }
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initSidebarAndNav();
+    });
+</script>
+

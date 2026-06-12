@@ -461,6 +461,10 @@ body {
         text-align: center;
         color: #475569;
     }
+#date-header-row th.active {
+    background-color: #1212bc;
+    color: #fff;
+}
 
 .day-col {
     width: 25px;

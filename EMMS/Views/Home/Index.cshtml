@@ -263,7 +263,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                    <div class="btn-group border rounded" role="group">
+                    @*<div class="btn-group border rounded" role="group">
                         <input autocomplete="off" checked="" class="btn-check" id="roleUploader" name="roleToggle"
                                type="radio" />
                         <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
@@ -272,7 +272,7 @@
                                type="radio" />
                         <label class="btn btn-sm btn-outline-primary btn-role-toggle px-3"
                                for="roleApprover">Approver Mode</label>
-                    </div>
+                    </div>*@
                     <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
                 </div>
             </div>
@@ -307,7 +307,7 @@
             <div class="modal-footer border-top">
                 <button class="btn btn-link px-3 py-2 text-decoration-none fw-semibold transition-all shadow-sm"
                         data-bs-dismiss="modal">
-                    Cancel
+                    Close
                 </button>
                 <div id="uploaderActions" class="d-flex align-items-center gap-2">
                     <button type="button"
@@ -325,7 +325,7 @@
                     </button>
                 </div>
                 <div class="d-none" id="approverActions">
-                    <button class="btn btn-success px-3 py-2 transition-all shadow-sm d-flex align-items-center gap-2"
+                    <button class="btn btn-success px-3 py-2 transition-all shadow-sm d-flex align-items-center gap-2 d-none"
                             id="approveAll">
                         <span class="material-symbols-outlined fs-6">check_circle</span>
                         Approve
@@ -762,75 +762,8 @@
         };
 
         /**
-            * Navigation & Sidebar Logic
-            */
-        const initSidebarAndNav = () => {
-            const sidebar = document.getElementById("sidebar");
-            const content = document.getElementById("content");
-            const toggle = document.getElementById("sidebarCollapse");
-
-            toggle.addEventListener("click", () => {
-                sidebar.classList.toggle("active");
-                content.classList.toggle("active");
-                const icon = toggle.querySelector(".material-symbols-outlined");
-                icon.textContent = sidebar.classList.contains("active") ? "menu_open" : "menu";
-            });
-
-            // Submenu Collapse Logic
-            const subToggles = document.querySelectorAll(".custom-collapse-toggle");
-            subToggles.forEach((btn) => {
-                btn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    const targetId = btn.getAttribute("data-target");
-                    const target = document.querySelector(targetId);
-                    const isExpanded = btn.getAttribute("aria-expanded") === "true";
-
-                    if (isExpanded) {
-                        btn.setAttribute("aria-expanded", "false");
-                        target.style.maxHeight = target.scrollHeight + "px";
-                        target.offsetHeight;
-                        target.style.maxHeight = "0px";
-                        setTimeout(() => {
-                            if (btn.getAttribute("aria-expanded") === "false")
-                                target.classList.remove("show");
-                        }, 400);
-                    } else {
-                        btn.setAttribute("aria-expanded", "true");
-                        target.classList.add("show");
-                        target.style.maxHeight = "0px";
-                        target.offsetHeight;
-                        target.style.maxHeight = target.scrollHeight + "px";
-                        setTimeout(() => {
-                            if (btn.getAttribute("aria-expanded") === "true")
-                                target.style.maxHeight = "none";
-                        }, 400);
-                    }
-                });
-            });
-
-            // Sync initial state
-            const currentPath = window.location.pathname;
-            const activeLink = document.querySelector(
-                `.sidebar-item[href="${currentPath}"], .submenu-item[href="${currentPath}"]`,
-            );
-            if (activeLink) {
-                activeLink.classList.add("active");
-                updateNavbarTitle(activeLink);
-
-                let parent = activeLink.closest(".sidebar-submenu");
-                while (parent) {
-                    parent.classList.add("show");
-                    parent.style.maxHeight = "none";
-                    const toggle = document.querySelector(`[data-target="#${parent.id}"]`);
-                    if (toggle) toggle.setAttribute("aria-expanded", "true");
-                    parent = parent.parentElement.closest(".sidebar-submenu");
-                }
-            }
-        };
-
-        /**
-            * Open Maintenance Modal
-            */
+        * Open Maintenance Modal
+        */
         const openMaintenanceModal = async (fixture) => {
             activeFixture = fixture.fixture;
             activeFixtureObject = fixture;
@@ -1106,37 +1039,68 @@
             const uploaderAction = document.querySelector('#uploaderActions');
             const approverAction = document.querySelector('#approverActions');
 
-            console.log(isUploaded, isApproved);
+            //console.log(isUploaded, isApproved);
+
+            const role = currentRole?.toLowerCase();
+
+            // ===== ELEMENTS =====
+            const saveBtn = document.querySelector('#saveUploader');
+            const editBtn = document.querySelector('#editUploader');
+            const cancelBtn = document.querySelector('#cancelUploader');
+            const approveBtn = document.querySelector('#approveAll');
    
-            if (currentRole?.toLocaleLowerCase() === "uploader") {
-                approverAction.classList.add('d-none');
-                if (isApproved) {
-                    if (!buttonClick) {
-                        document.querySelector('#editUploader').classList.remove('d-none');
-                        document.querySelector('#saveUploader').classList.add('d-none');
-                        document.querySelector('#cancelUploader').classList.add('d-none');
+            if (isToday(activeDetailDate)) {
+                if (role == "uploader") {
+                    approverAction.classList.add('d-none');
+                    uploaderAction.classList.remove('d-none');
+
+                    // reset tất cả trước
+                    saveBtn.classList.add('d-none');
+                    editBtn.classList.add('d-none');
+                    cancelBtn.classList.add('d-none');
+
+                    if (!isUploaded) {
+                        // chưa upload → chỉ hiện SAVE
+                        saveBtn.classList.remove('d-none');
                     }
-                } else {
-                    if (!buttonClick) {
-                        if (isUploaded) {
-                            document.querySelector('#saveUploader').classList.remove('d-none');
+                    else if (isUploaded && !isApproved) {
+                        if (!buttonClick) {
+                            // đã upload, chưa edit → hiện EDIT
+                            editBtn.classList.remove('d-none');
+                        } else {
+                            // đang edit → hiện SAVE + CANCEL
+                            saveBtn.classList.remove('d-none');
+                            cancelBtn.classList.remove('d-none');
                         }
                     }
-                    else {
-
-                            document.querySelector('#saveUploader').classList.add('d-none');
-                            document.querySelector('#editUploader').classList.remove('d-none');
-                            document.querySelector('#cancelUploader').classList.remove('d-none');
-                        }
-                        //else {
-                        //    console.log(111111)
-                        //    document.querySelector('#editUploader').classList.remove('d-none');
-                        //}
-
+                    else if (isApproved) {
+                        // đã ký rồi → chỉ hiện EDIT (readonly)
+                        editBtn.classList.remove('d-none');
+                    }
                 }
-            } else if (currentRole?.toLocaleLowerCase() === 'approver') {
+                else if (role == "approver") {
+                    uploaderAction.classList.add('d-none');
+                    approverAction.classList.remove('d-none');
+
+                    if (!isUploaded) {
+                        // CHƯA upload → KHÔNG cho ký
+                        console.log("Chưa upload -> không thể approve");
+                    }
+                    else if (isUploaded && !isApproved) {
+                        // đủ điều kiện ký
+                        approveBtn.classList.remove('d-none');
+                    }
+                    else if (isApproved) {
+                        approveBtn.classList.add('d-none');
+                    }
+                }
+            } else {
                 uploaderAction.classList.add('d-none');
-                approverAction.classList.remove('d-none');
+                approverAction.classList.add('d-none');
+                saveBtn.classList.add('d-none');
+                editBtn.classList.add('d-none');
+                cancelBtn.classList.add('d-none');
+                approverAction.classList.add('d-none');
             }
 
             sourceRows.forEach((item, idx) => {
@@ -1250,14 +1214,22 @@
                                 <td class="text-center approver-only-col">${remarkHtml}</td>
                             `;
                 body.appendChild(tr);
-
-                //const gallery = document.getElementById(`gallery_${mtNo}`);
-                //const existingImagePaths = getProp(item, "existingImagePaths", "ExistingImagePaths") || [];
-                //existingImagePaths.forEach((path) => renderGallery(mtNo, gallery, null, resolveImageUrl(path), path));
             });
-
-            //toggleDetailColumns();
         };
+
+
+        function isToday(dateStr) {
+            const today = new Date();
+
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+
+            const todayStr = `${yyyy}-${mm}-${dd}`;
+
+            return dateStr === todayStr;
+        }
+
 
         const initTable = () => {
             const headerRow = document.getElementById("date-header-row");
@@ -1275,10 +1247,12 @@
 
             for (let i = 1; i <= days; i++) {
                 const day = i;
+                const date = `${year}-${String(month).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+                const checkToday = isToday(date);
                 const th = document.createElement("th");
-                th.className = "day-col font-mediumn text-decoration-underline";
+                th.className = `day-col font-mediumn text-decoration-underline ${checkToday ? 'active' : ''}`;
                 th.textContent = i;
-                th.dataset.date = `${year}-${String(month).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
+                th.dataset.date = date;
                 th.onclick = () => openDetailModal({ line, day, shift, activeFixture });
                 headerRow.appendChild(th);
             }
@@ -1309,7 +1283,8 @@
                         text = `<span>${val}</span>`;
                         classCell = ``;
                     }
-                    daysHtml += `<td class="day-col ${classCell}" onclick="openDetailModal({ line: '${line}', day: ${i}, shift: '${shift}', activeFixture: activeFixture })">${text}</td>`;
+                    //daysHtml += `<td class="day-col ${classCell}" onclick="openDetailModal({ line: '${line}', day: ${i}, shift: '${shift}', activeFixture: activeFixture })">${text}</td>`;
+                    daysHtml += `<td class="day-col ${classCell}">${text}</td>`;
                 }
 
                 const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
@@ -1433,13 +1408,13 @@
                 alert("Cannot gather info daily form, try again!");
                 return;
             }
-            const isApproverAllResult = data.every(item => item.approvalResult);
 
-            if (currentRole === 'approver' && !isApproverAllResult) {
-                alert("Please complete the evaluation of all items before submitting the data!");
-                return;
-            }
+            //const isApproverAllResult = data.every(item => item.approvalResult);
 
+            //if (currentRole === 'approver' && !isApproverAllResult) {
+            //    alert("Please complete the evaluation of all items before submitting the data!");
+            //    return;
+            //}
 
             const formData = new FormData();
 
@@ -1479,12 +1454,12 @@
                 formData.append(`CheckItems[${i}].Upload_ID`, item.uploadId);
                 formData.append(`CheckItems[${i}].Approval_ID`, item.approvalId);
 
-                // ✅ ảnh cũ (string path)
+                // ảnh cũ (string path)
                 item.existingImagePaths.forEach((path, j) => {
                     formData.append(`CheckItems[${i}].ExistingImagePaths[${j}]`, path);
                 });
 
-                // ✅ ảnh mới (file)
+                // ảnh mới (file)
                 item.newFiles.forEach((file, j) => {
                     formData.append(`CheckItems[${i}].NewFiles[${j}]`, file);
                 });
@@ -1512,77 +1487,95 @@
 
         }
 
-        //const collectDetailFormData = (isApproverMode) => {
-        //    const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || [];
-        //    const formData = new FormData();
-
-        //    formData.append("type", DATASET.type || "FATP");
-        //    formData.append("line", getProp(activeDailyData, "line", "Line") || DATASET.line || "");
-        //    formData.append("department", DATASET.department || "");
-        //    formData.append("eqSn", getProp(activeDailyData, "eQ_SN", "EQ_SN") || activeFixture || "");
-        //    formData.append("eqName", getProp(activeDailyData, "eQ_Name", "EQ_Name") || "");
-        //    formData.append("eqModel", getProp(activeDailyData, "eQ_Model", "EQ_Model") || "");
-        //    formData.append("date", activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date")));
-        //    formData.append("shift", getProp(activeDailyData, "shift", "Shift") || "Day");
-        //    formData.append("isApproverMode", isApproverMode ? "true" : "false");
-        //    //formData.append("itemCount", sourceRows.length);
-
-        //    sourceRows.forEach((item, idx) => {
-        //        const mtNo = getProp(item, "mT_No", "MT_No", "mtNo") || "";
-        //        const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
-        //        const uploadId = getProp(item, "upload_ID", "Upload_ID") || DEFAULT_UPLOAD_ID;
-        //        const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
-        //        const existingImagePaths = [];
-
-        //        document.querySelectorAll(`#gallery_${idx} .gallery-item`).forEach((el) => {
-        //            if (el._path) existingImagePaths.push(el._path);
-        //            if (el._file) formData.append(`imageFiles_${idx}`, el._file);
-        //        });
-
-        //        const remarkEl = document.querySelector(`#detail-form-body tr:nth-child(${idx + 1}) textarea`);
-
-        //        formData.append(`items[${idx}].Number_Order`, numberOrder);
-        //        formData.append(`items[${idx}].MT_No`, mtNo);
-        //        formData.append(`items[${idx}].MT_Item`, getProp(item, "mT_Item", "MT_Item") || "");
-        //        formData.append(`items[${idx}].MT_Desc`, getProp(item, "mT_Desc", "MT_Desc") || "");
-        //        formData.append(`items[${idx}].Upload_Result`, getRadioValue(`uploader_res_${idx}`));
-        //        formData.append(`items[${idx}].Upload_ID`, uploadId);
-        //        formData.append(`items[${idx}].Approval_ID`, approvalId);
-        //        formData.append(`items[${idx}].Approval_Result`, getRadioValue(`approver_res_${idx}`));
-        //        formData.append(`items[${idx}].Remark`, remarkEl ? remarkEl.value : (getProp(item, "remark", "Remark") || ""));
-        //        formData.append(`items[${idx}].ExistingImagePaths`, JSON.stringify(existingImagePaths));
-        //    });
-
-        //    return formData;
-        //};
-
-        //const saveDailyForm = async (isApproverMode) => {
-        //    try {
-        //        const response = await postFormData("/api/fixture/daily/save", collectDetailFormData(isApproverMode));
-        //        activeDailyData = getResponseData(response);
-        //        await refreshMonthlyModal();
-        //        alert(getResponseMessage(response) || "Save OK!");
-        //        detailModalInstance.hide();
-        //    } catch (error) {
-        //        alert(error.message);
-        //    }
-        //};
-
         function exportTable() {
             const table = document.getElementById("maintenance-table");
             const workbook = XLSX.utils.table_to_book(table);
-            XLSX.writeFile(workbook, "table.xlsx");
+            XLSX.writeFile(workbook, "data_monthly.xlsx");
+        }
+
+        function initFancybox() {
+            Fancybox.bind("[data-fancybox]", {
+                closeButton: false,
+                dragToClose: false,
+                Backdrop: {
+                    closeOnClick: false
+                },
+                Keyboard: {
+                    Escape: true
+                },
+                loop: true,
+                Carousel: {
+                    Thumbs: {
+                        type: "scrollable",
+                    },
+                    Toolbar: {
+                        display: {
+                            left: ["counter"],
+                            middle: [
+                                "zoomIn",
+                                "zoomOut",
+                                "toggle1to1",
+                                "rotateCCW",
+                                "rotateCW",
+                                "flipX",
+                                "flipY",
+                                "reset",
+                            ],
+                            right: ["autoplay", "thumbs", "close"],
+                        },
+                    },
+
+
+                },
+                on: {
+                    ready: (fancybox) => {
+                        var mtno = Fancybox.getInstance().getSlide().mtno;
+
+                        fancybox.LOCK_DURATION = 5;
+                        fancybox.isClosable = false;
+                        const closeBtn = document.querySelector("[data-fancybox-close]");
+
+                        if (closeBtn) {
+                            closeBtn.style.display = "none";
+                        }
+
+                        let remaining = fancybox.LOCK_DURATION;
+
+                        fancybox.closeTimer = setTimeout(() => {
+                            fancybox.isClosable = true;
+
+                            if (closeBtn) {
+                                closeBtn.style.display = "";
+                                PREVIEW_IMAGE[mtno] = true;
+                            }
+
+                        }, fancybox.LOCK_DURATION * 1000);
+                    },
+                    keydown: (fancybox, event) => {
+                        if (event.key === "Escape" && !fancybox.isClosable) {
+                            event.preventDefault();
+                            event.stopPropagation();
+
+                            return false;
+                        }
+                    },
+                    shouldClose: (fancybox, event) => {
+                        return fancybox.isClosable;
+                    },
+                    destroy: (fancybox) => {
+                        clearTimeout(fancybox.closeTimer);
+                    },
+                }
+            });
         }
 
         /**
-            * Initialization
-            */
+        * Initialization
+        */
         document.addEventListener("DOMContentLoaded", async () => {
-            initSidebarAndNav();
-            //toggleDetailColumns();
             await loadFilterOptions();
             updateDisplay();
-            // initTable();
+            initFancybox();
 
             // Page Size Selector
             document.getElementById("pageSizeSelector").addEventListener("change", (e) => {
@@ -1631,48 +1624,54 @@
                 if (interactive) interactive.style.transform = "";
             });
 
-            // Role Toggling
-            document.getElementById("roleUploader").addEventListener("change", (e) => {
-                if (e.target.checked) {
-                    currentRole = "uploader";
-                    document.getElementById("uploaderActions").classList.remove("d-none");
-                    document.getElementById("approverActions").classList.add("d-none");
-                    //toggleDetailColumns();
-                    renderDetailRows();
-                }
-            });
+            //// Role Toggling
+            //document.getElementById("roleUploader").addEventListener("change", (e) => {
+            //    if (e.target.checked) {
+            //        currentRole = "uploader";
+            //        document.getElementById("uploaderActions").classList.remove("d-none");
+            //        document.getElementById("approverActions").classList.add("d-none");
+            //        //toggleDetailColumns();
+            //        renderDetailRows();
+            //    }
+            //});
 
-            document.getElementById("roleApprover").addEventListener("change", (e) => {
-                if (e.target.checked) {
-                    currentRole = "approver";
-                    document.getElementById("uploaderActions").classList.add("d-none");
-                    document.getElementById("approverActions").classList.remove("d-none");
-                    //toggleDetailColumns();
-                    renderDetailRows();
-                }
-            });
+            //document.getElementById("roleApprover").addEventListener("change", (e) => {
+            //    if (e.target.checked) {
+            //        currentRole = "approver";
+            //        document.getElementById("uploaderActions").classList.add("d-none");
+            //        document.getElementById("approverActions").classList.remove("d-none");
+            //        //toggleDetailColumns();
+            //        renderDetailRows();
+            //    }
+            //});
 
             document.getElementById("editUploader").addEventListener("click", function () {
                 startEdit = true;
                 this.classList.add('d-none');
                 document.querySelector('#saveUploader').classList.remove('d-none');
                 document.querySelector('#cancelUploader').classList.remove('d-none');
+
                 renderDetailRows(true);
             });
 
             document.getElementById("cancelUploader").addEventListener("click", (e) => {
                 startEdit = false;
                 e.target.classList.add('d-none');
+
                 renderDetailRows(false);
             });
 
-            //document.getElementById("saveUploader").addEventListener("click", async () => {
-            //    await saveDailyForm(false);
-            //});
+            document.getElementById('saveUploader').addEventListener('click', function () {
+                if (!startEdit) {
+                    sumbitDailyForm('Upload_Equipment_By_SN');
+                } else {
+                    sumbitDailyForm('Edit_Equipment_By_SN');
+                }
+            });
 
-            //document.getElementById("approveAll").addEventListener("click", async () => {
-            //    await saveDailyForm(true);
-            //});
+            document.getElementById('approveAll').addEventListener('click', function () {
+                sumbitDailyForm('Approve_Equipment_By_SN');
+            });
 
             document.getElementById("type").addEventListener("change", (e) => {
                 DATASET["type"] = (e.target.value ?? "")?.trim();
@@ -1728,96 +1727,7 @@
                 }
             });
 
-            document.getElementById('saveUploader').addEventListener('click', function () {
-                sumbitDailyForm('Upload_Equipment_By_SN')
-            });
-
-            document.getElementById('editUploader').addEventListener('click', function () {
-                document.getElementById('saveUploader').setAttribute('onclick', "sumbitDailyForm('Upload_Equipment_By_SN')")
-            });
-
-            document.getElementById('approveAll').addEventListener('click', function () {
-                sumbitDailyForm('Approve_Equipment_By_SN')
-            });
-
-            // Tạo countdown
-            const countdown = document.createElement("div");
-            countdown.className = "fb-countdown";
-
-            Fancybox.bind("[data-fancybox]", {
-                closeButton: false,
-                dragToClose: false,
-                Backdrop: {
-                    closeOnClick: false
-                },
-                Keyboard: {
-                    Escape: true
-                },
-                loop: true,
-                Carousel: {
-                    Thumbs: {
-                        type: "scrollable",
-                    },
-                    Toolbar: {
-                        display: {
-                            left: ["counter"],
-                            middle: [
-                                "zoomIn",
-                                "zoomOut",
-                                "toggle1to1",
-                                "rotateCCW",
-                                "rotateCW",
-                                "flipX",
-                                "flipY",
-                                "reset",
-                            ],
-                            right: ["autoplay", "thumbs", "close"],
-                        },
-                    },
-
-
-                },
-                on: {
-                    ready: (fancybox) => {
-                        var mtno = Fancybox.getInstance().getSlide().mtno;
-                        
-                        fancybox.LOCK_DURATION = 5;
-                        fancybox.isClosable = false;
-                        const closeBtn = document.querySelector("[data-fancybox-close]");
-
-                        if (closeBtn) {
-                            closeBtn.style.display = "none";
-                        }
-
-                        let remaining = fancybox.LOCK_DURATION;
-
-                        fancybox.closeTimer = setTimeout(() => {
-                            fancybox.isClosable = true;
-
-                            if (closeBtn) {
-                                closeBtn.style.display = "";
-                                PREVIEW_IMAGE[mtno] = true;
-                            }
-
-                        }, fancybox.LOCK_DURATION * 1000);
-                    },
-                    keydown: (fancybox, event) => {
-                        if (event.key === "Escape" && !fancybox.isClosable) {
-                            event.preventDefault();
-                            event.stopPropagation();
-
-                            return false;
-                        }
-                    },
-                    shouldClose: (fancybox, event) => {
-                        return fancybox.isClosable;
-                    },
-                    destroy: (fancybox) => {
-                        clearTimeout(fancybox.closeTimer);
-                        //document.querySelector('.fb-countdown').remove();
-                    },
-                }
-            });
+          
         });
     </script>
 }
