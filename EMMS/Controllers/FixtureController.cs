@@ -39,7 +39,7 @@ namespace EMMS.Controllers
             {
                 Success = false,
                 Message = "LOGIN_REQUIRED",
-                Data = default(T)
+                Data = default
             });
         }
 
@@ -207,8 +207,8 @@ namespace EMMS.Controllers
 
 
         [HttpPost]
-        [Route("daily/submit2")]
-        public async Task<IHttpActionResult> SaveFixture2()
+        [Route("daily/submit")]
+        public async Task<IHttpActionResult> SaveFixture()
         {
             try
             {
@@ -241,7 +241,7 @@ namespace EMMS.Controllers
 
                 var model = _fixtureMapper.Map(request);
 
-                var result = await _fixtureService.SaveFixtureDaily2Async(model, request.Files, funcType, type, department);
+                var result = await _fixtureService.SaveFixtureDailyAsync(model, request.Files, funcType, type, department);
 
                 if (!result.Success)
                 {
@@ -256,7 +256,7 @@ namespace EMMS.Controllers
                     }
                 }
 
-                return Ok(ApiResponseNew<FixtureDailyDto>.Ok(null, result.Message));
+                return Ok(ApiResponseNew<string>.Ok(null, result.Message));
             }
 
             catch (Exception)
@@ -270,8 +270,7 @@ namespace EMMS.Controllers
         {
             if (string.IsNullOrWhiteSpace(date)) return "";
 
-            DateTime result;
-            if (DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+            if (DateTime.TryParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
                 return result.ToString("yyyyMMdd");
 
             if (DateTime.TryParseExact(date, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
@@ -284,8 +283,7 @@ namespace EMMS.Controllers
         {
             if (string.IsNullOrWhiteSpace(month)) return "";
 
-            DateTime result;
-            if (DateTime.TryParseExact(month, "yyyy-MM", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+            if (DateTime.TryParseExact(month, "yyyy-MM", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
                 return new DateTime(result.Year, result.Month, 1).ToString("yyyyMMdd");
 
             if (DateTime.TryParseExact(month, "yyyyMM", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))

@@ -7,9 +7,9 @@ namespace Application.Mapper
 {
     public class FixtureMapper : IFixtureMapper
     {
-        public FixtureDaily2Dto Map(HttpRequest request)
+        public FixtureDailyDto Map(HttpRequest request)
         {
-            var model = new FixtureDaily2Dto
+            var model = new FixtureDailyDto
             {
                 EQ_SN = request.Form["EQ_SN"],
                 EQ_Name = request.Form["EQ_Name"],
@@ -18,21 +18,21 @@ namespace Application.Mapper
                 Date = DateTime.Parse(request.Form["Date"]),
                 Shift = request.Form["Shift"],
                 IsApproverMode = bool.Parse(request.Form["IsApproverMode"]),
-                CheckItems = parseCheckItems(request)
+                CheckItems = ParseCheckItems(request)
             };
 
             return model;
         }
 
-        public List<DailyItem2Dto> parseCheckItems(HttpRequest request)
+        public List<DailyItemDto> ParseCheckItems(HttpRequest request)
         {
-            var items = new List<DailyItem2Dto>();
+            var items = new List<DailyItemDto>();
 
             int index = 0;
 
             while (!string.IsNullOrEmpty(request.Form[$"CheckItems[{index}].MT_No"]))
             {
-                var item = new DailyItem2Dto
+                var item = new DailyItemDto
                 {
                     Number_Order = int.Parse(request.Form[$"CheckItems[{index}].Number_Order"]),
                     MT_No = request.Form[$"CheckItems[{index}].MT_No"],

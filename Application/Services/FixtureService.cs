@@ -198,7 +198,7 @@ namespace Application.Services
                     Shift = header.Shift,
                     IsApproverMode = isApproverMode,
                     CheckItems = rows
-                        .Select(x => new DailyItemInputDto
+                        .Select(x => new DailyItemDto
                         {
                             Number_Order = x.Number_Order.ToInt(),
                             MT_No = x.MT_No.ToText(),
@@ -235,7 +235,7 @@ namespace Application.Services
             }
         }
 
-        public async Task<Result<string>> SaveFixtureDaily2Async(FixtureDaily2Dto model, HttpFileCollection files, string funcType, string type, string department)
+        public async Task<Result<string>> SaveFixtureDailyAsync(FixtureDailyDto model, HttpFileCollection files, string funcType, string type, string department)
         {
             try
             {
@@ -249,7 +249,7 @@ namespace Application.Services
                     throw new BusinessException("Fixture SN is required");
                 }
 
-                var checkItems = model.CheckItems ?? new List<DailyItem2Dto>();
+                var checkItems = model.CheckItems ?? new List<DailyItemDto>();
                 if (!checkItems.Any())
                 {
                    throw new BusinessException("Check items data is required");
@@ -329,7 +329,7 @@ namespace Application.Services
                     Remark = remarkResult,
                 };
 
-                var message = await _fixtureRepository.SaveFixtureDaily2Async(model, param);
+                var message = await _fixtureRepository.SaveFixtureDailyAsync(model, param);
 
                 return Result<string>.Ok(string.Empty, message);
             }
@@ -376,10 +376,12 @@ namespace Application.Services
                 string base64 = Convert.ToBase64String(bytes);
                 string json = "{\"image_base64\":\"" + base64 + "\"}";
 
-                var handler = new HttpClientHandler();
-                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+                var handler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true,
 
-                handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls11;
+                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls11
+                };
 
                 using (HttpClient client = new HttpClient(handler))
                 {

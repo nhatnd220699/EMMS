@@ -5,6 +5,6 @@ namespace Application.Mapper
 {
     public interface IFixtureMapper
     {
-        FixtureDaily2Dto Map(HttpRequest request);
+        FixtureDailyDto Map(HttpRequest request);
     }
 }

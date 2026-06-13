@@ -18,6 +18,6 @@ namespace Application.Interfaces
        
         Task<FixtureDailyRawDto> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode);
 
-        Task<string> SaveFixtureDaily2Async(FixtureDaily2Dto fixture, SaveFixtureParam param);
+        Task<string> SaveFixtureDailyAsync(FixtureDailyDto fixture, SaveFixtureParam param);
     }
 }

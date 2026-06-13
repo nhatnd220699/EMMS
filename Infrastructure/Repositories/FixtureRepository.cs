@@ -70,13 +70,8 @@ namespace Infrastructure.Repositories
                     commandTimeout: 120)
                 )
                 {
-                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                    if (result == null)
-                    {
-                        throw new BusinessException("Stored procedure returned no status.");
-                    }
-
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+                    
                     if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
                     {
                         throw new BusinessException(result.Message);
@@ -118,13 +113,8 @@ namespace Infrastructure.Repositories
                     commandTimeout: 120)
                 )
                 {
-                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                    if (result == null)
-                    {
-                        throw new BusinessException("Stored procedure returned no status.");
-                    }
-
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+                    
                     if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
                     {
                         throw new BusinessException(result.Message);
@@ -149,13 +139,8 @@ namespace Infrastructure.Repositories
                     commandTimeout: 120)
                 )
                 {
-                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                    if (result == null)
-                    {
-                        throw new BusinessException("Stored procedure returned no status.");
-                    }
-
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+                    
                     if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
                     {
                         throw new BusinessException(result.Message);
@@ -190,13 +175,8 @@ namespace Infrastructure.Repositories
                     commandTimeout: 120)
                 )
                 {
-                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                    if (result == null)
-                    {
-                        throw new BusinessException("Stored procedure returned no status.");
-                    }
-
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+                    
                     if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
                     {
                         throw new BusinessException(result.Message);
@@ -215,7 +195,7 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<string> SaveFixtureDaily2Async(FixtureDaily2Dto fixture, SaveFixtureParam param)
+        public async Task<string> SaveFixtureDailyAsync(FixtureDailyDto fixture, SaveFixtureParam param)
         {
 
             var parameters = BuildParameters(
@@ -241,13 +221,8 @@ namespace Infrastructure.Repositories
                     commandTimeout: 120)
                 )
                 {
-                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                    if (result == null)
-                    {
-                        throw new BusinessException("Stored procedure returned no status.");
-                    }
-
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+                    
                     if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
                     {
                         throw new BusinessException(result.Message);
