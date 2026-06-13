@@ -87,8 +87,10 @@ namespace EMMS.Controllers
                 {
                     switch (result.ErrorCode)
                     {
+                        case "SYSTEM_ERROR":
                         case "DB_ERROR":
                             return Content(HttpStatusCode.InternalServerError, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                        case "BUSINESS_ERROR":
                         default:
                             return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
                     }
@@ -96,9 +98,9 @@ namespace EMMS.Controllers
 
                 return Ok(ApiResponseNew<FixtureFilterOptionDto>.Ok(result.Data, result.Message));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return InternalServerError(ex);
+                return InternalServerError();
             }
         }
 
@@ -124,6 +126,7 @@ namespace EMMS.Controllers
         //    }
         //}
 
+
         [HttpGet]
         [Route("dashboard")]
         public async Task<IHttpActionResult> GetFixtureDashboard(string type = "FATP", string line = "", string department = "", string fixtureSN = "")
@@ -133,18 +136,49 @@ namespace EMMS.Controllers
                 if (!IsLoggedIn()) return LoginRequired<List<FixtureDashboardDto>>();
 
                 var result = await _fixtureService.GetFixtureDashboardsAsync(type, line, department, fixtureSN);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return Ok(new ApiResponse<List<FixtureDashboardDto>>
+
+                if (!result.Success)
                 {
-                    Success = false,
-                    Message = ex.GetBaseException().Message,
-                    Data = null
-                });
+                    switch (result.ErrorCode)
+                    {
+                        case "SYSTEM_ERROR":
+                        case "DB_ERROR":
+                            return Content(HttpStatusCode.InternalServerError, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                        case "BUSINESS_ERROR":
+                        default:
+                            return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                    }
+                }
+
+                return Ok(ApiResponseNew<List<FixtureDashboardDto>>.Ok(result.Data, result.Message));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
             }
         }
+        //[HttpGet]
+        //[Route("dashboard")]
+        //public async Task<IHttpActionResult> GetFixtureDashboard(string type = "FATP", string line = "", string department = "", string fixtureSN = "")
+        //{
+        //    try
+        //    {
+        //        if (!IsLoggedIn()) return LoginRequired<List<FixtureDashboardDto>>();
+
+        //        var result = await _fixtureService.GetFixtureDashboardsAsync(type, line, department, fixtureSN);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new ApiResponse<List<FixtureDashboardDto>>
+        //        {
+        //            Success = false,
+        //            Message = ex.GetBaseException().Message,
+        //            Data = null
+        //        });
+        //    }
+        //}
+
 
         [HttpGet]
         [Route("monthly")]
@@ -156,28 +190,65 @@ namespace EMMS.Controllers
 
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {
-                    return Ok(new ApiResponse<FixtureMonthlyDto>
-                    {
-                        Success = false,
-                        Message = "EQ_SN is required.",
-                        Data = null
-                    });
+                    return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail("Fixture SN is required"));
                 }
 
                 var chkDay = ToMonthChkDay(month);
                 var result = await _fixtureService.GetFixtureMonthlyAsync(type, line, department, eqSn, chkDay);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return Ok(new ApiResponse<FixtureMonthlyDto>
+
+                if (!result.Success)
                 {
-                    Success = false,
-                    Message = ex.GetBaseException().Message,
-                    Data = null
-                });
+                    switch (result.ErrorCode)
+                    {
+                        case "SYSTEM_ERROR":
+                        case "DB_ERROR":
+                            return Content(HttpStatusCode.InternalServerError, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                        case "BUSINESS_ERROR":
+                        default:
+                            return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                    }
+                }
+
+                return Ok(ApiResponseNew<FixtureMonthlyDto>.Ok(result.Data, result.Message));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
             }
         }
+        //[HttpGet]
+        //[Route("monthly")]
+        //public async Task<IHttpActionResult> GetFixtureMonthly(string eqSn, string type = "FATP", string line = "", string department = "", string month = "")
+        //{
+        //    try
+        //    {
+        //        if (!IsLoggedIn()) return LoginRequired<FixtureMonthlyDto>();
+
+        //        if (string.IsNullOrWhiteSpace(eqSn))
+        //        {
+        //            return Ok(new ApiResponse<FixtureMonthlyDto>
+        //            {
+        //                Success = false,
+        //                Message = "EQ_SN is required.",
+        //                Data = null
+        //            });
+        //        }
+
+        //        var chkDay = ToMonthChkDay(month);
+        //        var result = await _fixtureService.GetFixtureMonthlyAsync(type, line, department, eqSn, chkDay);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new ApiResponse<FixtureMonthlyDto>
+        //        {
+        //            Success = false,
+        //            Message = ex.GetBaseException().Message,
+        //            Data = null
+        //        });
+        //    }
+        //}
+
 
         [HttpGet]
         [Route("daily")]
@@ -185,32 +256,69 @@ namespace EMMS.Controllers
         {
             try
             {
+                if (!IsLoggedIn()) return LoginRequired<FixtureDailyDto>();
+
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {
-                    if (!IsLoggedIn()) return LoginRequired<FixtureDailyDto>();
-
-                    return Ok(new ApiResponse<FixtureDailyDto>
-                    {
-                        Success = false,
-                        Message = "EQ_SN is required.",
-                        Data = null
-                    });
+                    return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail("Fixture SN is required"));
                 }
 
                 var chkDay = ToChkDay(date);
+
                 var result = await _fixtureService.GetFixtureDailyAsync(type, line, department, eqSn, chkDay, shift, uploadId, isApproverMode);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return Ok(new ApiResponse<FixtureDailyDto>
+
+                if (!result.Success)
                 {
-                    Success = false,
-                    Message = ex.GetBaseException().Message,
-                    Data = null
-                });
+                    switch (result.ErrorCode)
+                    {
+                        case "SYSTEM_ERROR":
+                        case "DB_ERROR":
+                            return Content(HttpStatusCode.InternalServerError, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                        case "BUSINESS_ERROR":
+                        default:
+                            return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                    }
+                }
+
+                return Ok(ApiResponseNew<FixtureDailyDto>.Ok(result.Data, result.Message));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
             }
         }
+        //[HttpGet]
+        //[Route("daily")]
+        //public async Task<IHttpActionResult> GetFixtureDaily(string eqSn, string date = "", string type = "FATP", string line = "", string department = "", string shift = "Day", string uploadId = "", bool isApproverMode = false)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrWhiteSpace(eqSn))
+        //        {
+        //            if (!IsLoggedIn()) return LoginRequired<FixtureDailyDto>();
+
+        //            return Ok(new ApiResponse<FixtureDailyDto>
+        //            {
+        //                Success = false,
+        //                Message = "EQ_SN is required.",
+        //                Data = null
+        //            });
+        //        }
+
+        //        var chkDay = ToChkDay(date);
+        //        var result = await _fixtureService.GetFixtureDailyAsync(type, line, department, eqSn, chkDay, shift, uploadId, isApproverMode);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new ApiResponse<FixtureDailyDto>
+        //        {
+        //            Success = false,
+        //            Message = ex.GetBaseException().Message,
+        //            Data = null
+        //        });
+        //    }
+        //}
 
         [HttpPost]
         [Route("image/getInfo")]
@@ -221,15 +329,7 @@ namespace EMMS.Controllers
                 var request = HttpContext.Current.Request;
                 if (request.Files.Count == 0)
                 {
-
-                    return Content(HttpStatusCode.BadRequest,
-                        new ApiResponse<object>
-                        {
-                            Success = false,
-                            Message = "Image is required",
-                            Data = null
-                        });
-
+                    return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail("Image is required"));
                 }
 
                 var file = request.Files[0];
@@ -239,14 +339,9 @@ namespace EMMS.Controllers
                 return Json(result);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Ok(new ApiResponse<FixtureDailyDto>
-                {
-                    Success = false,
-                    Message = ex.GetBaseException().Message,
-                    Data = null
-                });
+                return InternalServerError();
             }
         }
 
@@ -259,190 +354,205 @@ namespace EMMS.Controllers
             {
                 var request = HttpContext.Current.Request;
 
+                var action = request.Form["Action"];
+                var type = request.Form["Type"];
+                var department = request.Form["Department"];
+
+                var funcType = "";
+
+                if (string.Equals(action, "create", StringComparison.OrdinalIgnoreCase))
+                {
+                    funcType = "Upload_Equipment_By_SN";
+                }
+                else if (string.Equals(action, "edit", StringComparison.OrdinalIgnoreCase))
+                {
+                    funcType = "Edit_Equipment_By_SN";
+                }
+                else if (string.Equals(action, "approve", StringComparison.OrdinalIgnoreCase))
+                {
+                    funcType = "Approve_Equipment_By_SN";
+                }
+
+
                 if (request == null || request.Form.Count == 0)
                 {
-                    return Content(HttpStatusCode.BadRequest, new { success = false, message = "Form no data" });
+                    return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail("Form no data"));
                 }
 
                 var model = _fixtureMapper.Map(request);
 
-                var result = await _fixtureService.SaveFixtureDaily2Async(model, request.Files);
+                var result = await _fixtureService.SaveFixtureDaily2Async(model, request.Files, funcType, type, department);
 
 
-                return Ok(new
-                {
-                    success = result.Success,
-                    message = result.Success ? "Saved successfully" : "Save fail!"
-                });
-
+                return Ok(ApiResponseNew<FixtureDailyDto>.Ok(null, result.Message));
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                return InternalServerError(ex);
+                return InternalServerError();
             }
 
         }
 
 
-        [HttpPost]
-        [Route("daily/submit")]
-        public async Task<IHttpActionResult> SaveFixture()
-        {
-            try
-            {
-                var request = HttpContext.Current.Request;
-                if (request == null || request.Form.Count == 0)
-                {
-                    return Content(HttpStatusCode.BadRequest,
-                       new ApiResponse<object>
-                       {
-                           Success = false,
-                           Message = "Form no data, please check again!",
-                           Data = null
-                       });
-                }
+        //[HttpPost]
+        //[Route("daily/submit")]
+        //public async Task<IHttpActionResult> SaveFixture()
+        //{
+        //    try
+        //    {
+        //        var request = HttpContext.Current.Request;
+        //        if (request == null || request.Form.Count == 0)
+        //        {
+        //            return Content(HttpStatusCode.BadRequest,
+        //               new ApiResponse<object>
+        //               {
+        //                   Success = false,
+        //                   Message = "Form no data, please check again!",
+        //                   Data = null
+        //               });
+        //        }
 
-                var funcType = request.Form["FuncType"];
-                var type = request.Form["Type"];
-                var department = request.Form["Department"];
-                var line = request.Form["Line"];
+        //        var funcType = request.Form["FuncType"];
+        //        var type = request.Form["Type"];
+        //        var department = request.Form["Department"];
+        //        var line = request.Form["Line"];
 
-                var model = new FixtureDailyDto
-                {
-                    Line = request.Form["Line"],
-                    EQ_SN = request.Form["EQ_SN"],
-                    EQ_Name = request.Form["EQ_Name"],
-                    EQ_Model = request.Form["EQ_Model"],
-                    Date = request.Form["Date"].ToDate(),
-                    Shift = request.Form["Shift"],
-                    IsApproverMode = string.Equals(request.Form["IsApproverMode"], "true", StringComparison.OrdinalIgnoreCase),
-                };
-
-
-                // Parse items
-                model.CheckItems = ParseItems(request);
-
-                if (model.CheckItems.Count == 0)
-                {
-                    return Content(HttpStatusCode.BadRequest,
-                      new ApiResponse<object>
-                      {
-                          Success = false,
-                          Message = "No items found",
-                          Data = null
-                      });
-                }
-
-                var rootFolder = ConfigurationManager.AppSettings["FixtureImageRoot"];
-                var relativeImgPath = ConfigurationManager.AppSettings["RelativeImgPath"] ?? "";
-
-                // build folder theo ngày
-                var today = DateTime.Now;
-                var subFolder = Path.Combine(
-                    today.Year.ToString(),
-                    today.Month.ToString("D2"),
-                    today.Day.ToString("D2")
-                );
-
-                // Physical path
-                var fullFolder = Path.Combine(rootFolder, subFolder);
-
-                // tạo folder nếu chưa có
-                if (!Directory.Exists(fullFolder))
-                {
-                    Directory.CreateDirectory(fullFolder);
-                }
-
-                var imageResultBuilder = new StringBuilder();
-                //var uploaderResultBuilder = new StringBuilder();
-                //var approverResultBuilder = new StringBuilder();
-
-                foreach (var item in model.CheckItems)
-                {
-                    var imagePaths = new List<string>();
-
-                    // ảnh cũ
-                    if (item.ExistingImagePaths != null)
-                    {
-                        //format lại path của ảnh cũ
-                        var formattedPaths = item.ExistingImagePaths
-                                .Where(p => !string.IsNullOrWhiteSpace(p))
-                                .Select(p =>
-                                    p.StartsWith(relativeImgPath, StringComparison.OrdinalIgnoreCase)
-                                        ? p.Substring(relativeImgPath.Length) // cắt bỏ prefix
-                                        : p
-                                )
-                                .ToList();
-
-                        imagePaths.AddRange(formattedPaths);
-                    }
-
-                    // ảnh mới
-                    if (item.NewFiles != null)
-                    {
-                        int fileIndex = 1;
-                        foreach (var file in item.NewFiles)
-                        {
-                            if (file == null || file.ContentLength == 0) continue;
-
-                            // sanitize (khuyến nghị)
-                            var eqSnSafe = (model.EQ_SN ?? "").Replace(" ", "").Replace("/", "_");
-                            var mtNoSafe = (item.MT_No ?? "").Replace(" ", "").Replace("/", "_");
-
-                            var ext = Path.GetExtension(file.FileName);
-
-                            var guidPart = Guid.NewGuid().ToString("N"); // không có dấu -
-
-                            //var fileName = $"{Guid.NewGuid()}{ext}";
-
-                            var fileName = $"{eqSnSafe}_{mtNoSafe}_{fileIndex}_{guidPart}{ext}";
-
-                            var physicalPath = Path.Combine(fullFolder, fileName);
-
-                            file.SaveAs(physicalPath);
-
-                            // Logical path trả về
-                            var relativePath = $"/{subFolder.Replace("\\", "/")}/{fileName}";
-
-                            imagePaths.Add(relativePath);
-
-                            fileIndex++;
-                        }
-                    }
-
-                    // build chuỗi imgage result
-                    var jsonArray = "[" + string.Join(", ", imagePaths.Select(p => $"\"{p}\"")) + "]";
-                    imageResultBuilder.Append($"{item.MT_No}={jsonArray};").ToString().TrimEnd(';');
+        //        var model = new FixtureDailyDto
+        //        {
+        //            Line = request.Form["Line"],
+        //            EQ_SN = request.Form["EQ_SN"],
+        //            EQ_Name = request.Form["EQ_Name"],
+        //            EQ_Model = request.Form["EQ_Model"],
+        //            Date = request.Form["Date"].ToDate(),
+        //            Shift = request.Form["Shift"],
+        //            IsApproverMode = string.Equals(request.Form["IsApproverMode"], "true", StringComparison.OrdinalIgnoreCase),
+        //        };
 
 
-                    //// build chuỗi uploader result
-                    //var uploaderResult = item.Upload_Result ?? "NA";
-                    //uploaderResultBuilder.Append($"{item.MT_No}={uploaderResult};");
+        //        // Parse items
+        //        model.CheckItems = ParseItems(request);
 
-                    //// build chuỗi approver result
-                    //var approverResult = item.Approval_Result ?? "";
-                    //approverResultBuilder.Append($"{item.MT_No}={approverResult};");
-                }
+        //        if (model.CheckItems.Count == 0)
+        //        {
+        //            return Content(HttpStatusCode.BadRequest,
+        //              new ApiResponse<object>
+        //              {
+        //                  Success = false,
+        //                  Message = "No items found",
+        //                  Data = null
+        //              });
+        //        }
 
-                var imageResult = imageResultBuilder.ToString().TrimEnd(';');
-                //var uploadResult = uploaderResultBuilder.ToString().TrimEnd(';');
-                //var approvalResult = approverResultBuilder.ToString().TrimEnd(';');
+        //        var rootFolder = ConfigurationManager.AppSettings["FixtureImageRoot"];
+        //        var relativeImgPath = ConfigurationManager.AppSettings["RelativeImgPath"] ?? "";
 
-                var result = await _fixtureService.SaveFixtureDailyAsync(type, line, department, funcType, imageResult, model);
+        //        // build folder theo ngày
+        //        var today = DateTime.Now;
+        //        var subFolder = Path.Combine(
+        //            today.Year.ToString(),
+        //            today.Month.ToString("D2"),
+        //            today.Day.ToString("D2")
+        //        );
 
-                return Ok(new
-                {
-                    success = result.Success,
-                    message = result.Success ? "Saved successfully" : "Save fail!",
-                    data = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
+        //        // Physical path
+        //        var fullFolder = Path.Combine(rootFolder, subFolder);
+
+        //        // tạo folder nếu chưa có
+        //        if (!Directory.Exists(fullFolder))
+        //        {
+        //            Directory.CreateDirectory(fullFolder);
+        //        }
+
+        //        var imageResultBuilder = new StringBuilder();
+        //        //var uploaderResultBuilder = new StringBuilder();
+        //        //var approverResultBuilder = new StringBuilder();
+
+        //        foreach (var item in model.CheckItems)
+        //        {
+        //            var imagePaths = new List<string>();
+
+        //            // ảnh cũ
+        //            if (item.ExistingImagePaths != null)
+        //            {
+        //                //format lại path của ảnh cũ
+        //                var formattedPaths = item.ExistingImagePaths
+        //                        .Where(p => !string.IsNullOrWhiteSpace(p))
+        //                        .Select(p =>
+        //                            p.StartsWith(relativeImgPath, StringComparison.OrdinalIgnoreCase)
+        //                                ? p.Substring(relativeImgPath.Length) // cắt bỏ prefix
+        //                                : p
+        //                        )
+        //                        .ToList();
+
+        //                imagePaths.AddRange(formattedPaths);
+        //            }
+
+        //            // ảnh mới
+        //            if (item.NewFiles != null)
+        //            {
+        //                int fileIndex = 1;
+        //                foreach (var file in item.NewFiles)
+        //                {
+        //                    if (file == null || file.ContentLength == 0) continue;
+
+        //                    // sanitize (khuyến nghị)
+        //                    var eqSnSafe = (model.EQ_SN ?? "").Replace(" ", "").Replace("/", "_");
+        //                    var mtNoSafe = (item.MT_No ?? "").Replace(" ", "").Replace("/", "_");
+
+        //                    var ext = Path.GetExtension(file.FileName);
+
+        //                    var guidPart = Guid.NewGuid().ToString("N"); // không có dấu -
+
+        //                    //var fileName = $"{Guid.NewGuid()}{ext}";
+
+        //                    var fileName = $"{eqSnSafe}_{mtNoSafe}_{fileIndex}_{guidPart}{ext}";
+
+        //                    var physicalPath = Path.Combine(fullFolder, fileName);
+
+        //                    file.SaveAs(physicalPath);
+
+        //                    // Logical path trả về
+        //                    var relativePath = $"/{subFolder.Replace("\\", "/")}/{fileName}";
+
+        //                    imagePaths.Add(relativePath);
+
+        //                    fileIndex++;
+        //                }
+        //            }
+
+        //            // build chuỗi imgage result
+        //            var jsonArray = "[" + string.Join(", ", imagePaths.Select(p => $"\"{p}\"")) + "]";
+        //            imageResultBuilder.Append($"{item.MT_No}={jsonArray};").ToString().TrimEnd(';');
+
+
+        //            //// build chuỗi uploader result
+        //            //var uploaderResult = item.Upload_Result ?? "NA";
+        //            //uploaderResultBuilder.Append($"{item.MT_No}={uploaderResult};");
+
+        //            //// build chuỗi approver result
+        //            //var approverResult = item.Approval_Result ?? "";
+        //            //approverResultBuilder.Append($"{item.MT_No}={approverResult};");
+        //        }
+
+        //        var imageResult = imageResultBuilder.ToString().TrimEnd(';');
+        //        //var uploadResult = uploaderResultBuilder.ToString().TrimEnd(';');
+        //        //var approvalResult = approverResultBuilder.ToString().TrimEnd(';');
+
+        //        var result = await _fixtureService.SaveFixtureDailyAsync(type, line, department, funcType, imageResult, model);
+
+        //        return Ok(new
+        //        {
+        //            success = result.Success,
+        //            message = result.Success ? "Saved successfully" : "Save fail!",
+        //            data = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
         private List<DailyItemInputDto> ParseItems(HttpRequest request)
         {

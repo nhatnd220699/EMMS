@@ -1106,7 +1106,6 @@
         const renderDetailRows = (buttonClick = false) => {
             const body = document.getElementById("detail-form-body");
             body.innerHTML = "";
-            //toggleDetailColumns();
 
             const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || activeMaintenanceItems || [];
 
@@ -1118,7 +1117,7 @@
             isApproved = sourceRows.every(item => item.Approval_Result);
             isUploaded = sourceRows.some(item => item.Upload_Result);
 
-            // Xu ly an hien nut chuc nang form daily
+            // Kiểm soát tương tác với các nút chức năng
             const uploaderAction = document.querySelector('#uploaderActions');
             const approverAction = document.querySelector('#approverActions');
 
@@ -1480,7 +1479,7 @@
         };
 
 
-        const sumbitDailyForm = async (funcType) => {
+        const sumbitDailyForm = async (action) => {
             const data = collectDailyData() || [];
 
             if (data.length <= 0) {
@@ -1517,7 +1516,7 @@
             formData.append("Date", date);
             formData.append("Shift", shift);
             formData.append("IsApproverMode", isApproverMode);
-            formData.append("FuncType", funcType);
+            formData.append("Action", action);
             //formData.append("itemCount", itemCount);
 
             data.forEach((item, i) => {
@@ -1546,13 +1545,14 @@
             });
 
             try {
-                const res = await fetch('api/fixture/daily/submit', {
+                const res = await fetch('api/fixture/daily/submit2', {
                     method: 'POST',
                     body: formData
                 });
 
                 const result = await res.json();
-                if (result.success == true) {
+                if (result.Success == true) {
+                    startEdit = false; // khi lưu xong thì trạng thái phải được reset
                     alert('Save successfully');
                     openMaintenanceModal(activeFixtureObject);
                 } else {
@@ -1751,14 +1751,17 @@
 
             document.getElementById('saveUploader').addEventListener('click', function () {
                 if (!startEdit) {
-                    sumbitDailyForm('Upload_Equipment_By_SN');
+                    //sumbitDailyForm('Upload_Equipment_By_SN');
+                    sumbitDailyForm('create');
                 } else {
-                    sumbitDailyForm('Edit_Equipment_By_SN');
+                    //submitDailyForm("Edit_Equipment_By_SN");
+                    sumbitDailyForm('edit');
                 }
             });
 
             document.getElementById('approveAll').addEventListener('click', function () {
-                sumbitDailyForm('Approve_Equipment_By_SN');
+                //sumbitDailyForm('Approve_Equipment_By_SN');
+                sumbitDailyForm('approve');
             });
 
             document.getElementById("type").addEventListener("change", (e) => {
@@ -1803,14 +1806,17 @@
 
             document.addEventListener('click', function (e) {
                 if (e.target.matches('.approver-radio input[type="radio"]')) {
+                    e.preventDefault();
+
                     const mtNo = e.target.dataset.mtNo;
-                    console.log(mtNo)
+
+                    if (isApproved) {
+                        return;
+                    }
 
                     if (!PREVIEW_IMAGE[mtNo]) {
-                        alert('Please review the inspection images before evaluating!');
-
-                        e.preventDefault();
                         e.target.checked = false;
+                        alert('Please review the inspection images before evaluating!');
                     }
                 }
             });

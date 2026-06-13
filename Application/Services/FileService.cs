@@ -12,13 +12,11 @@ namespace Application.Services
 {
     public  class FileService : IFileService
     {
-        public List<string> SaveImageFiles(HttpFileCollection files, string eqSn, string mtNo)
+        public List<string> SaveImageFiles(HttpFileCollection files, string eqSn, string mtNo, int itemIndex)
         {
-
             var result = new List<string>();
 
             var rootFolder = ConfigurationManager.AppSettings["FixtureImageRoot"];
-            var relativeImgPath = ConfigurationManager.AppSettings["RelativeImgPath"] ?? "";
 
             var today = DateTime.Now;
 
@@ -34,10 +32,10 @@ namespace Application.Services
 
             int index = 1;
 
-            foreach (string key in files)
+            foreach (string key in files.AllKeys)
             {
-                // file name chứa MT_No
-                if (!key.Contains(mtNo)) continue;
+                if (string.IsNullOrEmpty(key) || !key.Contains($"CheckItems[{itemIndex}].NewFiles"))
+                    continue;
 
                 var file = files[key];
 

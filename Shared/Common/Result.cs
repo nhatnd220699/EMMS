@@ -16,7 +16,7 @@
 
         }
 
-        public static Result<T> Ok(T data, string message = "Success")
+        public static Result<T> Ok(T data = default, string message = "Success")
         {
             return new Result<T>(true, message, null, data);
         }

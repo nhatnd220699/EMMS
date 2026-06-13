@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Common\ApiResponse.cs" />
     <Compile Include="Common\ApiResponseNew.cs" />
+    <Compile Include="Common\BusinessException.cs" />
     <Compile Include="Common\DataDto.cs" />
     <Compile Include="Common\Result.cs" />
     <Compile Include="DTOs\FilterDto.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="DTOs\FixtureMonthlyRawDto.cs" />
     <Compile Include="DTOs\FixtureMonthlyRowRawDto.cs" />
     <Compile Include="DTOs\ResultMessageDto.cs" />
+    <Compile Include="DTOs\SaveFixtureParam.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

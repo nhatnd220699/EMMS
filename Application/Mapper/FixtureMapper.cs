@@ -21,13 +21,13 @@ namespace Application.Mapper
                 Date = DateTime.Parse(request.Form["Date"]),
                 Shift = request.Form["Shift"],
                 IsApproverMode = bool.Parse(request.Form["IsApproverMode"]),
-                CheckItems = parseItems(request)
+                CheckItems = parseCheckItems(request)
             };
 
             return model;
         }
 
-        public List<DailyItem2Dto> parseItems(HttpRequest request)
+        public List<DailyItem2Dto> parseCheckItems(HttpRequest request)
         {
             var items = new List<DailyItem2Dto>();
 
@@ -49,12 +49,28 @@ namespace Application.Mapper
                     Approval_ID = request.Form[$"CheckItems[{index}].Approval_ID"],
 
                     Remark = request.Form[$"CheckItems[{index}].Remark"],
+
+                    ExistingImagePaths = ParseExistsImageStringList(request, $"CheckItems[{index}].ExistingImagePaths")
                 };
 
                 items.Add(item);
                 index++;
             }
             return items;
+        }
+
+        private List<string> ParseExistsImageStringList(HttpRequest request, string prefix)
+        {
+            var result = new List<string>();
+            int i = 0;
+
+            while (!string.IsNullOrEmpty(request.Form[$"{prefix}[{i}]"]))
+            {
+                result.Add(request.Form[$"{prefix}[{i}]"]);
+                i++;
+            }
+
+            return result;
         }
     }
 }

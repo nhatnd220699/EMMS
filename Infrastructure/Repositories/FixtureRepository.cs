@@ -229,19 +229,19 @@ namespace Infrastructure.Repositories
                     "Maintenance_Fixture_Portal",
                     BuildParameters(funcType),
                     commandType: CommandType.StoredProcedure,
-                    commandTimeout: 180)
+                    commandTimeout: 120)
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
 
                     if (result == null)
                     {
-                        throw new Exception("Stored procedure returned no status.");
+                        throw new BusinessException("Stored procedure returned no status.");
                     }
 
                     if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
                     {
-                        throw new Exception(result.Message);
+                        throw new BusinessException(result.Message);
                     }
 
                     var rows = await multi.ReadAsync<dynamic>();
@@ -316,193 +316,344 @@ namespace Infrastructure.Repositories
         //    return GetStringListAsync("Get_Dept");
         //}
 
-        public async Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
+
+        public async Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
         {
-            try
+
+            using (var conn = _db.CreateConnection())
             {
-                using (var conn = _db.CreateConnection())
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    BuildParameters("Get_Equipment_List", type, line, department, sqSn),
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 120)
+                )
                 {
-                    using (var multi = await conn.QueryMultipleAsync(
-                        "Maintenance_Fixture_Portal",
-                        BuildParameters("Get_Equipment_List", type, line, department, sqSn),
-                        commandType: CommandType.StoredProcedure,
-                        commandTimeout: 180)
-                    )
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+                    if (result == null)
                     {
-                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                        var data = (await multi.ReadAsync<FixtureDashboardDto>()).ToList();
-
-                        return new DataDto<List<FixtureDashboardDto>>
-                        {
-                            Result = result?.Result,
-                            Message = result?.Message,
-                            Data = data
-                        };
+                        throw new BusinessException("Stored procedure returned no status.");
                     }
+
+                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new BusinessException(result.Message);
+                    }
+
+                    var rows = (await multi.ReadAsync<FixtureDashboardDto>()).ToList();
+
+                    return rows;
                 }
             }
-            catch (Exception ex)
+
+        }
+        //public async Task<DataDto<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
+        //{
+        //    try
+        //    {
+        //        using (var conn = _db.CreateConnection())
+        //        {
+        //            using (var multi = await conn.QueryMultipleAsync(
+        //                "Maintenance_Fixture_Portal",
+        //                BuildParameters("Get_Equipment_List", type, line, department, sqSn),
+        //                commandType: CommandType.StoredProcedure,
+        //                commandTimeout: 180)
+        //            )
+        //            {
+        //                var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+        //                var data = (await multi.ReadAsync<FixtureDashboardDto>()).ToList();
+
+        //                return new DataDto<List<FixtureDashboardDto>>
+        //                {
+        //                    Result = result?.Result,
+        //                    Message = result?.Message,
+        //                    Data = data
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Fail<List<FixtureDashboardDto>>("Call SP Get_Equipment_List error: " + GetExceptionMessage(ex));
+        //    }
+        //}
+
+        public async Task<FixtureMonthlyRawDto> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay)
+        {
+            using (var conn = _db.CreateConnection())
             {
-                return Fail<List<FixtureDashboardDto>>("Call SP Get_Equipment_List error: " + GetExceptionMessage(ex));
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    BuildParameters("Get_Equipment_By_Month", type, line, department, eqSn, chkDay),
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 120)
+                )
+                {
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+                    if (result == null)
+                    {
+                        throw new BusinessException("Stored procedure returned no status.");
+                    }
+
+                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new BusinessException(result.Message);
+                    }
+
+                    var header = (await multi.ReadAsync<FixtureMonthlyHeaderRawDto>()).FirstOrDefault();
+
+                    var rows = (await multi.ReadAsync<FixtureMonthlyRowRawDto>()).ToList();
+
+                    return new FixtureMonthlyRawDto
+                    {
+                        Header = header,
+                        Rows = rows
+                    };
+                }
             }
         }
 
-        public async Task<DataDto<FixtureMonthlyRawDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay)
+        //public async Task<DataDto<FixtureMonthlyRawDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay)
+        //{
+        //    try
+        //    {
+        //        using (var conn = _db.CreateConnection())
+        //        {
+        //            using (var multi = await conn.QueryMultipleAsync(
+        //                "Maintenance_Fixture_Portal",
+        //                BuildParameters("Get_Equipment_By_Month", type, line, department, eqSn, chkDay),
+        //                commandType: CommandType.StoredProcedure,
+        //                commandTimeout: 180)
+        //            )
+        //            {
+        //                var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+        //                var headers = (await multi.ReadAsync<FixtureMonthlyHeaderRawDto>()).FirstOrDefault();
+
+        //                var rows = (await multi.ReadAsync<FixtureMonthlyRowRawDto>()).ToList();
+
+        //                return new DataDto<FixtureMonthlyRawDto>
+        //                {
+        //                    Result = result?.Result,
+        //                    Message = result?.Message,
+        //                    Data = new FixtureMonthlyRawDto
+        //                    {
+        //                        Header = headers,
+        //                        Rows = rows
+        //                    }
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Fail<FixtureMonthlyRawDto>("Call SP Get_Equipment_By_Month error: " + GetExceptionMessage(ex));
+        //    }
+        //}
+
+        public async Task<FixtureDailyRawDto> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode)
         {
-            try
+            var extendedPara = BuildExtendedPara(new Dictionary<string, string>
             {
-                using (var conn = _db.CreateConnection())
+                { "Upload_ID", uploadId }
+            });
+
+            using (var conn = _db.CreateConnection())
+            {
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    BuildParameters("Get_Equipment_By_Day", type, line, department, eqSn, chkDay, extendedPara),
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 120)
+                )
                 {
-                    using (var multi = await conn.QueryMultipleAsync(
-                        "Maintenance_Fixture_Portal",
-                        BuildParameters("Get_Equipment_By_Month", type, line, department, eqSn, chkDay),
-                        commandType: CommandType.StoredProcedure,
-                        commandTimeout: 180)
-                    )
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+                    if (result == null)
                     {
-                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                        var headers = (await multi.ReadAsync<FixtureMonthlyHeaderRawDto>()).FirstOrDefault();
-
-                        var rows = (await multi.ReadAsync<FixtureMonthlyRowRawDto>()).ToList();
-
-                        return new DataDto<FixtureMonthlyRawDto>
-                        {
-                            Result = result?.Result,
-                            Message = result?.Message,
-                            Data = new FixtureMonthlyRawDto
-                            {
-                                Header = headers,
-                                Rows = rows
-                            }
-                        };
+                        throw new BusinessException("Stored procedure returned no status.");
                     }
+
+                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new BusinessException(result.Message);
+                    }
+
+                    var header = (await multi.ReadAsync<FixtureDailyHeaderRawDto>()).FirstOrDefault();
+
+                    var rows = (await multi.ReadAsync<FixtureDailyRowRawDto>()).ToList();
+
+                    return new FixtureDailyRawDto
+                    {
+                        Header = header,
+                        Rows = rows
+                    };
                 }
             }
-            catch (Exception ex)
+        }
+        //public async Task<DataDto<FixtureDailyRawDto>> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode)
+        //{
+        //    try
+        //    {
+        //        var extendedPara = BuildExtendedPara(new Dictionary<string, string>
+        //        {
+        //            { "Upload_ID", uploadId }
+        //        });
+
+        //        using (var conn = _db.CreateConnection())
+        //        {
+        //            using (var multi = await conn.QueryMultipleAsync(
+        //                "Maintenance_Fixture_Portal",
+        //                BuildParameters("Get_Equipment_By_Day", type, line, department, eqSn, chkDay, extendedPara),
+        //                commandType: CommandType.StoredProcedure,
+        //                commandTimeout: 180)
+        //            )
+        //            {
+        //                var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+        //                var header = (await multi.ReadAsync<FixtureDailyHeaderRawDto>()).FirstOrDefault();
+
+        //                var rows = (await multi.ReadAsync<FixtureDailyRowRawDto>()).ToList();
+
+        //                return new DataDto<FixtureDailyRawDto>
+        //                {
+        //                    Result = result?.Result,
+        //                    Message = result?.Message,
+        //                    Data = new FixtureDailyRawDto
+        //                    {
+        //                        Header = header,
+        //                        Rows = rows
+        //                    }
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Fail<FixtureDailyRawDto>("Call SP Get_Equipment_By_Day error: " + GetExceptionMessage(ex));
+        //    }
+        //}
+
+
+        public async Task<string> SaveFixtureDaily2Async(FixtureDaily2Dto fixture, SaveFixtureParam param)
+        {
+
+            var parameters = BuildParameters(
+                param.FuncType,
+                param.Type,
+                fixture.Line,
+                param.Department,
+                fixture.EQ_SN,
+                "",
+                param.ExtendedPara,
+                param.ImageResult,
+                param.UploadResult,
+                param.ApproveResult,
+                param.Remark
+            );
+
+            using (var conn = _db.CreateConnection())
             {
-                return Fail<FixtureMonthlyRawDto>("Call SP Get_Equipment_By_Month error: " + GetExceptionMessage(ex));
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    parameters,
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 120)
+                )
+                {
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+
+                    if (result == null)
+                    {
+                        throw new BusinessException("Stored procedure returned no status.");
+                    }
+
+                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new BusinessException(result.Message);
+                    }
+
+                    return result.Result;
+                }
             }
         }
 
-        public async Task<DataDto<FixtureDailyRawDto>> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode)
-        {
-            try
-            {
-                var extendedPara = BuildExtendedPara(new Dictionary<string, string>
-                {
-                    { "Upload_ID", uploadId }
-                });
+        //public async Task<DataDto<string>> SaveFixtureDailyAsync(string type, string line, string department, string funcType, string uploadPathImage, FixtureDailyDto fixture)
+        //{
+        //    try
+        //    {
+        //        if (fixture == null)
+        //            return Fail<string>("Fixture data is required.");
 
-                using (var conn = _db.CreateConnection())
-                {
-                    using (var multi = await conn.QueryMultipleAsync(
-                        "Maintenance_Fixture_Portal",
-                        BuildParameters("Get_Equipment_By_Day", type, line, department, eqSn, chkDay, extendedPara),
-                        commandType: CommandType.StoredProcedure,
-                        commandTimeout: 180)
-                    )
-                    {
-                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+        //        if (string.IsNullOrWhiteSpace(fixture.EQ_SN))
+        //            return Fail<string>("EQ_SN is required.");
 
-                        var header = (await multi.ReadAsync<FixtureDailyHeaderRawDto>()).FirstOrDefault();
+        //        var items = fixture.CheckItems ?? new List<DailyItemInputDto>();
+        //        if (!items.Any())
+        //            return Fail<string>("Check item data is required.");
 
-                        var rows = (await multi.ReadAsync<FixtureDailyRowRawDto>()).ToList();
+        //        //var funcType = fixture.IsApproverMode ? "Approve_Equipment_By_SN" : "Upload_Equipment_By_SN";
+        //        var shift = string.IsNullOrWhiteSpace(fixture.Shift) ? "Day" : fixture.Shift;
+        //        var uploadId = items.Select(x => x.Upload_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+        //        var approvalId = items.Select(x => x.Approval_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
 
-                        return new DataDto<FixtureDailyRawDto>
-                        {
-                            Result = result?.Result,
-                            Message = result?.Message,
-                            Data = new FixtureDailyRawDto
-                            {
-                                Header = header,
-                                Rows = rows
-                            }
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                return Fail<FixtureDailyRawDto>("Call SP Get_Equipment_By_Day error: " + GetExceptionMessage(ex));
-            }
-        }
+        //        var extendedPara = fixture.IsApproverMode
+        //            ? ""
+        //            : BuildExtendedPara(new Dictionary<string, string>
+        //            {
+        //                { "Upload_ID", uploadId },
+        //                { "Approval_ID", approvalId },
+        //                { "EQ_Name", fixture.EQ_Name },
+        //                { "EQ_Model", fixture.EQ_Model }
+        //            });
 
+        //        var uploadResult = fixture.IsApproverMode ? "" : BuildMtValueString(items, x => x.Upload_Result, true);
+        //        var approvalResult = fixture.IsApproverMode ? BuildMtValueString(items, x => x.Approval_Result, true) : "";
+        //        var remark = BuildMtValueString(items, x => x.Remark);
+        //        //var uploadPathImage = fixture.IsApproverMode
+        //        //    ? ""
+        //        //    : string.Join(";", items
+        //        //        .Where(x => !string.IsNullOrWhiteSpace(x.MT_No))
+        //        //        .Select(x => x.MT_No + "=" + SerializeImagePaths(x.ExistingImagePaths)));
 
-        public async Task<DataDto<string>> SaveFixtureDailyAsync(string type, string line, string department, string funcType, string uploadPathImage, FixtureDailyDto fixture)
-        {
-            try
-            {
-                if (fixture == null)
-                    return Fail<string>("Fixture data is required.");
+        //        using (var conn = _db.CreateConnection())
+        //        {
+        //            using (var multi = await conn.QueryMultipleAsync(
+        //                "Maintenance_Fixture_Portal",
+        //                BuildParameters(funcType, type, line, department, fixture.EQ_SN, "", extendedPara, uploadPathImage, uploadResult, approvalResult, remark),
+        //                commandType: CommandType.StoredProcedure,
+        //                commandTimeout: 180)
+        //            )
+        //            {
+        //                var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
 
-                if (string.IsNullOrWhiteSpace(fixture.EQ_SN))
-                    return Fail<string>("EQ_SN is required.");
+        //                // The first table returned by SP is always Result. Only read next tables when Result = PASS.
+        //                if (result == null || !result.IsPass)
+        //                {
+        //                    return Fail<string>(result);
+        //                }
+        //                else
+        //                {
+        //                    return new DataDto<string>
+        //                    {
+        //                        Result = result.Result,
+        //                        Message = result.Message,
+        //                        Data = ""
+        //                    };
+        //                }
 
-                var items = fixture.CheckItems ?? new List<DailyItemInputDto>();
-                if (!items.Any())
-                    return Fail<string>("Check item data is required.");
+        //            }
+        //        }
 
-                //var funcType = fixture.IsApproverMode ? "Approve_Equipment_By_SN" : "Upload_Equipment_By_SN";
-                var shift = string.IsNullOrWhiteSpace(fixture.Shift) ? "Day" : fixture.Shift;
-                var uploadId = items.Select(x => x.Upload_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
-                var approvalId = items.Select(x => x.Approval_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
-
-                var extendedPara = fixture.IsApproverMode
-                    ? ""
-                    : BuildExtendedPara(new Dictionary<string, string>
-                    {
-                        { "Upload_ID", uploadId },
-                        { "Approval_ID", approvalId },
-                        { "EQ_Name", fixture.EQ_Name },
-                        { "EQ_Model", fixture.EQ_Model }
-                    });
-
-                var uploadResult = fixture.IsApproverMode ? "" : BuildMtValueString(items, x => x.Upload_Result, true);
-                var approvalResult = fixture.IsApproverMode ? BuildMtValueString(items, x => x.Approval_Result, true) : "";
-                var remark = BuildMtValueString(items, x => x.Remark);
-                //var uploadPathImage = fixture.IsApproverMode
-                //    ? ""
-                //    : string.Join(";", items
-                //        .Where(x => !string.IsNullOrWhiteSpace(x.MT_No))
-                //        .Select(x => x.MT_No + "=" + SerializeImagePaths(x.ExistingImagePaths)));
-
-                using (var conn = _db.CreateConnection())
-                {
-                    using (var multi = await conn.QueryMultipleAsync(
-                        "Maintenance_Fixture_Portal",
-                        BuildParameters(funcType, type, line, department, fixture.EQ_SN, "", extendedPara, uploadPathImage, uploadResult, approvalResult, remark),
-                        commandType: CommandType.StoredProcedure,
-                        commandTimeout: 180)
-                    )
-                    {
-                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-
-                        // The first table returned by SP is always Result. Only read next tables when Result = PASS.
-                        if (result == null || !result.IsPass)
-                        {
-                            return Fail<string>(result);
-                        }
-                        else
-                        {
-                            return new DataDto<string>
-                            {
-                                Result = result.Result,
-                                Message = result.Message,
-                                Data = ""
-                            };
-                        }
-
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                return Fail<string>("Call SP save daily equipment error: " + GetExceptionMessage(ex));
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Fail<string>("Call SP save daily equipment error: " + GetExceptionMessage(ex));
+        //    }
+        //}
 
         //public async Task<DataDto<FixtureDailyDto>> SaveFixtureDailyAsync(string type, string line, string department, string imageResult, string uploadResult, string approvalResult, FixtureDailyDto fixture)
         //{

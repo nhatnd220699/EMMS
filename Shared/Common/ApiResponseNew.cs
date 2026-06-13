@@ -7,7 +7,7 @@
         public string ErrorCode { get; set; }
         public T Data { get; set; }
 
-        public static ApiResponseNew<T> Ok(T data, string message = "Success")
+        public static ApiResponseNew<T> Ok(T data = default, string message = "Success")
         {
             return new ApiResponseNew<T>
             {
