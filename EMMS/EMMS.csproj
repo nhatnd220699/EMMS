@@ -141,8 +141,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\css\custom\popup.css" />
     <Content Include="Content\data\daily.json" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
     <None Include="Views\Login\Login.cshtml" />
+    <Content Include="Scripts\api\api-client.js" />
+    <Content Include="Scripts\services\fixture-service.js" />
+    <Content Include="Scripts\common\action-lock.js" />
+    <Content Include="Scripts\common\helper.js" />
+    <Content Include="Scripts\common\popup.js" />
+    <Content Include="Scripts\common\utils.js" />
     <Content Include="Views\Login\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -205,11 +213,11 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\js\bootstrap\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\js\dayjs\dayjs.min.js" />
-    <Content Include="Scripts\js\fancybox\fancybox.umd.js" />
-    <Content Include="Scripts\js\lenis\lenis.min.js" />
-    <Content Include="Scripts\js\xlsx\xlsx.full.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\libs\dayjs\dayjs.min.js" />
+    <Content Include="Scripts\libs\fancybox\fancybox.umd.js" />
+    <Content Include="Scripts\libs\lenis\lenis.min.js" />
+    <Content Include="Scripts\libs\xlsx\xlsx.full.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -232,7 +240,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Maintenance\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\js\custom\" />
+    <Folder Include="Scripts\libs\custom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

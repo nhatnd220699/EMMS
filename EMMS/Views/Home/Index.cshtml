@@ -349,10 +349,13 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/js/lenis/lenis.min.js"></script>
-    <script src="~/Scripts/js/fancybox/fancybox.umd.js"></script>
-    <script src="~/Scripts/js/dayjs/dayjs.min.js"></script>
-    <script defer src="~/Scripts/js/xlsx/xlsx.full.min.js"></script>
+    <script src="~/Scripts/libs/lenis/lenis.min.js"></script>
+    <script src="~/Scripts/libs/fancybox/fancybox.umd.js"></script>
+    <script src="~/Scripts/libs/dayjs/dayjs.min.js"></script>
+    <script defer src="~/Scripts/libs/xlsx/xlsx.full.min.js"></script>
+
+    <script src="~/Scripts/services/fixture-service.js"></script>
+
     <script>
         // Initialize Lenis
         const lenis = new Lenis({
@@ -371,9 +374,8 @@
         }
 
         requestAnimationFrame(raf);
-        /**
-        * Enhanced Dataset for testing large pagination (350 items)
-        */
+
+
         const DATASET = { type: "", line: "", department: "" };
         let FIXTURE_DATASET = [];
         const IMAGE_CHECK = {};
@@ -401,14 +403,14 @@
         let activeDetailDay = null;
         let activeDetailDate = null;
         let activeMaintenanceItems = [];
-        let currentRole = "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
-       let uploadedFiles = {};
-       const CURRENT_USER_ID = "@HttpUtility.JavaScriptStringEncode(currentUserIdFromSession)";
-       const CURRENT_USER_NAME = "@HttpUtility.JavaScriptStringEncode(currentUserNameFromSession)";
-       const CURRENT_SESSION_ROLE = "@HttpUtility.JavaScriptStringEncode(roleFromSession)";
-       const CAN_APPROVE = CURRENT_SESSION_ROLE.toLowerCase() === "admin";
-       const DEFAULT_UPLOAD_ID = CURRENT_USER_ID || "V5070000";
-       const DEFAULT_APPROVAL_ID = CURRENT_USER_ID || "V4070216";
+        let currentRole ="uploader" || "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
+        let uploadedFiles = {};
+        const CURRENT_USER_ID = "@HttpUtility.JavaScriptStringEncode(currentUserIdFromSession)";
+        const CURRENT_USER_NAME = "@HttpUtility.JavaScriptStringEncode(currentUserNameFromSession)";
+        const CURRENT_SESSION_ROLE = "@HttpUtility.JavaScriptStringEncode(roleFromSession)";
+        const CAN_APPROVE = CURRENT_SESSION_ROLE.toLowerCase() === "admin";
+        const DEFAULT_UPLOAD_ID = CURRENT_USER_ID || "V5070000";
+        const DEFAULT_APPROVAL_ID = CURRENT_USER_ID || "V4070216";
 
 
 
@@ -537,7 +539,7 @@
 
         const setMonthlyLoading = () => {
             document.getElementById("maintenance-body").innerHTML =
-                '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly report...</td></tr>';
+                '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly...</td></tr>';
         };
 
         const bindMonthlyHeader = (fixture) => {
@@ -574,12 +576,6 @@
             if (Number.isNaN(date.getTime())) return value.toString().substring(0, 10);
 
             return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-        };
-
-        const resolveImageUrl = (path) => {
-            if (!path) return "";
-            if (/^(https?:)?\/\//i.test(path) || path.startsWith("/")) return path;
-            return `/${path.replace(/^~\//, "")}`;
         };
 
         const setLoadingGrid = (message) => {
@@ -633,6 +629,7 @@
             * Unified Rendering Logic (Handles Filtering, Pagination, and Display)
             */
         const updateDisplay = async (resetPagination = false) => {
+
             if (resetPagination) currentPage = 1;
 
             const grid = document.getElementById("fixture-grid");
@@ -646,16 +643,25 @@
                     fixtureSN: DATASET.fixtureSNInput
                 };
                 const query = buildQuery(params);
-                const data = await fetchJson(`api/fixture/dashboard${query ? `?${query}` : ""}`);
+
+                // const data = await fetchJson(`api/fixture/dashboard${query ? `?${query}` : ""}`);
+                // const data = ApiClient.get("api/fixture/dashboard", params);
+                const result = await ApiClient.get('/Content/data/dashboard.json');
+
+                const data = getResponseData(result);
+
                 FIXTURE_DATASET = (data || [])
                     .map(normalizeFixture)
                     .sort((a, b) => (Number(a.numberOrder) || 0) - (Number(b.numberOrder) || 0));
+
             } catch (error) {
+
                 FIXTURE_DATASET = [];
-                grid.innerHTML =
-                    `<div class="col-12 text-center py-5"><p class="text-danger">${error.message}</p></div>`;
+                grid.innerHTML = `<div class="col-12 text-center py-5"><p class="text-danger">${error.message}</p></div>`;
+
                 updateKPIs();
                 updatePaginationControls(1);
+
                 return;
             }
 
@@ -680,7 +686,7 @@
             // 3. Render grid items
             if (totalItems === 0) {
                 grid.innerHTML =
-                    '<div class="col-12 text-center py-5"><p class="text-muted">No data to display</p></div>';
+                    '<div class="col-12 text-center py-5"><p class="text-muted">No available data</p></div>';
             } else {
                 pageItems.forEach((fix, idx) => {
                     const style = getStatusStyle(fix.status);
@@ -689,18 +695,18 @@
                         "col-6 col-sm-4 col-md-3 col-lg-3 col-xxl-2 fixture-grid-item";
                     col.style.animationDelay = `${idx * 0.015}s`;
                     col.innerHTML = `
-                                        <div class="fixture-card h-100">
-                                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
-                                                <div class="status-dot ${style.dot} shadow-sm"></div>
-                                            </div>
-                                            <div class="mb-1">
-                                                <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
-                                            </div>
-                                            <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
-                                            <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
-                                        </div>
-                                    `;
+                        <div class="fixture-card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
+                                <div class="status-dot ${style.dot} shadow-sm"></div>
+                            </div>
+                            <div class="mb-1">
+                                <span class="badge-status ${style.class}">${fix.status ?? ""}</span>
+                            </div>
+                            <small class="text-muted font-monospace d-block text-truncate" style="font-size: 10px;">${fix.line ?? ""}</small>
+                            <small class="text-secondary fw-semibold d-block text-truncate" style="font-size: 10.5px;">${fix.fixture ?? ""}</small>
+                        </div>
+                    `;
 
                     // Add click event for modal
                     col.addEventListener("click", () => openMaintenanceModal(fix));
@@ -724,8 +730,7 @@
                     ? "0 - 0 của 0"
                     : `${startIndex + 1} - ${endIndex} của ${totalItems}`;
             document.getElementById("quick-pagination-info").textContent = paginationInfo;
-            document.getElementById("pageIndicator").textContent =
-                `Showing ${paginationInfo.replace("của", "of")}`;
+            document.getElementById("pageIndicator").textContent = `Showing ${paginationInfo.replace("của", "of")}`;
 
             updatePaginationControls(totalPages);
 
@@ -733,8 +738,8 @@
         };
 
         /**
-            * Unified Pagination UI Generator
-            */
+        * Unified Pagination UI Generator
+        */
         const updatePaginationControls = (totalPages) => {
             const controls = document.getElementById("paginationControls");
             controls.innerHTML = "";
@@ -842,6 +847,7 @@
         * Open Maintenance Modal
         */
         const openMaintenanceModal = async (fixture) => {
+
             activeFixture = fixture.fixture;
             activeFixtureObject = fixture;
 
@@ -862,8 +868,7 @@
 
             // Fill modal details
             document.getElementById("maintenanceModalLabel").textContent = fixture.eqName || "Machine";
-            document.getElementById("modalFixtureId").textContent =
-                `Fixture ID: ${fixture.fixture ?? ""}`;
+            document.getElementById("modalFixtureId").textContent = `Fixture ID: ${fixture.fixture ?? ""}`;
             document.getElementById("modalLine").textContent = fixture.line ?? "";
             document.getElementById("modalShift").textContent = "";
             document.getElementById("modalYear").textContent = "";
@@ -871,21 +876,25 @@
             document.getElementById("modalDeviceName").textContent = fixture.eqName ?? "";
             document.getElementById("modalDeviceMod").textContent = fixture.eqModel ?? "";
             document.getElementById("modalDeviceNo").textContent = fixture.fixture ?? "";
-            //document.getElementById("maintenance-body").innerHTML =
-            //    '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly report...</td></tr>';
             setMonthlyLoading();
 
             maintenanceModalInstance.show();
 
             try {
+
                 const params = {
                     type: DATASET.type || "FATP",
                     line: DATASET.line,
                     department: DATASET.department,
                     eqSn: fixture.fixture
                 };
+
                 const query = buildQuery(params);
-                activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
+
+                // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
+                // const result = await ApiClient.get('api/fixture/monthly', params);
+                const result = await ApiClient.get(`/Content/data/monthly.json`);
+                activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
 
                 document.getElementById("maintenanceModalLabel").textContent =
@@ -906,7 +915,9 @@
                     getProp(activeMonthlyData, "eQ_SN", "EQ_SN") || fixture.fixture || "";
 
                 initTable();
+
             } catch (error) {
+
                 activeMonthlyData = null;
                 activeMaintenanceItems = [];
                 document.getElementById("maintenance-body").innerHTML =
@@ -915,6 +926,7 @@
         };
 
         const openDetailModal = async ({ line, day, shift, activeFixture }) => {
+
             activeDetailDay = day;
             activeDailyData = null;
 
@@ -948,6 +960,7 @@
             detailModalInstance.show();
 
             try {
+
                 const params = {
                     type: DATASET.type || "FATP",
                     line: DATASET.line || line,
@@ -959,26 +972,26 @@
                     isApproverMode: currentRole === "approver"
                 };
                 const query = buildQuery(params);
-                activeDailyData = await fetchJson(`api/fixture/daily?${query}`);
+                // activeDailyData = await fetchJson(`api/fixture/daily?${query}`);
+                activeDailyData = await fetchJson(`/Content/data/daily.json`);
                 renderDetailRows();
+
             } catch (error) {
+
                 document.getElementById("detail-form-body").innerHTML =
                     `<tr><td colspan="9" class="text-center py-4 text-danger">${error.message}</td></tr>`;
             }
         };
 
-        //const toggleDetailColumns = () => {
-        //    const isApprover = currentRole === "approver";
-        //    document.querySelectorAll(".approver-only-col").forEach((el) => {
-        //        el.classList.toggle("d-none", !isApprover);
-        //    });
-        //};
-
         const handleFileUpload = async (input, rowId) => {
+
             const fileList = Array.from(input.files);
 
             const imageResult = await uploadImage(fileList);
-            if (imageResult && imageResult.code == 200) {
+
+            if (!imageResult) return;
+
+            if (imageResult && imageResult.code === 200) {
                 checkImageTime(imageResult.time_stamp, rowId);
             }
 
@@ -989,10 +1002,12 @@
                 const url = URL.createObjectURL(file);
                 renderGallery(rowId, gallery, file, url);
             });
+
             input.value = "";
         };
 
         const renderGallery = (rowId, gallery, file, url, existingPath = "") => {
+
             if (!gallery || !url) return;
 
             const div = document.createElement("div");
@@ -1003,40 +1018,56 @@
             div._path = existingPath;
 
             div.innerHTML = `
-                                <a href="${url}" data-mtNo="${rowId}" data-fancybox="gallery-${rowId}">
-                                    <img src="${url}" alt="preview" >
-                                </a>
-                                ${currentRole === "uploader"
-                    ? `
-                                    <button type="button" class="remove-btn">
-                                        <span class="material-symbols-outlined">close</span>
-                                    </button>
-                                `
-                    : ""
+                <a href="${url}" data-mtNo="${rowId}" data-fancybox="gallery-${rowId}">
+                    <img src="${url}" alt="preview" >
+                </a>
+                ${currentRole === "uploader"
+                ? `
+                    <button type="button" class="remove-btn">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                `
+                : ""
                 }
-                            `;
+                `;
 
             div.querySelector(".remove-btn")?.addEventListener("click", () => {
                 if (div._file && div._url) URL.revokeObjectURL(div._url); //cleanup
                 div.remove();
             });
+
             gallery.insertAdjacentElement("beforeend", div);
         };
 
 
         async function uploadImage(fileList) {
-            const formData = new FormData();
-            formData.append("file", fileList[0]);
 
-            const response = await fetch('api/fixture/image/getInfo', {
-                method: 'POST',
-                body: formData
-            });
+            try {
 
-            return resulcheckImageTimet = await response.json();
+                Popup.show("Processing image...");
+
+                const formData = new FormData();
+                formData.append("file", fileList[0]);
+
+                const result = await ApiClient.postForm('api/fixture/image/getInfo', formData);
+                console.log(result);
+                if (result.code === 200) {
+                    Popup.success("Image processed completed.");
+                } else {
+                    Popup.error("Failed to process image.");
+                }
+
+                return result;
+
+
+            } catch (error) {
+                Popup.error(error.message);
+            }
+
         }
 
         function checkImageTime(timestamp, rowId) {
+
             // Parse chuỗi
             const parts = timestamp.split(" ");
 
@@ -1093,7 +1124,6 @@
                 resultUploader = 'NG';
             }
 
-
             // Tất cả đều là OK
             else if (resultArr.every(x => x === "OK")) {
                 resultUploader = 'OK';
@@ -1104,6 +1134,7 @@
 
 
         const renderDetailRows = (buttonClick = false) => {
+
             const body = document.getElementById("detail-form-body");
             body.innerHTML = "";
 
@@ -1131,7 +1162,8 @@
             const cancelBtn = document.querySelector('#cancelUploader');
             const approveBtn = document.querySelector('#approveAll');
 
-            if (isToday(activeDetailDate)) {
+            if (checkToday(activeDetailDate)) {
+
                 if (role == "uploader") {
                     approverAction.classList.add('d-none');
                     uploaderAction.classList.remove('d-none');
@@ -1209,18 +1241,18 @@
 
                 let images = (item.ExistingImagePaths || []).map(url => {
                     return `
-                            <div class="gallery-item" data-path="${url}">
-                                <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
-                                    <img src="${url}" alt="preview">
-                                </a>
-                                ${currentRole == "uploader" && (!isApproved || startEdit)
-                            ? `<button type="button" class="remove-btn">
-                                        <span class="material-symbols-outlined">close</span>
-                                    </button>
-                                    `
-                            : ''}
-                            </div>
-                        `
+                        <div class="gallery-item" data-path="${url}">
+                            <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
+                                <img src="${url}" alt="preview">
+                            </a>
+                            ${currentRole == "uploader" && (!isApproved || startEdit)
+                        ? `<button type="button" class="remove-btn">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                                `
+                        : ''}
+                        </div>
+                    `
                 }).join('');
 
                 PREVIEW_IMAGE[mtNo] = false;
@@ -1250,63 +1282,61 @@
 
                 // Maintenance Result Cell Logic
                 let uploaderResultHtml = `
-                                    <div class="status-radio flex-column gap-1">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resOk_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} disabled>
-                                            <label for="uploader_resOk_${mtNo}" class="text-xs">OK</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNg_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} disabled>
-                                            <label for="uploader_resNg_${mtNo}" class="text-xs">NG</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNa_${mtNo}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} disabled>
-                                            <label for="uploader_resNa_${mtNo}" class="text-xs">NA</label>
-                                        </div>
-                                    </div>
-                                `;
+                    <div class="status-radio flex-column gap-1">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resOk_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} disabled>
+                            <label for="uploader_resOk_${mtNo}" class="text-xs">OK</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNg_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} disabled>
+                            <label for="uploader_resNg_${mtNo}" class="text-xs">NG</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNa_${mtNo}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} disabled>
+                            <label for="uploader_resNa_${mtNo}" class="text-xs">NA</label>
+                        </div>
+                    </div>
+                `;
 
                 let approvalResultHtml = `
-                                    <div class="status-radio flex-column gap-1 approver-radio">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <input type="radio" name="approver_res_${mtNo}" id="approver_resOk_${mtNo}" data-mt-no="${mtNo}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                            <label for="approver_resOk_${mtNo}" class="text-xs">OK</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNg_${mtNo}" data-mt-no="${mtNo}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                            <label for="approver_resNg_${mtNo}" class="mtNo-xs">NG</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNa_${mtNo}" data-mt-no="${mtNo}" value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                                            <label for="approver_resNa_${mtNo}" class="text-xs">NA</label>
-                                        </div>
-                                    </div>
-                                `;
+                    <div class="status-radio flex-column gap-1 approver-radio">
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="approver_res_${mtNo}" id="approver_resOk_${mtNo}" data-mt-no="${mtNo}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                            <label for="approver_resOk_${mtNo}" class="text-xs">OK</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNg_${mtNo}" data-mt-no="${mtNo}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                            <label for="approver_resNg_${mtNo}" class="mtNo-xs">NG</label>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNa_${mtNo}" data-mt-no="${mtNo}" value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
+                            <label for="approver_resNa_${mtNo}" class="text-xs">NA</label>
+                        </div>
+                    </div>
+                `;
 
                 // Remark Cell Logic
                 let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${currentRole !== "approver" ? "disabled" : ""}>${remark}</textarea>`;
 
                 tr.innerHTML = `
-                                    <td class="text-center number-order">${numberOrder}</td>
-                                    <td class="mt-item">
-                                        ${actionText}
-                                    </td>
-                                    <td class="mt-desc">
-                                        ${methodText}
-                                    </td>
-                                    <td>${imageCellHtml}</td>
-                                    <td>${uploaderResultHtml}</td>
-                                    <td class="text-center upload-id-cell">${uploadId}</td>
-                                    <td class="approver-only-col">${approvalResultHtml}</td>
-                                    <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
-                                    <td class="text-center approver-only-col">${remarkHtml}</td>
-                                `;
+                    <td class="text-center number-order">${numberOrder}</td>
+                    <td class="mt-item">${actionText}</td>
+                    <td class="mt-desc">${methodText}</td>
+                    <td>${imageCellHtml}</td>
+                    <td>${uploaderResultHtml}</td>
+                    <td class="text-center upload-id-cell">${uploadId}</td>
+                    <td class="approver-only-col">${approvalResultHtml}</td>
+                    <td class="text-center approver-only-col approval-id-cell">${approvalId}</td>
+                    <td class="text-center approver-only-col">${remarkHtml}</td>
+                `;
+
                 body.appendChild(tr);
             });
         };
 
 
-        function isToday(dateStr) {
+        function checkToday(dateStr) {
+
             const today = new Date();
 
             const yyyy = today.getFullYear();
@@ -1320,6 +1350,7 @@
 
 
         const initTable = () => {
+
             const headerRow = document.getElementById("date-header-row");
             const body = document.getElementById("maintenance-body");
 
@@ -1336,9 +1367,9 @@
             for (let i = 1; i <= days; i++) {
                 const day = i;
                 const date = `${year}-${String(month).padStart(2, "0")}-${String(i).padStart(2, "0")}`;
-                const checkToday = isToday(date);
+                const isToday = checkToday(date);
                 const th = document.createElement("th");
-                th.className = `day-col font-mediumn text-decoration-underline ${checkToday ? 'active' : ''}`;
+                th.className = `day-col font-mediumn text-decoration-underline ${isToday ? 'active' : ''}`;
                 th.textContent = i;
                 th.dataset.date = date;
                 th.onclick = () => openDetailModal({ line, day, shift, activeFixture });
@@ -1380,19 +1411,22 @@
                 const mtDesc = getProp(item, "mT_Desc", "MT_Desc") || "";
 
                 tr.innerHTML = `
-                                    <td class="text-center">${numberOrder}</td>
-                                    <td>${mtItem}</td>
-                                    <td>${mtDesc}</td>
-                                    ${daysHtml}
-                                `;
+                    <td class="text-center">${numberOrder}</td>
+                    <td>${mtItem}</td>
+                    <td>${mtDesc}</td>
+                    ${daysHtml}
+                `;
+
                 body.appendChild(tr);
             });
         };
 
         const refreshMonthlyModal = async (showError = false) => {
+
             if (!activeFixtureObject) return;
 
             try {
+
                 const params = {
                     type: DATASET.type || "FATP",
                     line: DATASET.line,
@@ -1401,10 +1435,14 @@
                     month: activeMonthlyMonth || getMonthlyInputValue()
                 };
                 const query = buildQuery(params);
-                activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
+                // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
+                // const result = await ApiClient.get('api/fixture/monthly', params);
+                const result = await ApiClient.get('/Content/data/monthly.json');
+                activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
                 bindMonthlyHeader(activeFixtureObject);
                 initTable();
+
             } catch (error) {
 
                 if (showError) {
@@ -1417,6 +1455,7 @@
         };
 
         const searchMonthlyReport = async () => {
+
             if (!activeFixtureObject) return;
 
             activeMonthlyMonth = getMonthlyInputValue() || getCurrentMonthValue();
@@ -1425,6 +1464,7 @@
         };
 
         const collectDailyData = () => {
+
             const rows = document.querySelectorAll("#detail-form-body tr");
             const result = [];
 
@@ -1480,10 +1520,17 @@
 
 
         const sumbitDailyForm = async (action) => {
+
+            const saveUploader = document.querySelector("#saveUploader");
+            saveUploader.disabled = true;
+
+            if (!ActionLock.acquire('save-daily')) return;
+
+
             const data = collectDailyData() || [];
 
             if (data.length <= 0) {
-                alert("Cannot gather info daily form, try again!");
+                Popup.show("Unable to retrieve daily form information. Please try again.");
                 return;
             }
 
@@ -1493,6 +1540,8 @@
             //    alert("Please complete the evaluation of all items before submitting the data!");
             //    return;
             //}
+             
+            Popup.show("Saving data...");
 
             const formData = new FormData();
 
@@ -1505,9 +1554,8 @@
             const date = activeDetailDate || normalizeDateText(getProp(activeDailyData, "date", "Date"))
             const shift = getProp(activeDailyData, "shift", "Shift") || "Day"
             const isApproverMode = currentRole === "approver" ? true : false;
-            /*            const itemCount = sourceRows.length;*/
 
-            //formData.append("type", type);
+            formData.append("Type", type);
             formData.append("Line", line);
             formData.append("Department", department);
             formData.append("EQ_SN", eqSn);
@@ -1517,7 +1565,6 @@
             formData.append("Shift", shift);
             formData.append("IsApproverMode", isApproverMode);
             formData.append("Action", action);
-            //formData.append("itemCount", itemCount);
 
             data.forEach((item, i) => {
 
@@ -1541,38 +1588,39 @@
                 item.newFiles.forEach((file, j) => {
                     formData.append(`CheckItems[${i}].NewFiles[${j}]`, file);
                 });
-
             });
 
             try {
-                const res = await fetch('api/fixture/daily/submit', {
-                    method: 'POST',
-                    body: formData
-                });
 
-                const result = await res.json();
-                if (result.Success == true) {
-                    startEdit = false; // khi lưu xong thì trạng thái phải được reset
-                    alert('Save successfully');
+                const result = await ApiClient.postForm('api/fixture/daily/submit', formData);
+
+                if (result.Success === true) {
+                    Popup.success('Saved successfully.')
+                    startEdit = false; // khi lưu xong thì trạng thái edit phải được reset
                     openMaintenanceModal(activeFixtureObject);
                 } else {
-                    alert('Save fail');
+                    Popup.error('Failed to save data.');
                 }
-                //console.log(result);
 
             } catch (err) {
-                console.error(err);
+
+                Popup.error(err.message, 2000);
+            } finally {
+                ActionLock.release('save-daily');
+                saveUploader.removeAttribute('disabled');
             }
 
         }
 
         function exportTable() {
+
             const table = document.getElementById("maintenance-table");
             const workbook = XLSX.utils.table_to_book(table);
             XLSX.writeFile(workbook, "data_monthly.xlsx");
         }
 
         function initFancybox() {
+
             Fancybox.bind("[data-fancybox]", {
                 closeButton: false,
                 dragToClose: false,
@@ -1603,8 +1651,6 @@
                             right: ["autoplay", "thumbs", "close"],
                         },
                     },
-
-
                 },
                 on: {
                     ready: (fancybox) => {
@@ -1652,12 +1698,14 @@
         * Initialization
         */
         document.addEventListener("DOMContentLoaded", async () => {
-            await loadFilterOptions();
+
+            // await loadFilterOptions();
             updateDisplay();
             initFancybox();
 
             // Page Size Selector
             document.getElementById("pageSizeSelector").addEventListener("change", (e) => {
+
                 pageSize = parseInt(e.target.value);
                 updateDisplay(true);
             });
@@ -1678,6 +1726,7 @@
 
             // KPI Card Click Events for Unified Filtering
             document.querySelectorAll(".kpi-card").forEach((card) => {
+
                 card.addEventListener("click", () => {
                     // UI Toggle
                     document
@@ -1693,9 +1742,11 @@
 
             // Micro-interactions for buttons
             document.addEventListener("mousedown", (e) => {
+
                 const interactive = e.target.closest(
                     ".sidebar-item, .submenu-item, .fixture-card, .btn, .page-link",
                 );
+
                 if (
                     interactive &&
                     !interactive.classList.contains("custom-collapse-toggle") &&
@@ -1705,35 +1756,17 @@
                     interactive.style.transition = "transform 0.1s ease";
                 }
             });
+
             document.addEventListener("mouseup", (e) => {
+
                 const interactive = e.target.closest(
                     ".sidebar-item, .submenu-item, .fixture-card, .btn, .page-link",
                 );
                 if (interactive) interactive.style.transform = "";
             });
 
-            //// Role Toggling
-            //document.getElementById("roleUploader").addEventListener("change", (e) => {
-            //    if (e.target.checked) {
-            //        currentRole = "uploader";
-            //        document.getElementById("uploaderActions").classList.remove("d-none");
-            //        document.getElementById("approverActions").classList.add("d-none");
-            //        //toggleDetailColumns();
-            //        renderDetailRows();
-            //    }
-            //});
-
-            //document.getElementById("roleApprover").addEventListener("change", (e) => {
-            //    if (e.target.checked) {
-            //        currentRole = "approver";
-            //        document.getElementById("uploaderActions").classList.add("d-none");
-            //        document.getElementById("approverActions").classList.remove("d-none");
-            //        //toggleDetailColumns();
-            //        renderDetailRows();
-            //    }
-            //});
-
             document.getElementById("editUploader").addEventListener("click", function () {
+
                 startEdit = true;
                 this.classList.add('d-none');
                 document.querySelector('#saveUploader').classList.remove('d-none');
@@ -1743,6 +1776,7 @@
             });
 
             document.getElementById("cancelUploader").addEventListener("click", (e) => {
+
                 startEdit = false;
                 e.target.classList.add('d-none');
 
@@ -1750,6 +1784,7 @@
             });
 
             document.getElementById('saveUploader').addEventListener('click', function () {
+
                 if (!startEdit) {
                     //sumbitDailyForm('Upload_Equipment_By_SN');
                     sumbitDailyForm('create');
@@ -1765,16 +1800,19 @@
             });
 
             document.getElementById("type").addEventListener("change", (e) => {
+
                 DATASET["type"] = (e.target.value ?? "")?.trim();
                 updateDisplay(true);
             });
 
             document.getElementById("line").addEventListener("change", (e) => {
+
                 DATASET["line"] = (e.target.value ?? "")?.trim();
                 updateDisplay(true);
             });
 
             document.getElementById("department").addEventListener("change", (e) => {
+
                 DATASET["department"] = (e.target.value ?? "")?.trim();
                 updateDisplay(true);
             });
@@ -1784,6 +1822,7 @@
             });
 
             document.getElementById('fixture-sn').addEventListener("keydown", (e) => {
+
                 if (e.key === "Enter") {
                     e.preventDefault();
                     DATASET["fixtureSNInput"] = (e.target.value ?? "").trim();
@@ -1792,6 +1831,7 @@
             });
 
             document.getElementById("detailModal").addEventListener("hidden.bs.modal", () => {
+
                 if (maintenanceModalInstance) {
                     maintenanceModalInstance.show();
                 }
@@ -1805,6 +1845,7 @@
             });
 
             document.addEventListener('click', function (e) {
+
                 if (e.target.matches('.approver-radio input[type="radio"]')) {
                     e.preventDefault();
 
@@ -1820,8 +1861,6 @@
                     }
                 }
             });
-
-
         });
     </script>
 }

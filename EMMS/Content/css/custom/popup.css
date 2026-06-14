@@ -1,0 +1,47 @@
+.popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+    .popup.show {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+        pointer-events: auto;
+    }
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #ccc;
+    border-top: 3px solid #4caf50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.success {
+    background: #2e7d32;
+}
+
+.error {
+    background: #c62828;
+}

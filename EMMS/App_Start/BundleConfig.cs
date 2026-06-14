@@ -20,11 +20,10 @@ namespace EMMS
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/js/bootstrap/bootstrap.bundle.min.js"));
+                      "~/Scripts/libs/bootstrap/bootstrap.bundle.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/css/bootstrap/bootstrap.min.css"
-                      //"~/Content/site.css"
                       ));
         }
     }
