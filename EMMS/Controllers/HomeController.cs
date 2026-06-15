@@ -11,8 +11,8 @@ namespace EMMS.Controllers
 
         public ActionResult Index()
         {
-            //if (!IsLoggedIn())
-            //    return RedirectToAction("Index", "Login");
+            if (!IsLoggedIn())
+                return RedirectToAction("Index", "Login");
 
             return View();
         }

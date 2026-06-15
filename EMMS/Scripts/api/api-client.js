@@ -40,9 +40,7 @@ const ApiClient = {
 
                 const errorData = await response.json();
 
-                console.log(errorData)
-
-                message = errorData.message || errorData.error || message;
+                message = errorData.Message || errorData.message || message;
 
             } catch (e) {
 
