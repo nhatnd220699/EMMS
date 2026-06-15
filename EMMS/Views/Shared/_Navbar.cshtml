@@ -1,6 +1,19 @@
 ﻿@{
     var navbarUserName = (Session["UserName"] ?? Session["UserId"] ?? "Guest").ToString();
     var navbarRole = (Session["Role"] ?? "").ToString();
+
+   var currentLang = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+
+    var langMap = new Dictionary<string, string>
+    {
+        { "en-US", "English" },
+        { "zh-CN", "中文" },
+        { "vi-VN", "Tiếng Việt" }
+    };
+
+    var currentLangText = langMap.ContainsKey(currentLang)
+        ? langMap[currentLang]
+        : "English";
 }
 
 <!-- Top Navigation Bar -->
@@ -39,14 +52,14 @@
                         class="btn btn-link p-1 text-secondary d-flex align-items-center gap-1 text-decoration-none"
                         data-bs-toggle="dropdown" id="languageDropdown" type="button">
                     <span class="material-symbols-outlined fs-5">language</span>
-                    <span class="fw-semibold" style="font-size: 13px">EN</span>
+                    <span class="fw-semibold" style="font-size: 13px">@currentLangText</span>
                     <span class="material-symbols-outlined" style="font-size: 16px">expand_more</span>
                 </button>
                 <ul aria-labelledby="languageDropdown"
                     class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2 p-0 overflow-hidden"
                     style="min-width: 160px; border-radius: 12px">
                     <li class="">
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 active" href="#"
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 @(currentLang == "en-US" ? "active" : "text-secondary")" href="/Language/Change?lang=en-US"
                            style="font-size: 14px">
                             <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center border"
                                  style="width: 20px; height: 20px">
@@ -56,7 +69,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 @(currentLang == "zh-CN" ? "active" : "text-secondary")" href="/Language/Change?lang=zh-CN"
                            style="font-size: 14px">
                             <div class="rounded-circle bg-light d-flex align-items-center justify-content-center border"
                                  style="width: 20px; height: 20px">
@@ -66,7 +79,7 @@
                         </a>
                     </li>
                     <li class="">
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 @(currentLang == "vi-VN" ? "active" : "text-secondary")" href="/Language/Change?lang=vi-VN"
                            style="font-size: 14px">
                             <div class="rounded-circle bg-light d-flex align-items-center justify-content-center"
                                  style="width: 20px; height: 20px">

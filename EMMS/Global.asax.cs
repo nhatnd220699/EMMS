@@ -31,5 +31,21 @@ namespace EMMS
                 HttpContext.Current.SetSessionStateBehavior(SessionStateBehavior.Required);
             }
         }
+
+        protected void Application_BeginRequest()
+        {
+            string lang = "en-US"; // default
+
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["lang"];
+
+            if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
+            {
+                lang = cookie.Value;
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(lang);
+
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(lang);
+        }
     }
 }

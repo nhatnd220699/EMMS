@@ -20,8 +20,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">Total Maintenance</small>
-                            <h4 class="mb-0 fw-bold" id="kpi-total">50</h4>
+                                   style="font-size: 12px">@Language.TotalMaintenance</small>
+                            <h4 class="mb-0 fw-bold" id="kpi-total">0</h4>
                         </div>
                         <div class="kpi-icon-box bg-light text-primary">
                             <span class="material-symbols-outlined">inventory_2</span>
@@ -34,7 +34,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
-                                No Maintenance
+                                @Language.NoMaintenance
                             </small>
                             <h4 class="mb-0 fw-bold text-danger" id="kpi-maintenance">
                                 0
@@ -51,7 +51,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">Maintenance Ongoing</small>
+                                   style="font-size: 12px">@Language.MaintenanceOngoing</small>
                             <!-- <h4 class="mb-0 fw-bold" id="kpi-waiting" style="color: var(--tertiary);">0</h4> -->
                             <h4 class="mb-0 fw-bold text-warning" id="kpi-waiting">
                                 0
@@ -68,7 +68,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">Maintenance Done</small>
+                                   style="font-size: 12px">@Language.MaintenanceDone</small>
                             <h4 class="mb-0 fw-bold text-success" id="kpi-completed">
                                 0
                             </h4>
@@ -647,8 +647,8 @@
                 //const query = buildQuery(params);
 
                 // const data = await fetchJson(`api/fixture/dashboard${query ? `?${query}` : ""}`);
-                // const result = await ApiClient.get('/Content/data/dashboard.json');
-                const result = await ApiClient.get("api/fixture/dashboard", params);
+                const result = await ApiClient.get('/Content/data/dashboard.json');
+                // // const result = await ApiClient.get("api/fixture/dashboard", params);
 
                 const data = getResponseData(result);
 
@@ -894,8 +894,8 @@
                 const query = buildQuery(params);
 
                 // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
-                // const result = await ApiClient.get(`/Content/data/monthly.json`);
-                const result = await ApiClient.get('api/fixture/monthly', params);
+                const result = await ApiClient.get(`/Content/data/monthly.json`);
+                // const result = await ApiClient.get('api/fixture/monthly', params);
                 activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
 
@@ -975,8 +975,8 @@
                 };
                 const query = buildQuery(params);
                 // activeDailyData = await fetchJson(`api/fixture/daily?${query}`);
-                // activeDailyData = await fetchJson(`/Content/data/daily.json`);
-                const result = await ApiClient.get('api/fixture/daily', params);
+                const result = await ApiClient.get(`/Content/data/daily.json`);
+                // const result = await ApiClient.get('api/fixture/daily', params);
                 activeDailyData = getResponseData(result);
 
                 renderDetailRows();
@@ -1603,7 +1603,7 @@
                         color = `color: #6b5103`;
                     } else if (val == "NA") {
                     }
-                    daysHtml += `<td class="day-col" style="padding: 10px; ${bgColor}; ${color}">${val}</td>`;
+                    daysHtml += `<td style="text-align: center; vertical-align: middle; padding: 10px; ${bgColor}; ${color}">${val}</td>`;
                 }
 
                 const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
@@ -1659,8 +1659,8 @@
                 };
                 const query = buildQuery(params);
                 // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
-                // const result = await ApiClient.get('/Content/data/monthly.json');
-                const result = await ApiClient.get('api/fixture/monthly', params);
+                const result = await ApiClient.get('/Content/data/monthly.json');
+                // const result = await ApiClient.get('api/fixture/monthly', params);
                 activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
                 bindMonthlyHeader(activeFixtureObject);
