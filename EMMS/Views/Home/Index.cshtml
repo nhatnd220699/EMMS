@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-3" data-status="Ongoing">
+                <div class="card kpi-card p-3" data-status="Ongoing">g
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
@@ -644,11 +644,9 @@
                     department: DATASET.department,
                     fixtureSN: DATASET.fixtureSNInput
                 };
-                //const query = buildQuery(params);
 
-                // const data = await fetchJson(`api/fixture/dashboard${query ? `?${query}` : ""}`);
-                const result = await ApiClient.get('/Content/data/dashboard.json');
-                // // const result = await ApiClient.get("api/fixture/dashboard", params);
+                // const result = await ApiClient.get('/Content/data/dashboard.json');
+                const result = await ApiClient.get("api/fixture/dashboard", params);
 
                 const data = getResponseData(result);
 
@@ -893,9 +891,8 @@
 
                 const query = buildQuery(params);
 
-                // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
-                const result = await ApiClient.get(`/Content/data/monthly.json`);
-                // const result = await ApiClient.get('api/fixture/monthly', params);
+                // const result = await ApiClient.get(`/Content/data/monthly.json`);
+                const result = await ApiClient.get('api/fixture/monthly', params);
                 activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
 
@@ -973,10 +970,9 @@
                     uploadId: DEFAULT_UPLOAD_ID,
                     isApproverMode: currentRole === "approver"
                 };
-                const query = buildQuery(params);
-                // activeDailyData = await fetchJson(`api/fixture/daily?${query}`);
-                const result = await ApiClient.get(`/Content/data/daily.json`);
-                // const result = await ApiClient.get('api/fixture/daily', params);
+
+                // const result = await ApiClient.get(`/Content/data/daily.json`);
+                const result = await ApiClient.get('api/fixture/daily', params);
                 activeDailyData = getResponseData(result);
 
                 renderDetailRows();
@@ -1657,10 +1653,9 @@
                     eqSn: activeFixtureObject.fixture,
                     month: activeMonthlyMonth || getMonthlyInputValue()
                 };
-                const query = buildQuery(params);
-                // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
-                const result = await ApiClient.get('/Content/data/monthly.json');
-                // const result = await ApiClient.get('api/fixture/monthly', params);
+
+                // const result = await ApiClient.get('/Content/data/monthly.json');
+                const result = await ApiClient.get('api/fixture/monthly', params);
                 activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
                 bindMonthlyHeader(activeFixtureObject);
