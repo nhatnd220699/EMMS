@@ -305,15 +305,13 @@ namespace Application.Services
                 var uploadId = model.CheckItems.Select(x => x.Upload_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
                 var approvalId = model.CheckItems.Select(x => x.Approval_ID).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
 
-                var extendedPara = model.IsApproverMode
-                    ? ""
-                    : BuildExtendedPara(new Dictionary<string, string>
-                    {
-                        { "Upload_ID", uploadId },
-                        { "Approval_ID", approvalId },
-                        { "EQ_Name", model.EQ_Name },
-                        { "EQ_Model", model.EQ_Model }
-                    });
+                var extendedPara = BuildExtendedPara(new Dictionary<string, string>
+                {
+                    { "Upload_ID", uploadId },
+                    { "Approval_ID", approvalId },
+                    { "EQ_Name", model.EQ_Name },
+                    { "EQ_Model", model.EQ_Model }
+                });
 
 
                 var param = new SaveFixtureParam

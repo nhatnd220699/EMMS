@@ -1,5 +1,5 @@
 ﻿<!-- Sidebar Navigation -->
-<nav id="sidebar">
+<nav id="sidebar" class="active">
     <div class="sidebar-header d-flex align-items-center gap-3">
         <div class="p-2 bg-primary text-white rounded">
             <span class="material-symbols-outlined d-block">precision_manufacturing</span>
@@ -97,6 +97,19 @@
                 if (toggle) toggle.setAttribute("aria-expanded", "true");
                 parent = parent.parentElement.closest(".sidebar-submenu");
             }
+        }
+    };
+
+    /**
+    * Navbar Title Sync Logic
+    */
+    const updateNavbarTitle = (element) => {
+        const titleEl = document.getElementById("navbar-dynamic-title");
+        if (!titleEl || !element) return;
+
+        const labelSpan = element.querySelector("span:not(.material-symbols-outlined)");
+        if (labelSpan) {
+            titleEl.textContent = labelSpan.textContent.trim();
         }
     };
 

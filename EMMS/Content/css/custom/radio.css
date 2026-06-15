@@ -1,0 +1,161 @@
+﻿:root {
+    /* Or apply to a specific container */
+    --radio-size: 15px;
+    --radio-border-width: 2px;
+    --radio-dot-size: calc(var(--radio-size) * 0.45);
+    /* Unchecked State */
+    --radio-border-color-unchecked: #a1a1aa;
+    --radio-bg-unchecked: #ffffff;
+    /* Checked State */
+    --radio-border-color-checked: #4f46e5;
+    --radio-bg-checked: #4f46e5;
+    /* Used for 'filled' */
+    --radio-dot-color: #4f46e5;
+    /* Used for 'classic', 'outline' */
+    --radio-inset-shadow-color: #00005c;
+    /* New */
+    --radio-inset-shadow-size: calc(var(--radio-size) / 2 * 0.8);
+    /* New */
+    /* Gradient State */
+    --radio-gradient: linear-gradient(135deg, #97f6d9, #627bf8);
+    /* Hover State (Unchecked) */
+    --radio-hover-border-color: #6366f1;
+    --radio-hover-bg: #f4f4f5;
+    --radio-hover-scale: 1;
+    /* Focus State */
+    --radio-focus-outline-color: -webkit-focus-ring-color;
+    --radio-focus-outline-offset: 2px;
+    /* Animation */
+    --radio-animation-duration: 150ms;
+    --radio-animation-timing: ease-in-out;
+}
+
+/* Core Radio Button Styles */
+.hidden-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.custom-radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--radio-size);
+    height: var(--radio-size);
+    border: var(--radio-border-width) solid var(--radio-border-color-unchecked);
+    border-radius: 30%;
+    background-color: var(--radio-bg-unchecked);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    vertical-align: middle;
+    overflow: hidden;
+    /* Needed for gradient reveal */
+    /* Base transitions */
+    transition: background-color 0.15s var(--radio-animation-timing), border-color 0.15s var(--radio-animation-timing), transform 0.15s var(--radio-animation-timing), box-shadow var(--radio-animation-duration) var(--radio-animation-timing);
+    /* Add box-shadow transition */
+    transform: scale(1);
+    box-shadow: none;
+    /* Default no inset shadow */
+}
+
+    /* Inner Dot Element (::after) - Used for classic/outline */
+    .custom-radio::after {
+        content: "";
+        display: block;
+        width: var(--radio-dot-size);
+        height: var(--radio-dot-size);
+        border-radius: 50%;
+        background-color: var(--radio-dot-color);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        /* Initially hidden */
+        opacity: 0;
+        transition: transform var(--radio-animation-duration) var(--radio-animation-timing), opacity var(--radio-animation-duration) var(--radio-animation-timing);
+    }
+
+    /* Cover Element (::before) - Used for gradient-reveal */
+    .custom-radio::before {
+        content: '';
+        position: absolute;
+        inset: calc(-1 * var(--radio-border-width));
+        /* Cover border */
+        background: var(--radio-bg-unchecked);
+        /* Match unchecked background */
+        border-radius: 50%;
+        transform: scale(1.1);
+        /* Start slightly larger */
+        opacity: 1;
+        transition: transform var(--radio-animation-duration) var(--radio-animation-timing), opacity var(--radio-animation-duration) var(--radio-animation-timing);
+        z-index: 1;
+        /* Above potential background gradient */
+        pointer-events: none;
+        /* Allow clicks through */
+    }
+
+    /* Hide cover by default unless gradient-reveal animation is active */
+    .custom-radio:not(.anim-gradient-reveal)::before {
+        display: none;
+    }
+
+/* Ensure cover is visible when gradient-reveal is active and unchecked */
+.hidden-radio:not(:checked) + .custom-radio.anim-gradient-reveal::before {
+    display: block;
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+
+/* Hover State (Unchecked) */
+.hidden-radio:not(:checked) + .custom-radio:hover {
+    border-color: var(--radio-hover-border-color);
+    background-color: var(--radio-hover-bg);
+    transform: scale(var(--radio-hover-scale));
+}
+
+/* Hover state for cover in gradient reveal */
+.hidden-radio:not(:checked) + .custom-radio.anim-gradient-reveal:hover::before {
+    background-color: var(--radio-hover-bg);
+}
+
+
+/* Active State */
+.custom-radio:active {
+    transform: scale(calc(var(--radio-hover-scale) * 0.95));
+}
+
+/* Focus State */
+.hidden-radio:focus-visible + .custom-radio {
+    outline: 2px solid var(--radio-focus-outline-color);
+    outline-offset: var(--radio-focus-outline-offset);
+}
+
+/* --- Checked State --- */
+.hidden-radio:checked + .custom-radio {
+    border-color: var(--radio-border-color-checked);
+    background-color: var(--radio-bg-unchecked);
+}
+
+    /* Show dot for classic style */
+    .hidden-radio:checked + .custom-radio::after {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        background-color: var(--radio-dot-color);
+    }
+
+/* Optional: Style label text */
+.radio-label-text {
+    margin-left: 8px;
+    cursor: pointer;
+    vertical-align: middle;
+    user-select: none;
+}
+
+input[type="radio"]:disabled ~ .radio-label-text {
+    color: #adb5bd;
+}

@@ -537,6 +537,7 @@ thead tr th.day-col:hover {
     justify-content: center;
     transition: all 0.2s;
     align-content: center;
+    user-select: none;
 }
 
     .upload-zone:hover {
@@ -550,12 +551,13 @@ thead tr th.day-col:hover {
     grid-template-columns: repeat(3, 60px); */
     gap: 8px;
     margin-top: 8px;
+    flex-wrap: wrap;
 }
 
 .gallery-item {
     position: relative;
     width: 60px;
-    height: 60px;
+    height: 120px;
     border-radius: 4px;
     overflow: hidden;
     border: 1px solid var(--outline-variant);
@@ -570,12 +572,12 @@ thead tr th.day-col:hover {
 
     .gallery-item .remove-btn {
         position: absolute;
-        top: 2px;
-        right: 2px;
+        top: 0px;
+        right: 0px;
         background: rgba(186, 26, 26, 0.85);
         color: white;
-        border-radius: 50%;
         width: 18px;
+        border-bottom-left-radius: 5px;
         height: 18px;
         display: flex;
         align-items: center;
@@ -614,8 +616,52 @@ thead tr th.day-col:hover {
     .status-radio label {
         cursor: pointer;
         margin-bottom: 0;
-        font-weight: 500;
+        /*font-weight: 500;*/
     }
+.status-radio .radio-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 45px;
+}
+
+/*Highlight radio OK*/
+.radio-ok:checked + .custom-radio {
+    border-color: rgb(25 135 84);
+}
+
+    .radio-ok:checked + .custom-radio::after {
+        background-color: rgb(25 135 84);
+    }
+
+.radio-ok:checked ~ .radio-label-text {
+    color: rgb(25 135 84) !important;
+}
+
+/*Highlight radio NG*/
+.radio-ng:checked + .custom-radio {
+    border-color: #f21616;
+}
+    .radio-ng:checked + .custom-radio::after {
+        background-color: #f21616;
+    }
+.radio-ng:checked ~ .radio-label-text {
+    color: #f21616 !important;
+}
+
+/*Highlight radio NA*/
+.radio-na:checked + .custom-radio {
+    border-color: #6c757d;
+}
+
+    .radio-na:checked + .custom-radio::after {
+        background-color: #6c757d;
+    }
+
+.radio-na:checked ~ .radio-label-text {
+    color: #6c757d !important;
+}
+
 
 /* Custom scrollbar for large modals */
 .modal-body::-webkit-scrollbar {

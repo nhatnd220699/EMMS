@@ -63,7 +63,9 @@ const ApiClient = {
         const filtered = Object.entries(params)
             .forEach(([key, value]) => {
 
-                if (value === undefined && value === null) return;
+                if (value === undefined || value === null) {
+                    return;
+                }
 
                 if (Array.isArray(value) || value instanceof Array) {
                     value.forEach(item =>

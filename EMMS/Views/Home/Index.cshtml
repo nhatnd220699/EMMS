@@ -11,7 +11,7 @@
     <link href="~/Content/css/fancybox/fancybox.css" rel="stylesheet" />
     <link href="~/Content/css/custom/style.css" rel="stylesheet" />
 }
-<main id="content">
+<main id="content" class="active">
     <div class="container-fluid px-4 py-3">
         <!-- KPI Statistics -->
         <div class="row g-3 mb-4">
@@ -227,7 +227,7 @@
                     Close
                 </button>
                 <button class="btn btn-primary px-3 py-2 transition-all shadow-sm fw-semibold d-flex align-items-center gap-2"
-                        type="button" onclick="exportTable()">
+                        type="button" id="export-monthly">
                     <span class="material-symbols-outlined fs-6">print</span> Export excel
                 </button>
             </div>
@@ -380,6 +380,7 @@
         let FIXTURE_DATASET = [];
         const IMAGE_CHECK = {};
         const PREVIEW_IMAGE = {};
+        const PREVIEWED_IMAGE = {};
         const STATUS_ALL = "All";
         const STATUS_NO_CHECKING = "No checking";
         const STATUS_ON_GOING = "Ongoing";
@@ -403,7 +404,7 @@
         let activeDetailDay = null;
         let activeDetailDate = null;
         let activeMaintenanceItems = [];
-        let currentRole ="uploader" || "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
+        let currentRole = "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
         let uploadedFiles = {};
         const CURRENT_USER_ID = "@HttpUtility.JavaScriptStringEncode(currentUserIdFromSession)";
         const CURRENT_USER_NAME = "@HttpUtility.JavaScriptStringEncode(currentUserNameFromSession)";
@@ -600,7 +601,8 @@
 
         const loadFilterOptions = async () => {
             try {
-                const options = await fetchJson("api/fixture/options");
+                const result = await ApiClient.get('api/fixture/options');
+                const options = getResponseData(result);
 
                 fillSelect("type", getProp(options, "types", "Types"), "All type");
                 fillSelect("line", getProp(options, "lines", "Lines"), "All line");
@@ -642,11 +644,11 @@
                     department: DATASET.department,
                     fixtureSN: DATASET.fixtureSNInput
                 };
-                const query = buildQuery(params);
+                //const query = buildQuery(params);
 
                 // const data = await fetchJson(`api/fixture/dashboard${query ? `?${query}` : ""}`);
-                // const data = ApiClient.get("api/fixture/dashboard", params);
-                const result = await ApiClient.get('/Content/data/dashboard.json');
+                // const result = await ApiClient.get('/Content/data/dashboard.json');
+                const result = await ApiClient.get("api/fixture/dashboard", params);
 
                 const data = getResponseData(result);
 
@@ -697,7 +699,7 @@
                     col.innerHTML = `
                         <div class="fixture-card h-100">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-bold small text-truncate" style="font-size: 11px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
+                                <span class="fw-bold small text-truncate" style="font-size: 13px; line-height: 1.2; max-width: calc(100% - 18px);">${fix.eqName ?? ""}</span>
                                 <div class="status-dot ${style.dot} shadow-sm"></div>
                             </div>
                             <div class="mb-1">
@@ -830,18 +832,18 @@
             );
         };
 
-        /**
-        * Navbar Title Sync Logic
-        */
-        const updateNavbarTitle = (element) => {
-            const titleEl = document.getElementById("navbar-dynamic-title");
-            if (!titleEl || !element) return;
+        ///**
+        //* Navbar Title Sync Logic
+        //*/
+        //const updateNavbarTitle = (element) => {
+        //    const titleEl = document.getElementById("navbar-dynamic-title");
+        //    if (!titleEl || !element) return;
 
-            const labelSpan = element.querySelector("span:not(.material-symbols-outlined)");
-            if (labelSpan) {
-                titleEl.textContent = labelSpan.textContent.trim();
-            }
-        };
+        //    const labelSpan = element.querySelector("span:not(.material-symbols-outlined)");
+        //    if (labelSpan) {
+        //        titleEl.textContent = labelSpan.textContent.trim();
+        //    }
+        //};
 
         /**
         * Open Maintenance Modal
@@ -892,8 +894,8 @@
                 const query = buildQuery(params);
 
                 // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
-                // const result = await ApiClient.get('api/fixture/monthly', params);
-                const result = await ApiClient.get(`/Content/data/monthly.json`);
+                // const result = await ApiClient.get(`/Content/data/monthly.json`);
+                const result = await ApiClient.get('api/fixture/monthly', params);
                 activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
 
@@ -926,7 +928,7 @@
         };
 
         const openDetailModal = async ({ line, day, shift, activeFixture }) => {
-
+            startEdit = false;
             activeDetailDay = day;
             activeDailyData = null;
 
@@ -973,7 +975,10 @@
                 };
                 const query = buildQuery(params);
                 // activeDailyData = await fetchJson(`api/fixture/daily?${query}`);
-                activeDailyData = await fetchJson(`/Content/data/daily.json`);
+                // activeDailyData = await fetchJson(`/Content/data/daily.json`);
+                const result = await ApiClient.get('api/fixture/daily', params);
+                activeDailyData = getResponseData(result);
+
                 renderDetailRows();
 
             } catch (error) {
@@ -989,24 +994,26 @@
 
             const imageResult = await uploadImage(fileList);
 
-            if (!imageResult) return;
+            if (imageResult.code !== 200) return;
 
+            let result = '';
             if (imageResult && imageResult.code === 200) {
-                checkImageTime(imageResult.time_stamp, rowId);
+                result = checkImageTime(imageResult.time_stamp, rowId);
             }
+            console.log(result)
 
             const gallery = input.closest("td").querySelector(".gallery-grid");
 
             fileList.forEach((file) => {
                 if (!file.type.startsWith("image/")) return;
                 const url = URL.createObjectURL(file);
-                renderGallery(rowId, gallery, file, url);
+                renderGallery(rowId, gallery, file, url, "", result);
             });
 
             input.value = "";
         };
 
-        const renderGallery = (rowId, gallery, file, url, existingPath = "") => {
+        const renderGallery = (rowId, gallery, file, url, existingPath = "", result) => {
 
             if (!gallery || !url) return;
 
@@ -1016,6 +1023,7 @@
             div._file = file;
             div._url = url;
             div._path = existingPath;
+            div._result = result;
 
             div.innerHTML = `
                 <a href="${url}" data-mtNo="${rowId}" data-fancybox="gallery-${rowId}">
@@ -1024,7 +1032,7 @@
                 ${currentRole === "uploader"
                 ? `
                     <button type="button" class="remove-btn">
-                        <span class="material-symbols-outlined">close</span>
+                        <span class="material-symbols-outlined">remove</span>
                     </button>
                 `
                 : ""
@@ -1034,9 +1042,15 @@
             div.querySelector(".remove-btn")?.addEventListener("click", () => {
                 if (div._file && div._url) URL.revokeObjectURL(div._url); //cleanup
                 div.remove();
+
+                // Recalc sau khi remove ảnh
+                recalcRowResult(rowId, gallery);
             });
 
             gallery.insertAdjacentElement("beforeend", div);
+
+            // Recalc sau khi remove ảnh
+            recalcRowResult(rowId, gallery);
         };
 
 
@@ -1050,7 +1064,7 @@
                 formData.append("file", fileList[0]);
 
                 const result = await ApiClient.postForm('api/fixture/image/getInfo', formData);
-                console.log(result);
+
                 if (result.code === 200) {
                     Popup.success("Image processed completed.");
                 } else {
@@ -1107,30 +1121,62 @@
                 result = 'NG';
             }
 
-            if (IMAGE_CHECK[rowId] == null) {
-                IMAGE_CHECK[rowId] = [];
-            }
+            return result;
 
-            IMAGE_CHECK[rowId].push(result);
+            //if (IMAGE_CHECK[rowId] == null) {
+            //    IMAGE_CHECK[rowId] = [];
+            //}
 
-            const resultArr = IMAGE_CHECK[rowId] || [];
+            //IMAGE_CHECK[rowId].push(result);
 
-            let resultUploader = 'NA';
-            if (resultArr.includes('NA')) {
-                resultUploader = 'NA';
-            }
+            //const resultArr = IMAGE_CHECK[rowId] || [];
 
-            if (resultArr.includes('NG')) {
-                resultUploader = 'NG';
-            }
+            //let resultUploader = 'NA';
+            //if (resultArr.includes('NA')) {
+            //    resultUploader = 'NA';
+            //}
 
-            // Tất cả đều là OK
-            else if (resultArr.every(x => x === "OK")) {
-                resultUploader = 'OK';
-            }
+            //if (resultArr.includes('NG')) {
+            //    resultUploader = 'NG';
+            //}
 
-            document.querySelector(`input[name="uploader_res_${rowId}"][value="${resultUploader}"]`).checked = true;
+            //// Tất cả đều là OK
+            //else if (resultArr.every(x => x === "OK")) {
+            //    resultUploader = 'OK';
+            //}
+
+            //document.querySelector(`input[name="uploader_res_${rowId}"][value="${resultUploader}"]`).checked = true;
         }
+
+
+        function recalcRowResult(rowId, gallery) {
+            const items = gallery.querySelectorAll(".gallery-item");
+
+            let results = [];
+
+            items.forEach(item => {
+                if (item._result) {
+                    results.push(item._result);
+                }
+            });
+
+            let finalResult = 'NA';
+
+            if (results.length === 0) {
+                finalResult = 'NA';
+            } else if (results.includes('NA')) {
+                finalResult = 'NA';
+            } else if (results.includes('NG')) {
+                finalResult = 'NG';
+            } else if (results.every(x => x === 'OK')) {
+                finalResult = 'OK';
+            }
+
+            document.querySelector(
+                `input[name="uploader_res_${rowId}"][value="${finalResult}"]`
+            ).checked = true;
+        }
+        ``
 
 
         const renderDetailRows = (buttonClick = false) => {
@@ -1145,7 +1191,7 @@
                 return;
             }
 
-            isApproved = sourceRows.every(item => item.Approval_Result);
+            isApproved = sourceRows.some(item => item.Approval_Result);
             isUploaded = sourceRows.some(item => item.Upload_Result);
 
             // Kiểm soát tương tác với các nút chức năng
@@ -1162,7 +1208,8 @@
             const cancelBtn = document.querySelector('#cancelUploader');
             const approveBtn = document.querySelector('#approveAll');
 
-            if (checkToday(activeDetailDate)) {
+            const isToday = checkToday(activeDetailDate);
+            if (isToday) {
 
                 if (role == "uploader") {
                     approverAction.classList.add('d-none');
@@ -1177,7 +1224,8 @@
                         // chưa upload → chỉ hiện SAVE
                         saveBtn.classList.remove('d-none');
                     }
-                    else if (isUploaded && !isApproved) {
+                    //else if (isUploaded && !isApproved) {
+                    else if (isUploaded) { // (New logic)
                         if (!buttonClick) {
                             // đã upload, chưa edit → hiện EDIT
                             editBtn.classList.remove('d-none');
@@ -1211,7 +1259,8 @@
                         approveBtn.classList.remove('d-none');
                     }
                     else if (isApproved) {
-                        approveBtn.classList.add('d-none');
+                        //approveBtn.classList.add('d-none');
+                        approveBtn.classList.remove('d-none'); //Dù approve rồi vẫn sẽ approve tiếp được (New logic)
                     }
                 }
             } else {
@@ -1232,8 +1281,8 @@
                 const methodText = getProp(item, "mT_Desc", "MT_Desc", "method") || "";
                 const uploadResult = getProp(item, "upload_Result", "Upload_Result") || "NA";
                 const approvalResult = getProp(item, "approval_Result", "Approval_Result") || "";
-                const uploadId = getProp(item, "upload_ID", "Upload_ID") || DEFAULT_UPLOAD_ID;
-                const approvalId = getProp(item, "approval_ID", "Approval_ID") || DEFAULT_APPROVAL_ID;
+                const uploadId = isUploaded ? getProp(item, "upload_ID", "Upload_ID") : '';
+                const approvalId = isApproved ? getProp(item, "approval_ID", "Approval_ID") : '';
                 const remark = getProp(item, "remark", "Remark") || "";
 
                 tr.dataset.mtNo = mtNo;
@@ -1241,15 +1290,15 @@
 
                 let images = (item.ExistingImagePaths || []).map(url => {
                     return `
-                        <div class="gallery-item" data-path="${url}">
+                        <div class="gallery-item" data-result="${uploadResult}" data-path="${url}">
                             <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
                                 <img src="${url}" alt="preview">
                             </a>
-                            ${currentRole == "uploader" && (!isApproved || startEdit)
+                            ${currentRole == "uploader" && startEdit
                         ? `<button type="button" class="remove-btn">
-                                    <span class="material-symbols-outlined">close</span>
-                                </button>
-                                `
+                                <span class="material-symbols-outlined">remove</span>
+                            </button>
+                            `
                         : ''}
                         </div>
                     `
@@ -1263,60 +1312,70 @@
                 if (currentRole === "uploader") {
                     if (!isUploaded || startEdit) {
                         imageCellHtml = `
-                                        <div>
-                                            <div class="upload-zone mx-auto" onclick="document.getElementById('input_${mtNo}').click()">
-                                                <span class="material-symbols-outlined fs-2">add_a_photo</span>
-                                                <input type="file" id="input_${mtNo}" class="d-none" accept="image/*" onchange="handleFileUpload( this, ${mtNo} )">
-                                            </div>
-                                            <div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">
-                                                ${images}
-                                            </div>
-                                        </div>
-                                    `;
+                            <div>
+                                ${isToday
+                                ?
+                                `<div class="upload-zone mx-auto" onclick="document.getElementById('input_${mtNo}').click()">
+                                        <span class="material-symbols-outlined fs-2">add_a_photo</span>
+                                        <input type="file" id="input_${mtNo}" class="d-none" accept="image/*" onchange="handleFileUpload( this, ${mtNo} )">
+                                </div>`
+                                : ''
+                                }
+                                <div class="gallery-grid d-flex justify-content-center flex-wrap" id="gallery_${mtNo}">
+                                    ${images}
+                                </div>
+                            </div>
+                        `;
                     } else {
-                        imageCellHtml = `<div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">${images}</div>`;
+                        imageCellHtml = `<div class="gallery-grid d-flex justify-content-center flex-wrap" id="gallery_${mtNo}">${images}</div>`;
                     }
                 } else {
-                    imageCellHtml = `<div class="gallery-grid d-flex justify-content-center" id="gallery_${mtNo}">${images}</div>`;
+                    imageCellHtml = `<div class="gallery-grid d-flex justify-content-center flex-wrap" id="gallery_${mtNo}">${images}</div>`;
                 }
 
                 // Maintenance Result Cell Logic
                 let uploaderResultHtml = `
                     <div class="status-radio flex-column gap-1">
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resOk_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} disabled>
-                            <label for="uploader_resOk_${mtNo}" class="text-xs">OK</label>
+                        <div class="radio-inner">
+                            <input type="radio" id="uploader_resOk_${mtNo}" name="uploader_res_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} class="hidden-radio radio-ok" disabled>
+                            <label for="uploader_resOk_${mtNo}" class="custom-radio"></label>
+                            <label for="uploader_resOk_${mtNo}" class="radio-label-text">OK</label>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNg_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} disabled>
-                            <label for="uploader_resNg_${mtNo}" class="text-xs">NG</label>
+                        <div class="radio-inner">
+                            <input type="radio" id="uploader_resNG_${mtNo}" name="uploader_res_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} class="hidden-radio radio-ng" disabled>
+                            <label for="uploader_resNG_${mtNo}" class="custom-radio"></label>
+                            <label for="uploader_resNG_${mtNo}" class="radio-label-text">NG</label>
                         </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="uploader_res_${mtNo}" id="uploader_resNa_${mtNo}" value="NA" ${uploadResult === "NA" || uploadResult === "" ? "checked" : ""} disabled>
-                            <label for="uploader_resNa_${mtNo}" class="text-xs">NA</label>
+                        <div class="radio-inner">
+                            <input type="radio" id="uploader_resNa_${mtNo}" name="uploader_res_${mtNo}" value="NA" ${uploadResult === "NA" ? "checked" : ""} class="hidden-radio radio-na" disabled>
+                            <label for="uploader_resNa_${mtNo}" class="custom-radio"></label>
+                            <label for="uploader_resNa_${mtNo}" class="radio-label-text">NA</label>
                         </div>
                     </div>
                 `;
 
                 let approvalResultHtml = `
                     <div class="status-radio flex-column gap-1 approver-radio">
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="approver_res_${mtNo}" id="approver_resOk_${mtNo}" data-mt-no="${mtNo}" value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                            <label for="approver_resOk_${mtNo}" class="text-xs">OK</label>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNg_${mtNo}" data-mt-no="${mtNo}" value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                            <label for="approver_resNg_${mtNo}" class="mtNo-xs">NG</label>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <input type="radio" name="approver_res_${mtNo}" id="approver_resNa_${mtNo}" data-mt-no="${mtNo}" value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""}>
-                            <label for="approver_resNa_${mtNo}" class="text-xs">NA</label>
-                        </div>
+                         <div class="radio-inner">
+                             <input type="radio" id="approver_resOk_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""} class="hidden-radio radio-ok">
+                             <label for="approver_resOk_${mtNo}" class="custom-radio"></label>
+                             <label for="approver_resOk_${mtNo}" class="radio-label-text">OK</label>
+                         </div>
+                         <div class="radio-inner">
+                             <input type="radio" id="approver_resNg_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""} class="hidden-radio radio-ng">
+                             <label for="approver_resNg_${mtNo}" class="custom-radio"></label>
+                             <label for="approver_resNg_${mtNo}" class="radio-label-text">NG</label>
+                         </div>
+                         <div class="radio-inner">
+                             <input type="radio" id="approver_resNa_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""} class="hidden-radio radio-na">
+                             <label for="approver_resNa_${mtNo}" class="custom-radio"></label>
+                             <label for="approver_resNa_${mtNo}" class="radio-label-text">NA</label>
+                         </div>
                     </div>
                 `;
 
                 // Remark Cell Logic
-                let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${currentRole !== "approver" ? "disabled" : ""}>${remark}</textarea>`;
+                let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="Add feedback..." ${!isToday || (currentRole === 'uploader' && isUploaded && !startEdit) ? 'disabled' : ''}>${remark}</textarea>`;
 
                 tr.innerHTML = `
                     <td class="text-center number-order">${numberOrder}</td>
@@ -1331,6 +1390,36 @@
                 `;
 
                 body.appendChild(tr);
+
+                // Gán giá trị result vào DOM.
+                setTimeout(() => {
+
+                    const gallery = document.getElementById(`gallery_${mtNo}`);
+                    const items = gallery.querySelectorAll(".gallery-item");
+
+                    items.forEach(item => {
+                        item._result = item.dataset.result || 'NA';
+                    });
+
+                }, 0);
+
+                // Gán event cho nút remove ảnh
+                setTimeout(() => {
+
+                    const gallery = document.getElementById(`gallery_${mtNo}`);
+
+                    gallery.querySelectorAll(".remove-btn").forEach(btn => {
+
+                        btn.addEventListener("click", (e) => {
+                            const item = e.target.closest(".gallery-item");
+                            item.remove();
+
+                            recalcRowResult(mtNo, gallery);
+                        });
+                    });
+
+                }, 0);
+
             });
         };
 
@@ -1421,6 +1510,140 @@
             });
         };
 
+
+
+        const drawHeaderTableTemp = (thead) => {
+
+            const year = getProp(activeMonthlyData, "year", "Year");
+            const month = getProp(activeMonthlyData, "month", "Month");
+            const line = getProp(activeMonthlyData, "line", "Line");
+            const shift = getProp(activeMonthlyData, "shift", "Shift");
+
+            const deviceName = getProp(activeMonthlyData, "eQ_Name", "EQ_Name") || "";
+            const deviceModel = getProp(activeMonthlyData, "eQ_Model", "EQ_Model") || "";
+            const deviceNumber = getProp(activeMonthlyData, "eQ_SN", "EQ_SN") || activeFixture || "";
+
+            const days = new Date(year, month, 0).getDate();
+
+            const row1 = document.createElement("tr");
+            row1.innerHTML = `
+                <th colspan="${days + 3}">日保養記錄 / <br>Daily Maintenance List / Ghi lại bảo trì hàng ngày</th>
+            `;
+            thead.appendChild(row1);
+
+            const row2 = document.createElement("tr");
+            row2.innerHTML = `
+                <th colspan="2" class="text-start">線別 / Line: ${line}</th>
+                <th colspan="1" class="text-start">班別 / Shift: ${shift}</th>
+                <th colspan="20" class="text-start">年 / Year: ${year}</th>
+                <th colspan="${days - 20}" class="text-start">月 / Month: ${month}</th>
+            `;
+            thead.appendChild(row2);
+
+            const row3 = document.createElement("tr");
+            row3.innerHTML = `
+                <th colspan="3" class="text-start">設備名稱 / Device Name: ${deviceName}</th>
+                <th colspan="16" class="text-start">設備型號 / Device Mod: ${deviceModel}</th>
+                <th colspan="${days - 16}" class="text-start">設備編號 / Device Number: ${deviceNumber}</th>
+            `;
+            thead.appendChild(row3);
+
+            const row4 = document.createElement("tr");
+            row4.innerHTML = `
+                <th rowspan="2" style="width: 40px">序號 / No.</th>
+                <th rowspan="2" style="width: 220px">執行動作 / Action / Thao tác</th>
+                <th rowspan="2" style="width: 220px">確認方法及標準 / Confirmation Method &amp; Standard/Phương pháp và tiêu chuẩn xác định</th>
+                <th colspan="${days}">日期 / Date / ngày tháng</th>
+            `;
+            thead.appendChild(row4);
+
+            const row5 = document.createElement("tr");
+
+            const today = new Date().getDate();
+
+            let daysHtml = '';
+            for (let i = 1; i <= days; i++) {
+                const style = today === i ? `style="background-color: #1212bc; color: #ffffff;"` : ``;
+                daysHtml += `<th ${style}>${i}</th>`;
+            }
+            row5.innerHTML = daysHtml;
+            thead.appendChild(row5);
+        }
+
+        const drawBodyTableTemp = (body) => {
+
+            const year = getProp(activeMonthlyData, "year", "Year");
+            const month = getProp(activeMonthlyData, "month", "Month");
+            const days = new Date(year, month, 0).getDate();
+            const items = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
+
+
+            if (!items.length) {
+                body.innerHTML = '<tr><td colspan="34" class="text-center py-4 text-muted">No maintenance items to display</td></tr>';
+                return;
+            }
+
+            items.forEach((item, idx) => {
+                const tr = document.createElement("tr");
+                let daysHtml = "";
+                const dailyResults = getProp(item, "dailyResults", "DailyResults") || {};
+
+                for (let i = 1; i <= days; i++) {
+
+                    let val = dailyResults[i] || dailyResults[String(i)] || "NA";
+
+                    let bgColor = "",
+                        color = "";
+
+                    if (val == "OK") {
+                        bgColor = 'background-color: #198754';
+                        color = `color: #ffffff`;
+                    } else if (val == "NG") {
+                        bgColor = 'background-color: #ffc107';
+                        color = `color: #6b5103`;
+                    } else if (val == "NA") {
+                    }
+                    daysHtml += `<td class="day-col" style="padding: 10px; ${bgColor}; ${color}">${val}</td>`;
+                }
+
+                const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
+                const mtItem = getProp(item, "mT_Item", "MT_Item") || "";
+                const mtDesc = getProp(item, "mT_Desc", "MT_Desc") || "";
+
+                tr.innerHTML = `
+                    <td class="text-center">${numberOrder}</td>
+                    <td>${mtItem}</td>
+                    <td>${mtDesc}</td>
+                    ${daysHtml}
+                `;
+
+                body.appendChild(tr);
+            });
+        };
+
+        function exportMonthlyTable() {
+            // Tạo table
+            const table = document.createElement("table");
+            table.id = "table-monthly-export";
+
+            const thead = document.createElement("thead");
+            const tbody = document.createElement("tbody");
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+
+            document.body.appendChild(table);
+
+            drawHeaderTableTemp(thead);
+            drawBodyTableTemp(tbody);
+
+            // Export
+            exportTable(table, "Monthly_Report.xls");
+
+            // Xóa bảng ảo
+            document.body.removeChild(table);
+        }
+
         const refreshMonthlyModal = async (showError = false) => {
 
             if (!activeFixtureObject) return;
@@ -1436,8 +1659,8 @@
                 };
                 const query = buildQuery(params);
                 // activeMonthlyData = await fetchJson(`api/fixture/monthly?${query}`);
-                // const result = await ApiClient.get('api/fixture/monthly', params);
-                const result = await ApiClient.get('/Content/data/monthly.json');
+                // const result = await ApiClient.get('/Content/data/monthly.json');
+                const result = await ApiClient.get('api/fixture/monthly', params);
                 activeMonthlyData = getResponseData(result);
                 activeMaintenanceItems = getProp(activeMonthlyData, "maintenanceItems", "MaintenanceItems") || [];
                 bindMonthlyHeader(activeFixtureObject);
@@ -1540,7 +1763,7 @@
             //    alert("Please complete the evaluation of all items before submitting the data!");
             //    return;
             //}
-             
+
             Popup.show("Saving data...");
 
             const formData = new FormData();
@@ -1576,8 +1799,8 @@
                 formData.append(`CheckItems[${i}].Upload_Result`, item.uploadResult);
                 formData.append(`CheckItems[${i}].Approval_Result`, item.approvalResult);
                 formData.append(`CheckItems[${i}].Remark`, item.remark);
-                formData.append(`CheckItems[${i}].Upload_ID`, item.uploadId);
-                formData.append(`CheckItems[${i}].Approval_ID`, item.approvalId);
+                formData.append(`CheckItems[${i}].Upload_ID`, CURRENT_USER_ID);
+                formData.append(`CheckItems[${i}].Approval_ID`, CURRENT_USER_ID);
 
                 // ảnh cũ (string path)
                 item.existingImagePaths.forEach((path, j) => {
@@ -1598,6 +1821,7 @@
                     Popup.success('Saved successfully.')
                     startEdit = false; // khi lưu xong thì trạng thái edit phải được reset
                     openMaintenanceModal(activeFixtureObject);
+                    updateDisplay();
                 } else {
                     Popup.error('Failed to save data.');
                 }
@@ -1612,21 +1836,19 @@
 
         }
 
-        function exportTable() {
+        //function exportTable() {
 
-            const table = document.getElementById("maintenance-table");
-            const workbook = XLSX.utils.table_to_book(table);
-            XLSX.writeFile(workbook, "data_monthly.xlsx");
-        }
+        //    const table = document.getElementById("maintenance-table");
+        //    const workbook = XLSX.utils.table_to_book(table);
+        //    XLSX.writeFile(workbook, "data_monthly.xlsx");
+        //}
 
         function initFancybox() {
 
             Fancybox.bind("[data-fancybox]", {
                 closeButton: false,
                 dragToClose: false,
-                Backdrop: {
-                    closeOnClick: false
-                },
+                backdropClick: false,
                 Keyboard: {
                     Escape: true
                 },
@@ -1656,25 +1878,30 @@
                     ready: (fancybox) => {
                         var mtno = Fancybox.getInstance().getSlide().mtno;
 
-                        fancybox.LOCK_DURATION = 5;
-                        fancybox.isClosable = false;
-                        const closeBtn = document.querySelector("[data-fancybox-close]");
+                        fancybox.currentMtno = mtno;
 
-                        if (closeBtn) {
-                            closeBtn.style.display = "none";
-                        }
+                        if (currentRole?.toLocaleLowerCase() === 'approver' && !PREVIEW_IMAGE[mtno]) {
 
-                        let remaining = fancybox.LOCK_DURATION;
-
-                        fancybox.closeTimer = setTimeout(() => {
-                            fancybox.isClosable = true;
+                            fancybox.LOCK_DURATION = 5;
+                            fancybox.isClosable = false;
+                            const closeBtn = document.querySelector("[data-fancybox-close]");
 
                             if (closeBtn) {
-                                closeBtn.style.display = "";
-                                PREVIEW_IMAGE[mtno] = true;
+                                closeBtn.style.display = "none";
                             }
 
-                        }, fancybox.LOCK_DURATION * 1000);
+                            let remaining = fancybox.LOCK_DURATION;
+
+                            fancybox.closeTimer = setTimeout(() => {
+                                fancybox.isClosable = true;
+
+                                if (closeBtn) {
+                                    closeBtn.style.display = "";
+                                    PREVIEW_IMAGE[mtno] = true;
+                                }
+
+                            }, fancybox.LOCK_DURATION * 1000);
+                        }
                     },
                     keydown: (fancybox, event) => {
                         if (event.key === "Escape" && !fancybox.isClosable) {
@@ -1699,7 +1926,7 @@
         */
         document.addEventListener("DOMContentLoaded", async () => {
 
-            // await loadFilterOptions();
+            await loadFilterOptions();
             updateDisplay();
             initFancybox();
 
@@ -1847,7 +2074,6 @@
             document.addEventListener('click', function (e) {
 
                 if (e.target.matches('.approver-radio input[type="radio"]')) {
-                    e.preventDefault();
 
                     const mtNo = e.target.dataset.mtNo;
 
@@ -1856,10 +2082,14 @@
                     }
 
                     if (!PREVIEW_IMAGE[mtNo]) {
-                        e.target.checked = false;
-                        alert('Please review the inspection images before evaluating!');
+                        e.preventDefault();
+                        alert('请在评估前先查看检验图片/Please review the inspection images before evaluating');
                     }
                 }
+            });
+
+            document.querySelector('#export-monthly').addEventListener('click', function () {
+                exportMonthlyTable();
             });
         });
     </script>
