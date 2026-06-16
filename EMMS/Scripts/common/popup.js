@@ -140,6 +140,24 @@
             );
         },
 
+        warning(message, delay = 2000) {
+
+            ensureReady();
+
+            clearTimeout(timeout);
+
+            popup.className = "popup show";
+
+            spinner.style.display = "none";
+
+            text.textContent = message;
+
+            timeout = setTimeout(
+                Popup.hide,
+                delay
+            );
+        },
+
         hide() {
 
             if (!popup)

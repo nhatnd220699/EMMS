@@ -121,15 +121,180 @@
     <value>Fixture maintenance</value>
   </data>
   <data name="NoMaintenance" xml:space="preserve">
-    <value>No maintenance</value>
-  </data>
-  <data name="TotalMaintenance" xml:space="preserve">
-    <value>Total maintenance</value>
+    <value>No maintenance / NG</value>
   </data>
   <data name="MaintenanceOngoing" xml:space="preserve">
     <value>Maintenance ongoing</value>
   </data>
   <data name="MaintenanceDone" xml:space="preserve">
     <value>Maintenance done</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="AllType" xml:space="preserve">
+    <value>All type</value>
+  </data>
+  <data name="AllLine" xml:space="preserve">
+    <value>All line</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Machines" xml:space="preserve">
+    <value>Machines</value>
+  </data>
+  <data name="EnterFixtureSN" xml:space="preserve">
+    <value>Enter Fixture SN</value>
+  </data>
+  <data name="TotalMaintenance" xml:space="preserve">
+    <value>Total maintenance</value>
+  </data>
+  <data name="ExportExcel" xml:space="preserve">
+    <value>Export Excel</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AllDepartment" xml:space="preserve">
+    <value>All department</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="DeviceName" xml:space="preserve">
+    <value>Device name</value>
+  </data>
+  <data name="DeviceModel" xml:space="preserve">
+    <value>Device model</value>
+  </data>
+  <data name="DeviceNumber" xml:space="preserve">
+    <value>Device number</value>
+  </data>
+  <data name="NoNumber" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="ConfirmationMethodAndStandard" xml:space="preserve">
+    <value>Confirmation Method &amp; Standard</value>
+  </data>
+  <data name="DailyMaintenanceList" xml:space="preserve">
+    <value>Daily Maintenance List</value>
+  </data>
+  <data name="MaintenanceItem" xml:space="preserve">
+    <value>Maintenance item</value>
+  </data>
+  <data name="MaintenanceImage" xml:space="preserve">
+    <value>Maintenance image</value>
+  </data>
+  <data name="UploaderResult" xml:space="preserve">
+    <value>Uploader result</value>
+  </data>
+  <data name="UploaderID" xml:space="preserve">
+    <value>Uploader ID</value>
+  </data>
+  <data name="ApproverResult" xml:space="preserve">
+    <value>Approver result</value>
+  </data>
+  <data name="ApproverID" xml:space="preserve">
+    <value>Approver ID</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="AddFeedback" xml:space="preserve">
+    <value>Add feedback</value>
+  </data>
+  <data name="ViewImageBeforeEvaluation" xml:space="preserve">
+    <value>Please view the images before evaluation</value>
+  </data>
+  <data name="ProcessingImage" xml:space="preserve">
+    <value>Processing image</value>
+  </data>
+  <data name="ImageProcessedCompleted" xml:space="preserve">
+    <value>Image processed completed</value>
+  </data>
+  <data name="FailedToProcessImage" xml:space="preserve">
+    <value>Failed to process image</value>
+  </data>
+  <data name="SavingData" xml:space="preserve">
+    <value>Saving data</value>
+  </data>
+  <data name="SavedSuccessfully" xml:space="preserve">
+    <value>Saved successfully</value>
+  </data>
+  <data name="FailedToSaveData" xml:space="preserve">
+    <value>Failed to save data</value>
+  </data>
+  <data name="UnableToRetrieveDailyReport" xml:space="preserve">
+    <value>Unable to retrieve daily report information. Please check and try again</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ContactAdmin" xml:space="preserve">
+    <value>Please contact admin to register</value>
+  </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>Enter username</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Account settings</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Logging in</value>
+  </data>
+  <data name="RequireUsernameAndPassword" xml:space="preserve">
+    <value>Please enter your username and password.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Login failed</value>
   </data>
 </root>

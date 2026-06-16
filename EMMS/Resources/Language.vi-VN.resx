@@ -121,15 +121,180 @@
     <value>Bảo dưỡng Fixture</value>
   </data>
   <data name="NoMaintenance" xml:space="preserve">
-    <value>Chưa bảo trì</value>
-  </data>
-  <data name="TotalMaintenance" xml:space="preserve">
-    <value>Tổng số bảo trì</value>
+    <value>Chưa bảo trì / NG</value>
   </data>
   <data name="MaintenanceOngoing" xml:space="preserve">
     <value>Đang bảo trì</value>
   </data>
   <data name="MaintenanceDone" xml:space="preserve">
     <value>Đã bảo trì</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Bộ lọc</value>
+  </data>
+  <data name="AllType" xml:space="preserve">
+    <value>Tất cả các loại</value>
+  </data>
+  <data name="AllLine" xml:space="preserve">
+    <value>Tất cả chuyền</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Làm mới</value>
+  </data>
+  <data name="Machines" xml:space="preserve">
+    <value>Các máy</value>
+  </data>
+  <data name="EnterFixtureSN" xml:space="preserve">
+    <value>Nhập Fixture SN</value>
+  </data>
+  <data name="TotalMaintenance" xml:space="preserve">
+    <value>Tổng bảo trì</value>
+  </data>
+  <data name="ExportExcel" xml:space="preserve">
+    <value>Xuất Excel</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Đóng</value>
+  </data>
+  <data name="AllDepartment" xml:space="preserve">
+    <value>Tất cả bộ phận</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Lưu lại</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Chỉnh sửa</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy bỏ</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Phê duyệt</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Chi tiết</value>
+  </data>
+  <data name="Line" xml:space="preserve">
+    <value>Chuyền</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Ngày</value>
+  </data>
+  <data name="Shift" xml:space="preserve">
+    <value>Ca</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Tháng</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Năm</value>
+  </data>
+  <data name="DeviceName" xml:space="preserve">
+    <value>Tên thiết bị</value>
+  </data>
+  <data name="DeviceModel" xml:space="preserve">
+    <value>Model thiết bị</value>
+  </data>
+  <data name="DeviceNumber" xml:space="preserve">
+    <value>Mã thiết bị</value>
+  </data>
+  <data name="NoNumber" xml:space="preserve">
+    <value>Số TT</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Thao tác</value>
+  </data>
+  <data name="ConfirmationMethodAndStandard" xml:space="preserve">
+    <value>Phương pháp và tiêu chuẩn xác định</value>
+  </data>
+  <data name="DailyMaintenanceList" xml:space="preserve">
+    <value>Danh sách bảo trì hàng ngày</value>
+  </data>
+  <data name="MaintenanceItem" xml:space="preserve">
+    <value>Hạng mục bảo trì</value>
+  </data>
+  <data name="MaintenanceImage" xml:space="preserve">
+    <value>Hỉnh ảnh bảo trì</value>
+  </data>
+  <data name="UploaderResult" xml:space="preserve">
+    <value>Kết quả tải lên</value>
+  </data>
+  <data name="UploaderID" xml:space="preserve">
+    <value>Mã thẻ người tải lên</value>
+  </data>
+  <data name="ApproverResult" xml:space="preserve">
+    <value>Kết quả kiểm duyệt</value>
+  </data>
+  <data name="ApproverID" xml:space="preserve">
+    <value>Mã thẻ người kiểm duyệt</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Ghi chú</value>
+  </data>
+  <data name="AddFeedback" xml:space="preserve">
+    <value>Thêm phản hồi</value>
+  </data>
+  <data name="ViewImageBeforeEvaluation" xml:space="preserve">
+    <value>Vui lòng xem hình ảnh trước khi đánh giá</value>
+  </data>
+  <data name="ProcessingImage" xml:space="preserve">
+    <value>Đang xử lý hình ảnh</value>
+  </data>
+  <data name="ImageProcessedCompleted" xml:space="preserve">
+    <value>Hình ảnh đã xử lý xong</value>
+  </data>
+  <data name="FailedToProcessImage" xml:space="preserve">
+    <value>Xử lý hình ảnh thất bại</value>
+  </data>
+  <data name="SavingData" xml:space="preserve">
+    <value>Đang lưu dữ liệu</value>
+  </data>
+  <data name="SavedSuccessfully" xml:space="preserve">
+    <value>Lưu thành công</value>
+  </data>
+  <data name="FailedToSaveData" xml:space="preserve">
+    <value>Lưu dữ liệu thất bại</value>
+  </data>
+  <data name="UnableToRetrieveDailyReport" xml:space="preserve">
+    <value>Không thể thu thập thông tin báo cáo ngày. Vui lòng kiểm tra lại</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Tên người dùng</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Đăng xuất</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Thông tin cá nhân</value>
+  </data>
+  <data name="ContactAdmin" xml:space="preserve">
+    <value>Vui lòng liên hệ quản trị viên để đăng ký</value>
+  </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>Nhập tên đăng nhập</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Nhập mật khẩu</value>
+  </data>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Cài đặt tài khoản</value>
+  </data>
+  <data name="LoggingIn" xml:space="preserve">
+    <value>Đang đăng nhập</value>
+  </data>
+  <data name="RequireUsernameAndPassword" xml:space="preserve">
+    <value>Vui lòng nhập tên đăng nhập và mật khẩu.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>Đăng nhập thất bại</value>
   </data>
 </root>

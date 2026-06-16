@@ -301,7 +301,8 @@ html[lang="zh-TW"] body
 .kpi-card {
     border: none;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);*/
+    box-shadow: 0 1px 3px rgb(0 0 0 / 23%);
     transition: transform 0.2s ease;
 }
 
@@ -315,8 +316,8 @@ html[lang="zh-TW"] body
     }
 
 .kpi-icon-box {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -348,7 +349,7 @@ html[lang="zh-TW"] body
 .badge-status {
     font-size: 10px;
     font-weight: 600;
-    padding: 2px 6px;
+    padding: 4px 4px;
     border-radius: 4px;
     text-transform: uppercase;
 }
