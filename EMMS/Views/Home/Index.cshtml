@@ -23,7 +23,7 @@
                                    style="font-size: 12px">@Language.TotalMaintenance</small>
                             <h4 class="mb-0 fw-bold" id="kpi-total">0</h4>
                         </div>
-                        <div class="kpi-icon-box bg-light text-primary">
+                        <div class="kpi-icon-box bg-primary-subtle text-primary">
                             <span class="material-symbols-outlined">inventory_2</span>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                 0
                             </h4>
                         </div>
-                        <div class="kpi-icon-box bg-success-subtle text-secondary">
+                        <div class="kpi-icon-box bg-success-subtle text-success">
                             <span class="material-symbols-outlined">check_circle</span>
                         </div>
                     </div>
@@ -351,32 +351,32 @@
 
     <script>
 
-    const i18n = @Html.Raw(Json.Encode(new {
-        allType = Language.AllType,
-        allLine = Language.AllLine,
-        allDepartment = Language.AllDepartment,
-        addFeedback = Language.AddFeedback,
-        viewImageBeforEvaluation = Language.ViewImageBeforeEvaluation,
-        unableToRetrieveDailyReport = Language.UnableToRetrieveDailyReport,
-        savingData = Language.SavingData,
-        savedSuccessfully = Language.SavedSuccessfully,
-        failedToSaveData = Language.FailedToSaveData,
-        processingImage = Language.ProcessingImage,
-        imageProcessedCompleted = Language.ImageProcessedCompleted,
-        failedToProcessImage = Language.FailedToProcessImage,
-        dailyMaintenanceList = Language.DailyMaintenanceList,
-        line = Language.Line,
-        shift = Language.Shift,
-        year = Language.Year,
-        month = Language.Month,
-        deviceName = Language.DeviceName,
-        deviceModel = Language.DeviceModel,
-        deviceNumber = Language.DeviceNumber,
-        noNumber = Language.NoNumber,
-        action = Language.Action,
-        confirmationMethodAndStandard = Language.ConfirmationMethodAndStandard,
-        date = Language.Date
-    }));
+        const i18n = @Html.Raw(Json.Encode(new {
+            allType = Language.AllType,
+            allLine = Language.AllLine,
+            allDepartment = Language.AllDepartment,
+            addFeedback = Language.AddFeedback,
+            viewImageBeforEvaluation = Language.ViewImageBeforeEvaluation,
+            unableToRetrieveDailyReport = Language.UnableToRetrieveDailyReport,
+            savingData = Language.SavingData,
+            savedSuccessfully = Language.SavedSuccessfully,
+            failedToSaveData = Language.FailedToSaveData,
+            processingImage = Language.ProcessingImage,
+            imageProcessedCompleted = Language.ImageProcessedCompleted,
+            failedToProcessImage = Language.FailedToProcessImage,
+            dailyMaintenanceList = Language.DailyMaintenanceList,
+            line = Language.Line,
+            shift = Language.Shift,
+            year = Language.Year,
+            month = Language.Month,
+            deviceName = Language.DeviceName,
+            deviceModel = Language.DeviceModel,
+            deviceNumber = Language.DeviceNumber,
+            noNumber = Language.NoNumber,
+            action = Language.Action,
+            confirmationMethodAndStandard = Language.ConfirmationMethodAndStandard,
+            date = Language.Date
+        }));
 
 
         // Initialize Lenis
@@ -1639,10 +1639,9 @@
             });
         };
 
-        function exportMonthlyTable() {
+        const exportMonthlyTable =  () => {
             // Tạo table
             const table = document.createElement("table");
-            table.id = "table-monthly-export";
 
             const thead = document.createElement("thead");
             const tbody = document.createElement("tbody");
@@ -1655,8 +1654,18 @@
             drawHeaderTableTemp(thead);
             drawBodyTableTemp(tbody);
 
+            const now = new Date();
+            const timestamp =
+                now.getFullYear() +
+                String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0') +
+                '_' +
+                String(now.getHours()).padStart(2, "0") +
+                String(now.getMinutes()).padStart(2, "0") +
+                String(now.getSeconds()).padStart(2, "0");
+
             // Export
-            exportTable(table, "Monthly_Report.xls");
+            exportTable(table, `Monthly_Report_${timestamp}.xls`);
 
             // Xóa bảng ảo
             document.body.removeChild(table);
