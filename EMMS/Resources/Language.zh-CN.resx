@@ -303,4 +303,58 @@
   <data name="NoDataAvailable" xml:space="preserve">
     <value>暂无数据</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>当前密码</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>新密码</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>确认新密码</value>
+  </data>
+  <data name="ChangingPassword" xml:space="preserve">
+    <value>正在修改密码</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>密码修改成功</value>
+  </data>
+  <data name="FailedToChangePassword" xml:space="preserve">
+    <value>密码修改失败</value>
+  </data>
+  <data name="AtLeast8Characters" xml:space="preserve">
+    <value>至少 8 个字符</value>
+  </data>
+  <data name="UppercaseLetter" xml:space="preserve">
+    <value>包含大写字母</value>
+  </data>
+  <data name="LowercaseLetter" xml:space="preserve">
+    <value>包含小写字母</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>包含数字</value>
+  </data>
+  <data name="SpecialCharacter" xml:space="preserve">
+    <value>包含特殊字符</value>
+  </data>
+  <data name="Strength" xml:space="preserve">
+    <value>强度</value>
+  </data>
+  <data name="VeryWeak" xml:space="preserve">
+    <value>非常弱</value>
+  </data>
+  <data name="Weak" xml:space="preserve">
+    <value>弱</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>中等</value>
+  </data>
+  <data name="Strong" xml:space="preserve">
+    <value>强</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>返回首页</value>
+  </data>
 </root>

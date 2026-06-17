@@ -303,4 +303,58 @@
   <data name="NoDataAvailable" xml:space="preserve">
     <value>No data available</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="ChangingPassword" xml:space="preserve">
+    <value>Changing passsword</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Password changed successfully</value>
+  </data>
+  <data name="FailedToChangePassword" xml:space="preserve">
+    <value>Fail to change password</value>
+  </data>
+  <data name="AtLeast8Characters" xml:space="preserve">
+    <value>At least 8 characters</value>
+  </data>
+  <data name="UppercaseLetter" xml:space="preserve">
+    <value>Uppercase letter</value>
+  </data>
+  <data name="LowercaseLetter" xml:space="preserve">
+    <value>Lowercase letter</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="SpecialCharacter" xml:space="preserve">
+    <value>Special character</value>
+  </data>
+  <data name="Strength" xml:space="preserve">
+    <value>Strength</value>
+  </data>
+  <data name="VeryWeak" xml:space="preserve">
+    <value>Very weak</value>
+  </data>
+  <data name="Weak" xml:space="preserve">
+    <value>Weak</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Strong" xml:space="preserve">
+    <value>Strong</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>Back to home</value>
+  </data>
 </root>

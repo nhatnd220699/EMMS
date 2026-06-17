@@ -303,4 +303,58 @@
   <data name="NoDataAvailable" xml:space="preserve">
     <value>Không có dữ liệu</value>
   </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Mật khẩu cũ</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Xác nhận mật khẩu mới</value>
+  </data>
+  <data name="ChangingPassword" xml:space="preserve">
+    <value>Đang đổi mật khẩu</value>
+  </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>Mật khẩu thay đổi thành công</value>
+  </data>
+  <data name="FailedToChangePassword" xml:space="preserve">
+    <value>Thay đổi mật khẩu thất bại</value>
+  </data>
+  <data name="AtLeast8Characters" xml:space="preserve">
+    <value>Ít nhất 8 ký tự</value>
+  </data>
+  <data name="UppercaseLetter" xml:space="preserve">
+    <value>Chữ in hoa</value>
+  </data>
+  <data name="LowercaseLetter" xml:space="preserve">
+    <value>Chữ thường</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Số</value>
+  </data>
+  <data name="SpecialCharacter" xml:space="preserve">
+    <value>Ký tự đặc biệt</value>
+  </data>
+  <data name="Strength" xml:space="preserve">
+    <value>Độ mạnh</value>
+  </data>
+  <data name="VeryWeak" xml:space="preserve">
+    <value>Rất yếu</value>
+  </data>
+  <data name="Weak" xml:space="preserve">
+    <value>Yếu</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Trung bình</value>
+  </data>
+  <data name="Strong" xml:space="preserve">
+    <value>Mạnh</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>Về trang chủ</value>
+  </data>
 </root>
