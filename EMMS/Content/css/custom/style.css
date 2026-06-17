@@ -616,15 +616,15 @@ thead tr th.day-col:hover {
     align-items: center;
 }
 
-    .status-radio input {
+    /*.status-radio input {
         cursor: pointer;
     }
 
     .status-radio label {
         cursor: pointer;
-        margin-bottom: 0;
+        margin-bottom: 0;*/
         /*font-weight: 500;*/
-    }
+    /*}*/
 .status-radio .radio-inner{
     display: flex;
     align-items: center;

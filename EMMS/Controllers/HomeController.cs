@@ -12,7 +12,7 @@ namespace EMMS.Controllers
         public ActionResult Index()
         {
             if (!IsLoggedIn())
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Auth");
 
             return View();
         }
@@ -20,7 +20,7 @@ namespace EMMS.Controllers
         public ActionResult About()
         {
             if (!IsLoggedIn())
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Auth");
 
             ViewBag.Message = "Your application description page.";
 
@@ -30,7 +30,7 @@ namespace EMMS.Controllers
         public ActionResult Contact()
         {
             if (!IsLoggedIn())
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Auth");
 
             ViewBag.Message = "Your contact page.";
 

@@ -297,4 +297,10 @@
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败</value>
   </data>
+  <data name="LoadingData" xml:space="preserve">
+    <value>数据加载中</value>
+  </data>
+  <data name="NoDataAvailable" xml:space="preserve">
+    <value>暂无数据</value>
+  </data>
 </root>

@@ -48,7 +48,7 @@
     border: var(--radio-border-width) solid var(--radio-border-color-unchecked);
     border-radius: 30%;
     background-color: var(--radio-bg-unchecked);
-    cursor: pointer;
+    /*cursor: pointer;*/
     position: relative;
     flex-shrink: 0;
     vertical-align: middle;
@@ -112,10 +112,17 @@
 
 
 /* Hover State (Unchecked) */
-.hidden-radio:not(:checked) + .custom-radio:hover {
+/*.hidden-radio:not(:checked) + .custom-radio:hover {
     border-color: var(--radio-hover-border-color);
     background-color: var(--radio-hover-bg);
     transform: scale(var(--radio-hover-scale));
+}*/
+
+.hidden-radio:not(:disabled) + .custom-radio:hover {
+    border-color: var(--radio-hover-border-color);
+    background-color: var(--radio-hover-bg);
+    transform: scale(var(--radio-hover-scale));
+    cursor: pointer;
 }
 
 /* Hover state for cover in gradient reveal */
@@ -151,11 +158,14 @@
 /* Optional: Style label text */
 .radio-label-text {
     margin-left: 8px;
-    cursor: pointer;
     vertical-align: middle;
     user-select: none;
 }
 
-input[type="radio"]:disabled ~ .radio-label-text {
+.hidden-radio:not(:disabled) ~ .radio-label-text {
+    cursor: pointer;
+}
+
+.hidden-radio:disabled ~ .radio-label-text {
     color: #adb5bd;
 }

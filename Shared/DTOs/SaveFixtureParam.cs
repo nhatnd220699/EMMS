@@ -2,7 +2,7 @@
 {
     public class SaveFixtureParam
     {
-        public string FuncType { get; set; }
+        public string Action { get; set; }
         public string Type { get; set; }
         public string Department { get; set; }
         public string Shift { get; set; }

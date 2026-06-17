@@ -9,8 +9,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <link href="~/Content/css/custom/popup.css" rel="stylesheet" />
-    <link href="~/Content/css/custom/radio.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/custom/popup.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/custom/radio.css")" rel="stylesheet" />
 
     @RenderSection("styles", required: false)
 </head>
@@ -23,12 +23,11 @@
 
     @Scripts.Render("~/bundles/bootstrap")
 
-    <script src="~/Scripts/Common/helper.js"></script>
-    <script src="~/Scripts/Common/utils.js"></script>
-    <script src="~/Scripts/Common/popup.js"></script>
-    <script src="~/Scripts/common/action-lock.js"></script>
-
-    <script src="~/Scripts/api/api-client.js"></script>
+    <script src="@Url.Content("~/Scripts/Common/helper.js")"></script>
+    <script src="@Url.Content("~/Scripts/Common/utils.js")"></script>
+    <script src="@Url.Content("~/Scripts/Common/popup.js")"></script>
+    <script src="@Url.Content("~/Scripts/common/action-lock.js")"></script>
+    <script src="@Url.Content("~/Scripts/api/api-client.js")"></script>
 
     @RenderSection("scripts", required: false)
 </body>

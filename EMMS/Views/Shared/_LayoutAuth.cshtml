@@ -1,0 +1,37 @@
+﻿@using System.Globalization
+
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.Name">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - EMMS</title>
+
+    @Styles.Render("~/Content/css")
+
+    <link href="@Url.Content("~/Content/css/custom/auth.css")" rel="stylesheet" />
+
+    @RenderSection("styles", required: false)   
+</head>
+<body>
+    <!-- Main Content -->
+    <!-- Background Elements -->
+    <div class="bg-animated"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <!-- Header Section -->
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="@Url.Content("~/Scripts/Common/helper.js")"></script>
+    <script src="@Url.Content("~/Scripts/Common/utils.js")"></script>
+    <script src="@Url.Content("~/Scripts/Common/popup.js")"></script>
+    <script src="@Url.Content("~/Scripts/common/action-lock.js")"></script>
+    <script src="@Url.Content("~/Scripts/api/api-client.js")"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -65,6 +65,8 @@
     <Compile Include="DTOs\ResultMessageDto.cs" />
     <Compile Include="DTOs\SaveFixtureParam.cs" />
     <Compile Include="DTOs\UserDto.cs" />
+    <Compile Include="Enums\FuncType.cs" />
+    <Compile Include="Extensions\FuncTypeExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

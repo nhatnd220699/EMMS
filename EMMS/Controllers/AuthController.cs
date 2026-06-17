@@ -10,15 +10,19 @@ using System.Web.Mvc;
 
 namespace EMMS.Controllers
 {
-    public class LoginController : Controller
+    [RoutePrefix("")]
+    public class AuthController : Controller
     {
         private readonly IUserService _userService;
 
-        public LoginController()
+        public AuthController()
         {
             _userService = new UserService(new UserRepository());
         }
 
+
+        [HttpGet]
+        [Route("login")]
         public ActionResult Index()
         {
             if (Session["UserId"] != null)
@@ -59,12 +63,19 @@ namespace EMMS.Controllers
                 Response.Cookies.Add(sessionCookie);
             }
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Auth");
         }
 
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpGet]
+        [Route("change-password")]
+        public ActionResult ChangePasssword()
+        {
+            return View("ChangePassword");
         }
     }
 }

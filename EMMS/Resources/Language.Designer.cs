@@ -331,6 +331,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading data.
+        /// </summary>
+        public static string LoadingData {
+            get {
+                return ResourceManager.GetString("LoadingData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logging in.
         /// </summary>
         public static string LoggingIn {
@@ -417,6 +426,15 @@ namespace EMMS.Resources {
         public static string Month {
             get {
                 return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No data available.
+        /// </summary>
+        public static string NoDataAvailable {
+            get {
+                return ResourceManager.GetString("NoDataAvailable", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿@font-face {
+﻿/*@font-face {
     font-family: 'Material Symbols Outlined';
     font-style: normal;
     font-weight: 100 700;
@@ -63,10 +63,10 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     position: relative;
-}
+}*/
 
 /* Animated Background Gradient */
-.bg-animated {
+/*.bg-animated {
     position: fixed;
     top: 0;
     left: 0;
@@ -90,10 +90,10 @@ body {
     100% {
         background-position: 0% 50%;
     }
-}
+}*/
 
 /* Abstract Blurred Blobs */
-.blob {
+/*.blob {
     position: fixed;
     border-radius: 50%;
     filter: blur(80px);
@@ -137,7 +137,7 @@ body {
     to {
         transform: translate(100px, 50px) rotate(30deg);
     }
-}
+}*/
 
 h1,
 .brand-text {

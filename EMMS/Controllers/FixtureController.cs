@@ -218,22 +218,6 @@ namespace EMMS.Controllers
                 var type = request.Form["Type"];
                 var department = request.Form["Department"];
 
-                var funcType = "";
-
-                if (string.Equals(action, "create", StringComparison.OrdinalIgnoreCase))
-                {
-                    funcType = "Upload_Equipment_By_SN";
-                }
-                else if (string.Equals(action, "edit", StringComparison.OrdinalIgnoreCase))
-                {
-                    funcType = "Edit_Equipment_By_SN";
-                }
-                else if (string.Equals(action, "approve", StringComparison.OrdinalIgnoreCase))
-                {
-                    funcType = "Approve_Equipment_By_SN";
-                }
-
-
                 if (request == null || request.Form.Count == 0)
                 {
                     return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail("Form no data"));
@@ -241,7 +225,7 @@ namespace EMMS.Controllers
 
                 var model = _fixtureMapper.Map(request);
 
-                var result = await _fixtureService.SaveFixtureDailyAsync(model, request.Files, funcType, type, department);
+                var result = await _fixtureService.SaveFixtureDailyAsync(model, request.Files, action, type, department);
 
                 if (!result.Success)
                 {

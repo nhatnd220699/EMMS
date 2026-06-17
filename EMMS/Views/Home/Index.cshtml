@@ -346,8 +346,8 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/libs/lenis/lenis.min.js"></script>
-    <script src="~/Scripts/libs/fancybox/fancybox.umd.js"></script>
+    <script src="@Url.Content("~/Scripts/libs/lenis/lenis.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/libs/fancybox/fancybox.umd.js")"></script>
 
     <script>
 
@@ -375,7 +375,9 @@
             noNumber = Language.NoNumber,
             action = Language.Action,
             confirmationMethodAndStandard = Language.ConfirmationMethodAndStandard,
-            date = Language.Date
+            date = Language.Date,
+            loadingData = Language.LoadingData,
+            noDataAvailable = Language.NoDataAvailable
         }));
 
 
@@ -508,7 +510,7 @@
             const response = await fetch(url, { method: "GET" });
 
              if (response.status === 401) {
-                 window.location.href = '@Url.Action("Index", "Login")';
+                 window.location.href = '@Url.Action("Index", "Auth")';
                  return null;
              }
 
@@ -562,7 +564,7 @@
 
         const setMonthlyLoading = () => {
             document.getElementById("maintenance-body").innerHTML =
-                '<tr><td colspan="34" class="text-center py-4 text-muted">Loading monthly...</td></tr>';
+                `<tr><td colspan="34" class="text-center py-4 text-muted">${i18n.loadingData}...</td></tr>`;
         };
 
         const bindMonthlyHeader = (fixture) => {
@@ -657,7 +659,7 @@
             if (resetPagination) currentPage = 1;
 
             const grid = document.getElementById("fixture-grid");
-            setLoadingGrid("Loading data...");
+            setLoadingGrid(`${i18n.loadingData}...`);
 
             try {
                 const params = {
@@ -708,7 +710,7 @@
             // 3. Render grid items
             if (totalItems === 0) {
                 grid.innerHTML =
-                    '<div class="col-12 text-center py-5"><p class="text-muted">No available data</p></div>';
+                    `<div class="col-12 text-center py-5"><p class="text-muted">${i18n.noDataAvailable}</p></div>`;
             } else {
                 pageItems.forEach((fix, idx) => {
                     const style = getStatusStyle(fix.status);
@@ -977,7 +979,7 @@
 
             //toggleDetailColumns();
             document.getElementById("detail-form-body").innerHTML =
-                '<tr><td colspan="9" class="text-center py-4 text-muted">Loading daily maintenance form...</td></tr>';
+                `<tr><td colspan="9" class="text-center py-4 text-muted">${i18n.loadingData}...</td></tr>`;
             detailModalInstance.show();
 
             try {
@@ -1205,7 +1207,7 @@
             const sourceRows = getProp(activeDailyData, "checkItems", "CheckItems") || activeMaintenanceItems || [];
 
             if (!sourceRows.length) {
-                body.innerHTML = '<tr><td colspan="9" class="text-center py-4 text-muted">No daily maintenance items to display</td></tr>';
+                body.innerHTML = `<tr><td colspan="9" class="text-center py-4 text-muted">${i18n.noDataAvailable}</td></tr>`;
                 return;
             }
 
@@ -1375,17 +1377,17 @@
                 let approvalResultHtml = `
                     <div class="status-radio flex-column gap-1 approver-radio">
                          <div class="radio-inner">
-                             <input type="radio" id="approver_resOk_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""} class="hidden-radio radio-ok">
+                             <input type="radio" id="approver_resOk_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" || (currentRole === 'approver' &&  !isUploaded) ? "disabled" : ""} class="hidden-radio radio-ok">
                              <label for="approver_resOk_${mtNo}" class="custom-radio"></label>
                              <label for="approver_resOk_${mtNo}" class="radio-label-text">OK</label>
                          </div>
                          <div class="radio-inner">
-                             <input type="radio" id="approver_resNg_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""} class="hidden-radio radio-ng">
+                             <input type="radio" id="approver_resNg_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" || (currentRole === 'approver' && !isUploaded) ? "disabled" : ""} class="hidden-radio radio-ng">
                              <label for="approver_resNg_${mtNo}" class="custom-radio"></label>
                              <label for="approver_resNg_${mtNo}" class="radio-label-text">NG</label>
                          </div>
                          <div class="radio-inner">
-                             <input type="radio" id="approver_resNa_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" ? "disabled" : ""} class="hidden-radio radio-na">
+                             <input type="radio" id="approver_resNa_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" || (currentRole === 'approver' && !isUploaded) ? "disabled" : ""} class="hidden-radio radio-na">
                              <label for="approver_resNa_${mtNo}" class="custom-radio"></label>
                              <label for="approver_resNa_${mtNo}" class="radio-label-text">NA</label>
                          </div>
@@ -1393,7 +1395,7 @@
                 `;
 
                 // Remark Cell Logic
-                let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="@Language.AddFeedback..." ${!isToday || (currentRole === 'uploader' && isUploaded && !startEdit) ? 'disabled' : ''}>${remark}</textarea>`;
+                let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="@Language.AddFeedback..." ${!isToday || (currentRole === 'uploader' && isUploaded && !startEdit) || (currentRole === 'approver' && !isUploaded) ? 'disabled' : ''}>${remark}</textarea>`;
 
                 tr.innerHTML = `
                     <td class="text-center number-order">${numberOrder}</td>
@@ -1484,7 +1486,7 @@
             }
 
             if (!items.length) {
-                body.innerHTML = '<tr><td colspan="34" class="text-center py-4 text-muted">No maintenance items to display</td></tr>';
+                body.innerHTML = `<tr><td colspan="34" class="text-center py-4 text-muted">${i18n.noDataAvailable}</td></tr>`;
                 return;
             }
 
@@ -2111,7 +2113,7 @@
 
                     if (!PREVIEW_IMAGE[mtNo]) {
                         e.preventDefault();
-                        Popup.warning('请在评估前先查看图片/Please view the images before evaluation');
+                        Popup.warning('请在评估前先查看图片/Vui lòng xem ảnh trước khi đánh giá');
                     }
                 }
             });

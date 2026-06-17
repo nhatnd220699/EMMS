@@ -105,7 +105,7 @@ const ApiClient = {
 }
 
 // if (response.status === 401) {
-//     window.location.href = '@Url.Action("Index", "Login")';
+//     window.location.href = '@Url.Action("Index", "Auth")';
 //     return null;
 // }
 

@@ -2,12 +2,14 @@
 using Dapper;
 using Shared.Common;
 using Shared.DTOs;
+using Shared.Enums;
+using Shared.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using Shared.Extensions;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Infrastructure.Repositories
 {
@@ -72,7 +74,7 @@ namespace Infrastructure.Repositories
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
                     
-                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
                     }
@@ -90,15 +92,15 @@ namespace Infrastructure.Repositories
         }
         public Task<List<string>> GetTypesAsync()
         {
-            return GetStringListAsync("Get_Type");
+            return GetStringListAsync(FuncType.Get_Type.ToCode());
         }
         public Task<List<string>> GetLinesAsync()
         {
-            return GetStringListAsync("Get_Line");
+            return GetStringListAsync(FuncType.Get_Line.ToCode());
         }
         public Task<List<string>> GetDepartmentsAsync()
         {
-            return GetStringListAsync("Get_Dept");
+            return GetStringListAsync(FuncType.Get_Dept.ToCode());
         }
 
         public async Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
@@ -108,14 +110,14 @@ namespace Infrastructure.Repositories
             {
                 using (var multi = await conn.QueryMultipleAsync(
                     "Maintenance_Fixture_Portal",
-                    BuildParameters("Get_Equipment_List", type, line, department, sqSn),
+                    BuildParameters(FuncType.Get_Equipment_List.ToCode(), type, line, department, sqSn),
                     commandType: CommandType.StoredProcedure,
                     commandTimeout: 120)
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
                     
-                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
                     }
@@ -134,14 +136,14 @@ namespace Infrastructure.Repositories
             {
                 using (var multi = await conn.QueryMultipleAsync(
                     "Maintenance_Fixture_Portal",
-                    BuildParameters("Get_Equipment_By_Month", type, line, department, eqSn, chkDay),
+                    BuildParameters(FuncType.Get_Equipment_By_Month.ToCode(), type, line, department, eqSn, chkDay),
                     commandType: CommandType.StoredProcedure,
                     commandTimeout: 120)
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
                     
-                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
                     }
@@ -170,14 +172,14 @@ namespace Infrastructure.Repositories
             {
                 using (var multi = await conn.QueryMultipleAsync(
                     "Maintenance_Fixture_Portal",
-                    BuildParameters("Get_Equipment_By_Day", type, line, department, eqSn, chkDay, extendedPara),
+                    BuildParameters(FuncType.Get_Equipment_By_Day.ToCode(), type, line, department, eqSn, chkDay, extendedPara),
                     commandType: CommandType.StoredProcedure,
                     commandTimeout: 120)
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
                     
-                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
                     }
@@ -198,19 +200,39 @@ namespace Infrastructure.Repositories
         public async Task<string> SaveFixtureDailyAsync(FixtureDailyDto fixture, SaveFixtureParam param)
         {
 
+            var funcType = "";
+
+            if (string.Equals(param.Action, "create", StringComparison.OrdinalIgnoreCase))
+            {
+                funcType = FuncType.Upload_Equipment_By_SN.ToCode();
+            }
+            else if (string.Equals(param.Action, "edit", StringComparison.OrdinalIgnoreCase))
+            {
+                funcType = FuncType.Edit_Equipment_By_SN.ToCode();
+            }
+            else if (string.Equals(param.Action, "approve", StringComparison.OrdinalIgnoreCase))
+            {
+                funcType = FuncType.Approve_Equipment_By_SN.ToCode();
+            }
+
+            if (string.IsNullOrWhiteSpace(funcType))
+            {
+                throw new BusinessException("FuncType undefined");
+            }
+
             var parameters = BuildParameters(
-                param.FuncType,
-                param.Type,
-                fixture.Line,
-                param.Department,
-                fixture.EQ_SN,
-                "",
-                param.ExtendedPara,
-                param.ImageResult,
-                param.UploadResult,
-                param.ApproveResult,
-                param.Remark
-            );
+               funcType,
+               param.Type,
+               fixture.Line,
+               param.Department,
+               fixture.EQ_SN,
+               "",
+               param.ExtendedPara,
+               param.ImageResult,
+               param.UploadResult,
+               param.ApproveResult,
+               param.Remark
+           );
 
             using (var conn = _db.CreateConnection())
             {
@@ -223,7 +245,7 @@ namespace Infrastructure.Repositories
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
                     
-                    if (!string.Equals(result.Result, "PASS", StringComparison.OrdinalIgnoreCase))
+                    if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
                     }
@@ -232,166 +254,5 @@ namespace Infrastructure.Repositories
                 }
             }
         }
-
-
-        //private DataDto<T> Fail<T>(string message)
-        //{
-        //    return new DataDto<T>
-        //    {
-        //        Result = "FAIL",
-        //        Message = message,
-        //        Data = default(T)
-        //    };
-        //}
-
-        //private DataDto<T> Fail<T>(ResultMessageDto result)
-        //{
-        //    return new DataDto<T>
-        //    {
-        //        Result = result?.ResultValue ?? "FAIL",
-        //        Message = result?.MessageValue ?? "SP returned empty result.",
-        //        Data = default(T)
-        //    };
-        //}
-
-        //private DataDto<T> Pass<T>(ResultMessageDto result, T data)
-        //{
-        //    return new DataDto<T>
-        //    {
-        //        Result = result?.ResultValue ?? "PASS",
-        //        Message = result?.MessageValue ?? "Get data OK!",
-        //        Data = data
-        //    };
-        //}
-
-        //private bool IsPass(string result)
-        //{
-        //    return string.Equals(result, "PASS", StringComparison.OrdinalIgnoreCase);
-        //}
-
-        //private string GetExceptionMessage(Exception ex)
-        //{
-        //    return ex.GetBaseException()?.Message ?? ex.Message;
-        //}
-
-        //private string GetFirstColumnValue(dynamic row)
-        //{
-        //    var dict = row as IDictionary<string, object>;
-        //    if (dict == null || dict.Count == 0) return "";
-
-        //    var value = dict.First().Value;
-        //    return value == null ? "" : value.ToString();
-        //}
-
-        //private int ToInt(object value)
-        //{
-        //    if (value == null || value == DBNull.Value) return 0;
-
-        //    int result;
-        //    return int.TryParse(value.ToString(), out result) ? result : 0;
-        //}
-
-        //private string ToText(object value)
-        //{
-        //    return value == null || value == DBNull.Value ? "" : value.ToString();
-        //}
-
-        //private DateTime ToDate(object value)
-        //{
-        //    var text = ToText(value);
-        //    if (string.IsNullOrWhiteSpace(text)) return DateTime.Today;
-
-        //    DateTime result;
-        //    if (DateTime.TryParseExact(text, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
-        //        return result;
-
-        //    if (DateTime.TryParseExact(text, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
-        //        return result;
-
-        //    return DateTime.TryParse(text, out result) ? result : DateTime.Today;
-        //}
-
-        //private string ToChkDay(DateTime date)
-        //{
-        //    return date.ToString("yyyyMMdd");
-        //}
-
-        //private string NormalizeResultValue(string value)
-        //{
-        //    value = ToText(value).Trim().ToUpperInvariant();
-        //    return value == "OK" || value == "NG" || value == "NA" ? value : "NA";
-        //}
-
-        //private string BuildMtValueString(IEnumerable<DailyItemInputDto> items, Func<DailyItemInputDto, string> valueSelector, bool normalizeResult = false)
-        //{
-        //    if (items == null) return "";
-
-        //    return string.Join(";", items
-        //        .Where(x => !string.IsNullOrWhiteSpace(x.MT_No))
-        //        .Select(x => new
-        //        {
-        //            x.MT_No,
-        //            Value = normalizeResult ? NormalizeResultValue(valueSelector(x)) : EscapeSplitValue(valueSelector(x))
-        //        })
-        //        .Where(x => !string.IsNullOrWhiteSpace(x.Value))
-        //        .Select(x => x.MT_No + "=" + x.Value));
-        //}
-
-        //private string EscapeJsonString(string value)
-        //{
-        //    return ToText(value)
-        //        .Replace("\\", "\\\\")
-        //        .Replace("\"", "\\\"")
-        //        .Replace("\r", "\\r")
-        //        .Replace("\n", "\\n");
-        //}
-
-        //private string UnescapeJsonString(string value)
-        //{
-        //    return ToText(value)
-        //        .Replace("\\n", "\n")
-        //        .Replace("\\r", "\r")
-        //        .Replace("\\\"", "\"")
-        //        .Replace("\\\\", "\\");
-        //}
-
-        //private List<string> ParseImagePaths(string dbImageRaw)
-        //{
-        //    var result = new List<string>();
-        //    if (string.IsNullOrWhiteSpace(dbImageRaw)) return result;
-
-        //    dbImageRaw = dbImageRaw.Trim();
-
-        //    if (dbImageRaw.StartsWith("[") && dbImageRaw.EndsWith("]"))
-        //    {
-        //        var matches = Regex.Matches(dbImageRaw, "\"((?:\\\\.|[^\"\\\\])*)\"");
-        //        foreach (Match match in matches)
-        //        {
-        //            var value = UnescapeJsonString(match.Groups[1].Value);
-        //            if (!string.IsNullOrWhiteSpace(value))
-        //                result.Add(value.Trim());
-        //        }
-
-        //        return result.Distinct().ToList();
-        //    }
-
-        //    return dbImageRaw
-        //        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
-        //        .Select(x => x.Trim())
-        //        .Where(x => !string.IsNullOrWhiteSpace(x))
-        //        .Distinct()
-        //        .ToList();
-        //}
-
-        //private string SerializeImagePaths(List<string> imagePaths)
-        //{
-        //    imagePaths = (imagePaths ?? new List<string>())
-        //        .Where(x => !string.IsNullOrWhiteSpace(x))
-        //        .Select(x => x.Trim())
-        //        .Distinct()
-        //        .ToList();
-
-        //    return "[" + string.Join(",", imagePaths.Select(x => "\"" + EscapeJsonString(x) + "\"")) + "]";
-        //}
     }
 }

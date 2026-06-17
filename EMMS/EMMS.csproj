@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\css\custom\change-password.css" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Resources\Language.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -142,23 +143,26 @@
     <None Include="Content\data\monthly.json" />
     <Compile Include="Controllers\FixtureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\css\custom\auth.css" />
     <Content Include="Content\css\custom\popup.css" />
     <Content Include="Content\css\custom\radio.css" />
     <Content Include="Content\data\daily.json" />
     <Content Include="Views\Home\Index_BK20260615.cshtml" />
-    <None Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Auth\ChangePassword.cshtml" />
+    <None Include="Views\Auth\Login.cshtml" />
     <Content Include="Scripts\api\api-client.js" />
     <Content Include="Scripts\services\fixture-service.js" />
     <Content Include="Scripts\common\action-lock.js" />
     <Content Include="Scripts\common\helper.js" />
     <Content Include="Scripts\common\popup.js" />
     <Content Include="Scripts\common\utils.js" />
-    <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Auth\Register.cshtml" />
+    <Content Include="Views\Shared\_LayoutAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />

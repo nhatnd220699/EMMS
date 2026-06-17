@@ -235,7 +235,7 @@ namespace Application.Services
             }
         }
 
-        public async Task<Result<string>> SaveFixtureDailyAsync(FixtureDailyDto model, HttpFileCollection files, string funcType, string type, string department)
+        public async Task<Result<string>> SaveFixtureDailyAsync(FixtureDailyDto model, HttpFileCollection files, string action, string type, string department)
         {
             try
             {
@@ -316,7 +316,7 @@ namespace Application.Services
 
                 var param = new SaveFixtureParam
                 {
-                    FuncType = funcType,
+                    Action = action,
                     Type = type,
                     Department = department,
                     Shift = shift,
