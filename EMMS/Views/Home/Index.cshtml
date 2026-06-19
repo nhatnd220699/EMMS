@@ -409,7 +409,7 @@
         const PREVIEW_IMAGE = {};
         const PREVIEWED_IMAGE = {};
         const STATUS_ALL = "All";
-        const STATUS_NO_CHECKING = "No checking";
+        const STATUS_NO_CHECKING = "No Maintenance";
         const STATUS_ON_GOING = "Ongoing";
         const STATUS_DONE = "Done";
         const STATUS_NG = "NG";
@@ -481,9 +481,9 @@
             const compact = value.toLowerCase().replace(/\s+/g, "");
 
             if (compact === "ongoing" || compact === "on-going") return STATUS_ON_GOING;
-            if (compact === "nochecking") return STATUS_NO_CHECKING;
+            if (compact === "nochecking" || compact === 'nomaintenance') return STATUS_NO_CHECKING;
             if (compact === "done") return STATUS_DONE;
-            if (compact === "ng") return "NG";
+            if (compact === "ng") return STATUS_NG;
 
             return value || STATUS_NO_CHECKING;
         };
@@ -651,7 +651,7 @@
             }, {});
 
             document.getElementById("kpi-total").textContent = FIXTURE_DATASET.length.toLocaleString();
-            document.getElementById("kpi-maintenance").textContent = counts[STATUS_NO_CHECKING] + counts[STATUS_NG] || 0;
+            document.getElementById("kpi-maintenance").textContent = (counts[STATUS_NO_CHECKING] || 0) + (counts[STATUS_NG] || 0);
             document.getElementById("kpi-waiting").textContent = counts[STATUS_ON_GOING] || 0;
             document.getElementById("kpi-completed").textContent = counts[STATUS_DONE] || 0;
         };
@@ -682,6 +682,8 @@
                 FIXTURE_DATASET = (data || [])
                     .map(normalizeFixture)
                     .sort((a, b) => (Number(a.numberOrder) || 0) - (Number(b.numberOrder) || 0));
+
+                console.log(FIXTURE_DATASET)
 
             } catch (error) {
 
