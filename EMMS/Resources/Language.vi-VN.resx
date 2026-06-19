@@ -378,4 +378,7 @@
   <data name="Role" xml:space="preserve">
     <value>Vai trò</value>
   </data>
+  <data name="Filtered" xml:space="preserve">
+    <value>Đã lọc</value>
+  </data>
 </root>

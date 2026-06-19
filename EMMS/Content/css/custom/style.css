@@ -225,6 +225,7 @@ html[lang="zh-TW"] body
     border-radius: 8px;
     margin: 0 12px;
     transition: background-color 0.2s ease, color 0.2s ease;
+    text-transform: capitalize;
 }
 
     .sidebar-item:hover {
@@ -699,7 +700,11 @@ thead tr th.day-col:hover {
         transform: translateX(-260px);
     }
 
-        #sidebar.active {
+       /* #sidebar.active {
+            transform: translateX(0);
+        }*/
+
+        #sidebar {
             transform: translateX(0);
         }
 

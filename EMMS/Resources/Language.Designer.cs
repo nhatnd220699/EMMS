@@ -367,6 +367,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filtered.
+        /// </summary>
+        public static string Filtered {
+            get {
+                return ResourceManager.GetString("Filtered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fixture maintenance.
         /// </summary>
         public static string FixtureMaintenance {

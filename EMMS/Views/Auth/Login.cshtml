@@ -47,10 +47,10 @@
                             Ghi nhớ đăng nhập
                         </label>*@
                     </div>
-                    <a class="link-primary" href="change-password">@Language.ForgetPassword</a>
+                    <a class="link-primary" href="change-password">@Language.ChangePassword</a>
                 </div>
             <!-- Primary Submit Button -->
-            <div class="alert alert-danger d-none py-2 small" id="loginMessage"></div>
+            <div class="alert alert-danger d-none py-2 small text-center" id="loginMessage"></div>
             <button class="btn btn-primary w-100 mb-4" id="loginButton" type="submit">
                 @Language.LogIn
             </button>
@@ -86,18 +86,6 @@
                 toggleIcon.innerText = 'visibility';
             }
         }
-
-        const getProp = (obj, ...keys) => {
-            if (!obj) return null;
-
-            for (const key of keys) {
-                if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                    return obj[key];
-                }
-            }
-
-            return null;
-        };
 
         const showLoginMessage = (message) => {
             const messageEl = document.getElementById('loginMessage');

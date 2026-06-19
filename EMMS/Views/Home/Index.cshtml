@@ -379,7 +379,8 @@
             loadingData = Language.LoadingData,
             noDataAvailable = Language.NoDataAvailable,
             of = Language.Of,
-            showing = Language.Showing
+            showing = Language.Showing,
+            filtered = Language.Filtered
         }));
 
 
@@ -463,17 +464,17 @@
             }
         };
 
-        const getProp = (obj, ...keys) => {
-            if (!obj) return null;
+        //const getProp = (obj, ...keys) => {
+        //    if (!obj) return null;
 
-            for (const key of keys) {
-                if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                    return obj[key];
-                }
-            }
+        //    for (const key of keys) {
+        //        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        //            return obj[key];
+        //        }
+        //    }
 
-            return null;
-        };
+        //    return null;
+        //};
 
         const normalizeStatus = (status) => {
             const value = (status ?? "").toString().trim();
@@ -498,11 +499,11 @@
             };
         };
 
-        const getResponseData = (response) => {
-            return getProp(response, "data", "Data");
-        };
+        //const getResponseData = (response) => {
+        //    return getProp(response, "data", "Data");
+        //};
 
-        const isSuccessResponse = (response) => {
+        @*const isSuccessResponse = (response) => {
             return getProp(response, "success", "Success") === true;
         };
 
@@ -532,20 +533,20 @@
             }
 
             return getResponseData(data);
-        };
+        };*@
 
-        const buildQuery = (params) => {
-            const query = new URLSearchParams();
+        //const buildQuery = (params) => {
+        //    const query = new URLSearchParams();
 
-            Object.keys(params).forEach((key) => {
-                const value = params[key];
-                if (value !== undefined && value !== null && value !== "") {
-                    query.append(key, value);
-                }
-            });
+        //    Object.keys(params).forEach((key) => {
+        //        const value = params[key];
+        //        if (value !== undefined && value !== null && value !== "") {
+        //            query.append(key, value);
+        //        }
+        //    });
 
-            return query.toString();
-        };
+        //    return query.toString();
+        //};
 
         const getCurrentMonthValue = () => {
             const now = new Date();
@@ -755,14 +756,14 @@
                 if (currentStatusFilter === "All") {
                     densityLabel.textContent = "Total";
                 } else {
-                    densityLabel.textContent = `Filtered: ${currentStatusFilter}`;
+                    densityLabel.textContent = `${i18n.filtered}: ${currentStatusFilter}`;
                 }
             }
 
             // 5. Update Pagination Info and Controls
             const paginationInfo =
                 totalItems === 0
-                    ? `0 - 0 ${i18n.of} 0"`
+                    ? `0 - 0 ${i18n.of} 0`
                     : `${startIndex + 1} - ${endIndex} ${i18n.of} ${totalItems}`;
             document.getElementById("quick-pagination-info").textContent = paginationInfo;
             document.getElementById("pageIndicator").textContent = `${i18n.showing} ${paginationInfo}`;
@@ -924,7 +925,7 @@
                     eqSn: fixture.fixture
                 };
 
-                const query = buildQuery(params);
+                //const query = buildQuery(params);
 
                 // const result = await ApiClient.get(`/Content/data/monthly.json`);
                 const result = await ApiClient.get('api/fixture/monthly', params);
