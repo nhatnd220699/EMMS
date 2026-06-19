@@ -50,6 +50,7 @@
     <Compile Include="Common\BusinessException.cs" />
     <Compile Include="Common\DataDto.cs" />
     <Compile Include="Common\Result.cs" />
+    <Compile Include="DTOs\ChangePasswordDto.cs" />
     <Compile Include="DTOs\FilterDto.cs" />
     <Compile Include="DTOs\FixtureDailyDto.cs" />
     <Compile Include="DTOs\FixtureDailyHeaderRawDto.cs" />

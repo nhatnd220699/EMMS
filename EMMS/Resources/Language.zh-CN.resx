@@ -247,7 +247,7 @@
     <value>图片处理完成</value>
   </data>
   <data name="FailedToProcessImage" xml:space="preserve">
-    <value>图片处理失败</value>
+    <value>系统无法识别图片中的时间信息。请检查图片后重试</value>
   </data>
   <data name="SavingData" xml:space="preserve">
     <value>正在保存数据</value>
@@ -324,8 +324,8 @@
   <data name="FailedToChangePassword" xml:space="preserve">
     <value>密码修改失败</value>
   </data>
-  <data name="AtLeast8Characters" xml:space="preserve">
-    <value>至少 8 个字符</value>
+  <data name="AtLeast10Characters" xml:space="preserve">
+    <value>至少 10 个字符</value>
   </data>
   <data name="UppercaseLetter" xml:space="preserve">
     <value>包含大写字母</value>
@@ -356,5 +356,26 @@
   </data>
   <data name="BackToHome" xml:space="preserve">
     <value>返回首页</value>
+  </data>
+  <data name="PasswordConfirmationNotMatch" xml:space="preserve">
+    <value>确认密码不一致</value>
+  </data>
+  <data name="TheFieldsIsRequired" xml:space="preserve">
+    <value>这些字段为必填项</value>
+  </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>忘记密码？</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="Showing" xml:space="preserve">
+    <value>正在显示</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>角色</value>
   </data>
 </root>

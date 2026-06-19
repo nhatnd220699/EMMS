@@ -247,7 +247,7 @@
     <value>Image processed completed</value>
   </data>
   <data name="FailedToProcessImage" xml:space="preserve">
-    <value>Failed to process image</value>
+    <value>The system is unable to recognize the timestamp in the image. Please check the image and try again</value>
   </data>
   <data name="SavingData" xml:space="preserve">
     <value>Saving data</value>
@@ -324,8 +324,8 @@
   <data name="FailedToChangePassword" xml:space="preserve">
     <value>Fail to change password</value>
   </data>
-  <data name="AtLeast8Characters" xml:space="preserve">
-    <value>At least 8 characters</value>
+  <data name="AtLeast10Characters" xml:space="preserve">
+    <value>At least 10 characters</value>
   </data>
   <data name="UppercaseLetter" xml:space="preserve">
     <value>Uppercase letter</value>
@@ -356,5 +356,26 @@
   </data>
   <data name="BackToHome" xml:space="preserve">
     <value>Back to home</value>
+  </data>
+  <data name="PasswordConfirmationNotMatch" xml:space="preserve">
+    <value>The password confirmation does not match</value>
+  </data>
+  <data name="TheFieldsIsRequired" xml:space="preserve">
+    <value>The fields is required</value>
+  </data>
+  <data name="ForgetPassword" xml:space="preserve">
+    <value>Forget password?</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Showing" xml:space="preserve">
+    <value>Showing</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
   </data>
 </root>

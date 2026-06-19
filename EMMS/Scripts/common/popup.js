@@ -101,7 +101,7 @@
 
             spinner.style.display = "block";
 
-            text.textContent = message;
+            text.innerHTML = message;
         },
 
         success(message, delay = 1500) {
@@ -114,7 +114,7 @@
 
             spinner.style.display = "none";
 
-            text.textContent = message;
+            text.innerHTML = message;
 
             timeout = setTimeout(
                 Popup.hide,
@@ -132,7 +132,7 @@
 
             spinner.style.display = "none";
 
-            text.textContent = message;
+            text.innerHTML = message;
 
             timeout = setTimeout(
                 Popup.hide,

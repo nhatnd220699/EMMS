@@ -2,6 +2,7 @@
 using Dapper;
 using Shared.Common;
 using Shared.DTOs;
+using Shared.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,7 +17,8 @@ namespace Infrastructure.Repositories
             string funcType,
             string type = "",
             string userId = "",
-            string password = "")
+            string password = "",
+            string newPassword = "")
         {
             var parameters = new DynamicParameters();
             parameters.Add("FuncType", funcType ?? "");
@@ -28,7 +30,8 @@ namespace Infrastructure.Repositories
             parameters.Add("ExtendedPara", BuildExtendedPara(new Dictionary<string, string>
             {
                 { "UserId", userId },
-                { "Password", password }
+                { "Password", password },
+                { "NewPassword", newPassword }
             }));
             parameters.Add("Upload_PathImage", "");
             parameters.Add("Upload_Result", "");
@@ -85,71 +88,160 @@ namespace Infrastructure.Repositories
                 .Select(x => x.Key + "=" + EscapeSplitValue(x.Value)));
         }
 
+        //public async Task<DataDto<bool>> LoginAsync(string type, string userId, string password)
+        //{
+        //    try
+        //    {
+        //        using (var conn = _db.CreateConnection())
+        //        {
+        //            using (var multi = await conn.QueryMultipleAsync(
+        //                "Maintenance_Fixture_Portal",
+        //                BuildParameters("Login", type, userId, password),
+        //                commandType: CommandType.StoredProcedure,
+        //                commandTimeout: 180)
+        //            )
+        //            {
+        //                var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+        //                if (result == null || !result.IsPass)
+        //                    return Fail<bool>(result);
+
+        //                return new DataDto<bool>
+        //                {
+        //                    Result = result.Result,
+        //                    Message = result.Message,
+        //                    Data = true
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Fail<bool>("Call SP Login error: " + GetExceptionMessage(ex));
+        //    }
+        //}
+
+        //public async Task<DataDto<UserDto>> GetUserAsync(string type, string userId)
+        //{
+        //    try
+        //    {
+        //        using (var conn = _db.CreateConnection())
+        //        {
+        //            using (var multi = await conn.QueryMultipleAsync(
+        //                "Maintenance_Fixture_Portal",
+        //                BuildParameters("Get_User", type, userId),
+        //                commandType: CommandType.StoredProcedure,
+        //                commandTimeout: 180)
+        //            )
+        //            {
+        //                var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
+        //                if (result == null || !result.IsPass)
+        //                    return Fail<UserDto>(result);
+
+        //                var user = (await multi.ReadAsync<UserDto>()).FirstOrDefault();
+        //                if (user == null)
+        //                    return Fail<UserDto>("User information not found.");
+
+        //                return new DataDto<UserDto>
+        //                {
+        //                    Result = result.Result,
+        //                    Message = result.Message,
+        //                    Data = user
+        //                };
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Fail<UserDto>("Call SP Get_User error: " + GetExceptionMessage(ex));
+        //    }
+        //}
+
         public async Task<DataDto<bool>> LoginAsync(string type, string userId, string password)
         {
-            try
+            using (var conn = _db.CreateConnection())
             {
-                using (var conn = _db.CreateConnection())
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    BuildParameters("Login", type, userId, password),
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 180)
+                )
                 {
-                    using (var multi = await conn.QueryMultipleAsync(
-                        "Maintenance_Fixture_Portal",
-                        BuildParameters("Login", type, userId, password),
-                        commandType: CommandType.StoredProcedure,
-                        commandTimeout: 180)
-                    )
-                    {
-                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-                        if (result == null || !result.IsPass)
-                            return Fail<bool>(result);
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
 
-                        return new DataDto<bool>
-                        {
-                            Result = result.Result,
-                            Message = result.Message,
-                            Data = true
-                        };
-                    }
+                    if (!result.Result.IsPass())
+                        throw new BusinessException(result.Message);
+
+                    return new DataDto<bool>
+                    {
+                        Result = result.Result,
+                        Message = result.Message,
+                        Data = true
+                    };
                 }
-            }
-            catch (Exception ex)
-            {
-                return Fail<bool>("Call SP Login error: " + GetExceptionMessage(ex));
             }
         }
 
         public async Task<DataDto<UserDto>> GetUserAsync(string type, string userId)
         {
-            try
+            using (var conn = _db.CreateConnection())
             {
-                using (var conn = _db.CreateConnection())
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    BuildParameters("Get_User", type, userId),
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 180)
+                )
                 {
-                    using (var multi = await conn.QueryMultipleAsync(
-                        "Maintenance_Fixture_Portal",
-                        BuildParameters("Get_User", type, userId),
-                        commandType: CommandType.StoredProcedure,
-                        commandTimeout: 180)
-                    )
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+
+                    if (!result.Result.IsPass())
                     {
-                        var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault();
-                        if (result == null || !result.IsPass)
-                            return Fail<UserDto>(result);
-
-                        var user = (await multi.ReadAsync<UserDto>()).FirstOrDefault();
-                        if (user == null)
-                            return Fail<UserDto>("User information not found.");
-
-                        return new DataDto<UserDto>
-                        {
-                            Result = result.Result,
-                            Message = result.Message,
-                            Data = user
-                        };
+                        throw new BusinessException(result.Message);
                     }
+
+                    var user = (await multi.ReadAsync<UserDto>()).FirstOrDefault();
+
+                    if (user == null)
+                    {
+                        throw new BusinessException("User information not found.");
+                    }
+
+                    return new DataDto<UserDto>
+                    {
+                        Result = result.Result,
+                        Message = result.Message,
+                        Data = user
+                    };
                 }
             }
-            catch (Exception ex)
+        }
+
+        public async Task<object> ChangePasswordAsync(ChangePasswordDto model)
+        {
+                
+            using (var conn = _db.CreateConnection())
             {
-                return Fail<UserDto>("Call SP Get_User error: " + GetExceptionMessage(ex));
+                using (var multi = await conn.QueryMultipleAsync(
+                    "Maintenance_Fixture_Portal",
+                    BuildParameters("Change_Password", model.Type, model.UserId, model.CurrentPassword, model.NewPassword),
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 180)
+                )
+                {
+                    var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
+
+                    if (!result.Result.IsPass())
+                    {
+                        throw new BusinessException(result.Message);
+                    }
+
+                    return new
+                    {
+                        result.Result,
+                        result.Message
+                    };
+                }
             }
         }
     }

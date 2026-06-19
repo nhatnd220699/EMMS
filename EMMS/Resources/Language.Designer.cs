@@ -19,7 +19,7 @@ namespace EMMS.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Language {
@@ -142,11 +142,11 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to At least 8 characters.
+        ///   Looks up a localized string similar to At least 10 characters.
         /// </summary>
-        public static string AtLeast8Characters {
+        public static string AtLeast10Characters {
             get {
-                return ResourceManager.GetString("AtLeast8Characters", resourceCulture);
+                return ResourceManager.GetString("AtLeast10Characters", resourceCulture);
             }
         }
         
@@ -340,7 +340,7 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to process image.
+        ///   Looks up a localized string similar to The system is unable to recognize the timestamp in the image. Please check the image and try again.
         /// </summary>
         public static string FailedToProcessImage {
             get {
@@ -372,6 +372,15 @@ namespace EMMS.Resources {
         public static string FixtureMaintenance {
             get {
                 return ResourceManager.GetString("FixtureMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forget password?.
+        /// </summary>
+        public static string ForgetPassword {
+            get {
+                return ResourceManager.GetString("ForgetPassword", resourceCulture);
             }
         }
         
@@ -556,6 +565,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string Of {
+            get {
+                return ResourceManager.GetString("Of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -570,6 +588,15 @@ namespace EMMS.Resources {
         public static string PasswordChangedSuccessfully {
             get {
                 return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password confirmation does not match.
+        /// </summary>
+        public static string PasswordConfirmationNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordConfirmationNotMatch", resourceCulture);
             }
         }
         
@@ -619,6 +646,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -664,6 +700,24 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string Show {
+            get {
+                return ResourceManager.GetString("Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing.
+        /// </summary>
+        public static string Showing {
+            get {
+                return ResourceManager.GetString("Showing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Special character.
         /// </summary>
         public static string SpecialCharacter {
@@ -687,6 +741,15 @@ namespace EMMS.Resources {
         public static string Strong {
             get {
                 return ResourceManager.GetString("Strong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The fields is required.
+        /// </summary>
+        public static string TheFieldsIsRequired {
+            get {
+                return ResourceManager.GetString("TheFieldsIsRequired", resourceCulture);
             }
         }
         

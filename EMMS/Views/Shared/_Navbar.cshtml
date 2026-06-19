@@ -24,7 +24,7 @@
                 <span class="material-symbols-outlined">menu</span>
             </button>
             <a class="navbar-brand py-0 me-4" href="#">
-                <span class="d-none d-md-block"
+                <span class="d-none d-md-block text-capitalize"
                       id="navbar-dynamic-title">Page</span>
             </a>
             <!-- <div class="collapse navbar-collapse d-none d-lg-block">
@@ -105,22 +105,22 @@
                                 @navbarUserName
                             </p>
                             <p class="mb-0 text-muted" style="font-size: 12px">
-                                Role: @navbarRole
+                                @Language.Role: @navbarRole
                             </p>
                         </div>
                     </li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="change-password"
                            style="font-size: 14px">
-                            <span class="material-symbols-outlined fs-5">person</span> @Language.Profile
+                            <span class="material-symbols-outlined fs-5">key</span> @Language.ChangePassword
                         </a>
                     </li>
-                    <li>
+                    @*<li>
                         <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
                            style="font-size: 14px">
                             <span class="material-symbols-outlined fs-5">settings</span> @Language.AccountSettings
                         </a>
-                    </li>
+                    </li>*@
                     <li>
                         <hr class="dropdown-divider m-0 opacity-10" />
                     </li>

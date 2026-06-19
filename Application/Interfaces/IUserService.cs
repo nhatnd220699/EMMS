@@ -6,6 +6,7 @@ namespace Application.Interfaces
 {
     public interface IUserService
     {
-        Task<ApiResponse<LoginResultDto>> LoginAsync(LoginRequestDto model);
+        Task<Result<LoginResultDto>> LoginAsync(LoginRequestDto model);
+        Task<Result<object>> ChangePasswordAsync(ChangePasswordDto model);
     }
 }

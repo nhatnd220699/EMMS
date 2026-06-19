@@ -117,7 +117,7 @@
              id="pagination-container">
             <div class="d-flex align-items-center gap-3">
                 <div class="d-flex align-items-center gap-2">
-                    <small class="text-secondary fw-semibold">Show</small>
+                    <small class="text-secondary fw-semibold">@Language.Show</small>
                     <select class="form-select form-select-sm border-light-subtle bg-light"
                             id="pageSizeSelector" style="width: 70px">
                         <option value="24">24</option>
@@ -129,7 +129,7 @@
                     </select>
                 </div>
                 <div class="small text-secondary fw-medium" id="pageIndicator">
-                    Showing 1 - 20 of 50
+                    @Language.Showing 1 - 40 @Language.Of 50
                 </div>
             </div>
             <nav aria-label="Page navigation">
@@ -377,7 +377,9 @@
             confirmationMethodAndStandard = Language.ConfirmationMethodAndStandard,
             date = Language.Date,
             loadingData = Language.LoadingData,
-            noDataAvailable = Language.NoDataAvailable
+            noDataAvailable = Language.NoDataAvailable,
+            of = Language.Of,
+            showing = Language.Showing
         }));
 
 
@@ -417,6 +419,8 @@
         let currentPage = 1;
         let pageSize = 40;
         let currentStatusFilter = "All";
+        let idDashboardTimeout;
+        let timer = 5 * 60 * 1000;
 
         let maintenanceModalInstance = null;
         let detailModalInstance = null;
@@ -687,6 +691,13 @@
                 updatePaginationControls(1);
 
                 return;
+
+            } finally {
+
+                clearTimeout(idDashboardTimeout);
+                idDashboardTimeout = setTimeout(function () {
+                    updateDisplay();
+                }, timer)
             }
 
             grid.innerHTML = "";
@@ -751,10 +762,10 @@
             // 5. Update Pagination Info and Controls
             const paginationInfo =
                 totalItems === 0
-                    ? "0 - 0 of 0"
-                    : `${startIndex + 1} - ${endIndex} of ${totalItems}`;
+                    ? `0 - 0 ${i18n.of} 0"`
+                    : `${startIndex + 1} - ${endIndex} ${i18n.of} ${totalItems}`;
             document.getElementById("quick-pagination-info").textContent = paginationInfo;
-            document.getElementById("pageIndicator").textContent = `Showing ${paginationInfo.replace("của", "of")}`;
+            document.getElementById("pageIndicator").textContent = `${i18n.showing} ${paginationInfo}`;
 
             updatePaginationControls(totalPages);
 

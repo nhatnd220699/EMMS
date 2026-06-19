@@ -40,15 +40,15 @@
                 </div>
             </div>
             <!-- Remember & Forgot -->
-            @*<div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
-                        <input class="form-check-input" id="rememberMe" type="checkbox" value="">
+                        @*<input class="form-check-input" id="rememberMe" type="checkbox" value="">
                         <label class="form-check-label" for="rememberMe">
                             Ghi nhớ đăng nhập
-                        </label>
+                        </label>*@
                     </div>
-                    <a class="link-primary" href="#">Quên mật khẩu?</a>
-                </div>*@
+                    <a class="link-primary" href="change-password">@Language.ForgetPassword</a>
+                </div>
             <!-- Primary Submit Button -->
             <div class="alert alert-danger d-none py-2 small" id="loginMessage"></div>
             <button class="btn btn-primary w-100 mb-4" id="loginButton" type="submit">
@@ -68,6 +68,7 @@
 @section scripts {
     <script>
         const i18n = @Html.Raw(Json.Encode(new {
+            logIn = Language.LogIn,
             loggingIn = Language.LoggingIn,
             requireUsernameAndPassword = Language.RequireUsernameAndPassword,
             loginFailed = Language.LoginFailed
@@ -139,12 +140,17 @@
 
                 if (!response.ok || !success) {
                     showLoginMessage(getProp(result, 'message', 'Message') || i18n.loginFailed);
+                    loginButton.textContent = i18n.logIn;
                     return;
                 }
 
                 window.location.href = '@Url.Action("Index", "Home")';
+
             } catch (error) {
+
                 showLoginMessage(error.message);
+                loginButton.textContent = i18n.logIn;
+
             } finally {
                 loginButton.disabled = false;
             }
