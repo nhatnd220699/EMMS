@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="No checking">
+                <div class="card kpi-card p-4" data-status="No Maintenance">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
@@ -123,13 +123,13 @@
                         <option value="24">24</option>
                         <option value="30">30</option>
                         <option value="40">40</option>
-                        <option value="50">50</option>
+                        <option value="54">54</option>
                         <option value="100">100</option>
                         <option value="200">200</option>
                     </select>
                 </div>
                 <div class="small text-secondary fw-medium" id="pageIndicator">
-                    @Language.Showing 1 - 40 @Language.Of 50
+                    @Language.Showing 1 - 54 @Language.Of 0
                 </div>
             </div>
             <nav aria-label="Page navigation">
@@ -384,30 +384,29 @@
         }));
 
 
-        // Initialize Lenis
-        const lenis = new Lenis({
-            prevent: (node) => {
-                return (
-                    node.closest("#maintenanceModal") ||
-                    node.closest("#detailModal") ||
-                    node.closest(".sidebar")
-                );
-            },
-        });
+        //// Initialize Lenis
+        //const lenis = new Lenis({
+        //    prevent: (node) => {
+        //        return (
+        //            node.closest("#maintenanceModal") ||
+        //            node.closest("#detailModal") ||
+        //            node.closest(".sidebar")
+        //        );
+        //    },
+        //});
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        //function raf(time) {
+        //    lenis.raf(time);
+        //    requestAnimationFrame(raf);
+        //}
 
-        requestAnimationFrame(raf);
+        //requestAnimationFrame(raf);
 
 
         const DATASET = { type: "", line: "", department: "" };
         let FIXTURE_DATASET = [];
         const IMAGE_CHECK = {};
         const PREVIEW_IMAGE = {};
-        const PREVIEWED_IMAGE = {};
         const STATUS_ALL = "All";
         const STATUS_NO_CHECKING = "No Maintenance";
         const STATUS_ON_GOING = "Ongoing";
@@ -418,7 +417,7 @@
         * Global State
         */
         let currentPage = 1;
-        let pageSize = 40;
+        let pageSize = 54;
         let currentStatusFilter = "All";
         let idDashboardTimeout;
         let timer = 5 * 60 * 1000;
@@ -498,55 +497,6 @@
                 status: normalizeStatus(getProp(item, "status", "Status"))
             };
         };
-
-        //const getResponseData = (response) => {
-        //    return getProp(response, "data", "Data");
-        //};
-
-        @*const isSuccessResponse = (response) => {
-            return getProp(response, "success", "Success") === true;
-        };
-
-        const getResponseMessage = (response) => {
-            return getProp(response, "message", "Message") || "Request failed.";
-        };
-
-        const fetchJson = async (url) => {
-            const response = await fetch(url, { method: "GET" });
-
-             if (response.status === 401) {
-                 window.location.href = '@Url.Action("Index", "Auth")';
-                 return null;
-             }
-
-            const text = await response.text();
-            let data = null;
-
-            try {
-                data = text ? JSON.parse(text) : null;
-            } catch (error) {
-                throw new Error(text || `HTTP ${response.status}`);
-            }
-
-            if (!response.ok || !isSuccessResponse(data)) {
-                throw new Error(getResponseMessage(data));
-            }
-
-            return getResponseData(data);
-        };*@
-
-        //const buildQuery = (params) => {
-        //    const query = new URLSearchParams();
-
-        //    Object.keys(params).forEach((key) => {
-        //        const value = params[key];
-        //        if (value !== undefined && value !== null && value !== "") {
-        //            query.append(key, value);
-        //        }
-        //    });
-
-        //    return query.toString();
-        //};
 
         const getCurrentMonthValue = () => {
             const now = new Date();
@@ -683,8 +633,6 @@
                     .map(normalizeFixture)
                     .sort((a, b) => (Number(a.numberOrder) || 0) - (Number(b.numberOrder) || 0));
 
-                console.log(FIXTURE_DATASET)
-
             } catch (error) {
 
                 FIXTURE_DATASET = [];
@@ -709,7 +657,19 @@
             const filteredData =
                 currentStatusFilter === "All"
                     ? FIXTURE_DATASET
-                    : FIXTURE_DATASET.filter((item) => item.status === currentStatusFilter);
+                    : FIXTURE_DATASET.filter((item) => {
+                        if (
+                            currentStatusFilter === STATUS_NG ||
+                            currentStatusFilter === STATUS_NO_CHECKING
+                        ) {
+                            return (
+                                item.status === STATUS_NG ||
+                                item.status === STATUS_NO_CHECKING
+                            );
+                        }
+
+                        return item.status === currentStatusFilter;
+                    });
 
             const totalItems = filteredData.length;
             const totalPages = Math.ceil(totalItems / pageSize) || 1;
@@ -1034,7 +994,6 @@
             if (imageResult && imageResult.code === 200) {
                 result = checkImageTime(imageResult.time_stamp, rowId);
             }
-            console.log(result)
 
             const gallery = input.closest("td").querySelector(".gallery-grid");
 
@@ -1312,8 +1271,9 @@
                 const numberOrder = getProp(item, "number_Order", "Number_Order", "numberOrder") || (idx + 1);
                 const mtNo = getProp(item, "mT_No", "MT_No", "mtNo") || numberOrder;
                 const actionText = getProp(item, "mT_Item", "MT_Item", "action") || "";
-                const methodText = getProp(item, "mT_Desc", "MT_Desc", "method") || "";
-                const uploadResult = getProp(item, "upload_Result", "Upload_Result") || "NA";
+                const methodText = getProp(item, "mT_Desc", "MT_Desc", "mt_desc") || "";
+                const needUploadImg = getProp(item, "Need_UploadImg", "need_uploadimg") || 'Y';
+                const uploadResult = getProp(item, "upload_Result", "Upload_Result") || (needUploadImg == "Y" ? "NA" : "OK");
                 const approvalResult = getProp(item, "approval_Result", "Approval_Result") || "";
                 const uploadId = isUploaded ? getProp(item, "upload_ID", "Upload_ID") : '';
                 const approvalId = isApproved ? getProp(item, "approval_ID", "Approval_ID") : '';
@@ -1340,11 +1300,13 @@
 
                 PREVIEW_IMAGE[mtNo] = false;
 
+                if (needUploadImg === "N") PREVIEW_IMAGE[mtNo] = true;
+
 
                 // Image Cell Logic
                 let imageCellHtml = "";
                 if (currentRole === "uploader") {
-                    if (!isUploaded || startEdit) {
+                    if (needUploadImg === "Y" && (!isUploaded || startEdit)) {
                         imageCellHtml = `
                             <div>
                                 ${isToday
@@ -1371,17 +1333,17 @@
                 let uploaderResultHtml = `
                     <div class="status-radio flex-column gap-1">
                         <div class="radio-inner">
-                            <input type="radio" id="uploader_resOk_${mtNo}" name="uploader_res_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} class="hidden-radio radio-ok" disabled>
+                            <input type="radio" id="uploader_resOk_${mtNo}" name="uploader_res_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} class="hidden-radio radio-ok" ${needUploadImg == "Y"  ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
                             <label for="uploader_resOk_${mtNo}" class="custom-radio"></label>
                             <label for="uploader_resOk_${mtNo}" class="radio-label-text">OK</label>
                         </div>
                         <div class="radio-inner">
-                            <input type="radio" id="uploader_resNG_${mtNo}" name="uploader_res_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} class="hidden-radio radio-ng" disabled>
+                            <input type="radio" id="uploader_resNG_${mtNo}" name="uploader_res_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} class="hidden-radio radio-ng" ${needUploadImg == "Y" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
                             <label for="uploader_resNG_${mtNo}" class="custom-radio"></label>
                             <label for="uploader_resNG_${mtNo}" class="radio-label-text">NG</label>
                         </div>
                         <div class="radio-inner">
-                            <input type="radio" id="uploader_resNa_${mtNo}" name="uploader_res_${mtNo}" value="NA" ${uploadResult === "NA" ? "checked" : ""} class="hidden-radio radio-na" disabled>
+                            <input type="radio" id="uploader_resNa_${mtNo}" name="uploader_res_${mtNo}" value="NA" ${uploadResult === "NA" ? "checked" : ""} class="hidden-radio radio-na" ${needUploadImg == "Y" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
                             <label for="uploader_resNa_${mtNo}" class="custom-radio"></label>
                             <label for="uploader_resNa_${mtNo}" class="radio-label-text">NA</label>
                         </div>
@@ -1972,6 +1934,8 @@
             updateDisplay();
             initFancybox();
 
+            //requestAnimationFrame(raf); 
+
             document.getElementById("pageSizeSelector").value = pageSize;
 
             // Page Size Selector
@@ -2134,6 +2098,41 @@
 
             document.querySelector('#export-monthly').addEventListener('click', function () {
                 exportMonthlyTable();
+            });
+
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'F11') {
+                    e.preventDefault();
+
+                    const wrapper = document.querySelector('#wrapper');
+
+                    if (!document.fullscreenElement) {
+                        wrapper.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                }
+            });
+
+            document.addEventListener("fullscreenchange", () => {
+                const wrapper = document.querySelector('#wrapper');
+                const content = document.querySelector('main');
+                const navbar = document.querySelector('nav');
+
+                if (document.fullscreenElement === wrapper) {
+
+                    navbar.style.display = 'none';
+                    content.style.paddingTop = '0px';
+                    content.style.overflowY = 'auto';
+
+                } else {
+
+                    navbar.style.display = '';
+                    content.style.paddingTop = '80px';
+                    content.style.overflowY = '';
+
+                }
             });
         });
     </script>

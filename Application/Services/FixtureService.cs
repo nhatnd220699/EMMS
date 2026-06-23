@@ -212,7 +212,9 @@ namespace Application.Services
                             Approval_ID = x.Approval_ID.ToText(),
                             Approval_Result = x.Approval_Result.ToText(),
 
-                            Remark = x.Remark.ToText()
+                            Remark = x.Remark.ToText(),
+
+                            Need_UploadImg = x.Need_UploadImg.ToText()
                         })
                         .OrderBy(x => x.Number_Order)
                         .ThenBy(x => x.MT_No.ToInt())

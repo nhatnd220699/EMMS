@@ -16,6 +16,10 @@ namespace EMMS.Controllers
     {
         private readonly IUserService _userService;
 
+        // Dorian update logic Session Timeout
+        private const string LongSessionUserId = "TV0001"; // User login for TV display
+        private const int LongSessionTimeoutMinutes = 525600; // 365 days
+
         public AuthController()
         {
             _userService = new UserService(new UserRepository());
@@ -39,6 +43,13 @@ namespace EMMS.Controllers
 
             if (result.Success && result.Data != null)
             {
+                var userId = (result.Data.UserID ?? string.Empty).Trim();
+                
+                if (string.Equals(userId, LongSessionUserId, StringComparison.OrdinalIgnoreCase))
+                {
+                    Session.Timeout = LongSessionTimeoutMinutes;
+                }
+
                 Session["UserId"] = result.Data.UserID;
                 Session["UserName"] = result.Data.UserName;
                 Session["Role"] = result.Data.Role;

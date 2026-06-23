@@ -18,5 +18,6 @@ namespace Shared.DTOs
         public string Approval_ID { get; set; }
         public string Approval_Result { get; set; }
         public string Remark { get; set; }
+        public string Need_UploadImg { get; set; }
     }
 }

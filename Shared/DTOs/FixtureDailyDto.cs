@@ -33,6 +33,8 @@ namespace Shared.DTOs
         public string Approval_Result { get; set; } // OK, NG, NA
         public string Remark { get; set; }
 
+        public string Need_UploadImg { get; set; }
+
         public List<string> NewImagePaths { get; set; } = new List<string>();
         public List<string> ExistingImagePaths { get; set; } = new List<string>(); // Để hiển thị ảnh cũ nếu là chế độ Edit
     }

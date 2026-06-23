@@ -58,7 +58,6 @@
     <Compile Include="DTOs\FixtureDailyRowRawDto.cs" />
     <Compile Include="DTOs\FixtureFilterOptionDto.cs" />
     <Compile Include="DTOs\FixtureDashboardDto.cs" />
-    <Compile Include="DTOs\FixtureDailyDtoTest.cs" />
     <Compile Include="DTOs\FixtureMonthlyDto.cs" />
     <Compile Include="DTOs\FixtureMonthlyHeaderRawDto.cs" />
     <Compile Include="DTOs\FixtureMonthlyRawDto.cs" />
