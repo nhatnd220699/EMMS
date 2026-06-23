@@ -402,9 +402,12 @@
 
         //requestAnimationFrame(raf);
 
+        /**
+        * Global State
+        */
 
         const DATASET = { type: "", line: "", department: "" };
-        let FIXTURE_DATASET = [];
+        const FIXTURE_DATASET = [];
         const IMAGE_CHECK = {};
         const PREVIEW_IMAGE = {};
         const STATUS_ALL = "All";
@@ -413,15 +416,13 @@
         const STATUS_DONE = "Done";
         const STATUS_NG = "NG";
 
-        /**
-        * Global State
-        */
-        let currentPage = 1;
-        let pageSize = 54;
-        let currentStatusFilter = "All";
         let idDashboardTimeout;
         let timer = 5 * 60 * 1000;
 
+        let currentPage = 1;
+        let pageSize = 54;
+
+        let currentStatusFilter = "All";
         let maintenanceModalInstance = null;
         let detailModalInstance = null;
         let activeFixture = null;
@@ -432,20 +433,17 @@
         let activeDetailDay = null;
         let activeDetailDate = null;
         let activeMaintenanceItems = [];
-        let currentRole = "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
         let uploadedFiles = {};
+        let isApproved;
+        let startEdit = false;
+
+        const currentRole = "@HttpUtility.JavaScriptStringEncode(currentRoleFromSession)";
         const CURRENT_USER_ID = "@HttpUtility.JavaScriptStringEncode(currentUserIdFromSession)";
         const CURRENT_USER_NAME = "@HttpUtility.JavaScriptStringEncode(currentUserNameFromSession)";
         const CURRENT_SESSION_ROLE = "@HttpUtility.JavaScriptStringEncode(roleFromSession)";
         const CAN_APPROVE = CURRENT_SESSION_ROLE.toLowerCase() === "admin";
         const DEFAULT_UPLOAD_ID = CURRENT_USER_ID || "V5070000";
         const DEFAULT_APPROVAL_ID = CURRENT_USER_ID || "V4070216";
-
-
-
-        let isApproved;
-
-        let startEdit = false;
 
         /**
         * Utility: Get Status Styling
@@ -462,18 +460,6 @@
                     return { class: "bg-success-subtle text-success", dot: "bg-success" };
             }
         };
-
-        //const getProp = (obj, ...keys) => {
-        //    if (!obj) return null;
-
-        //    for (const key of keys) {
-        //        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        //            return obj[key];
-        //        }
-        //    }
-
-        //    return null;
-        //};
 
         const normalizeStatus = (status) => {
             const value = (status ?? "").toString().trim();
