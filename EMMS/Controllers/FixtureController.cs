@@ -242,7 +242,6 @@ namespace EMMS.Controllers
 
                 return Ok(ApiResponseNew<string>.Ok(null, result.Message));
             }
-
             catch (Exception)
             {
                 return InternalServerError();
