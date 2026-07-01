@@ -12,7 +12,7 @@
             Success = success;
             Message = message;
             ErrorCode = errorCode;
-            Data = data;        
+            Data = data;
 
         }
 

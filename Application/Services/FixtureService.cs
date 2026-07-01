@@ -54,7 +54,7 @@ namespace Application.Services
                 {
                     var value = UnescapeJsonString(match.Groups[1].Value);
                     if (!string.IsNullOrWhiteSpace(value))
-                        result.Add(relativeImgPath+value.Trim());
+                        result.Add(relativeImgPath + value.Trim());
                 }
 
                 return result.Distinct().ToList();
@@ -254,7 +254,7 @@ namespace Application.Services
                 var checkItems = model.CheckItems ?? new List<DailyItemDto>();
                 if (!checkItems.Any())
                 {
-                   throw new BusinessException("Check items data is required");
+                    throw new BusinessException("Check items data is required");
 
                 }
 
@@ -290,7 +290,7 @@ namespace Application.Services
 
                 var imageResult = imageResultBuilder.ToString().Trim(';');
 
-                var uploadResult = string.Join(";",model.CheckItems
+                var uploadResult = string.Join(";", model.CheckItems
                     .Where(x => !string.IsNullOrWhiteSpace(x.MT_No))
                     .Select(x => x.MT_No + "=" + x.Upload_Result))?.Trim();
 

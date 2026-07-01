@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Application.Services
 {
-    public  class FileService : IFileService
+    public class FileService : IFileService
     {
         public List<string> SaveImageFiles(HttpFileCollection files, string eqSn, string mtNo, int itemIndex)
         {

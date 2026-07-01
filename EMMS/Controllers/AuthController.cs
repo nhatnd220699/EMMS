@@ -44,7 +44,7 @@ namespace EMMS.Controllers
             if (result.Success && result.Data != null)
             {
                 var userId = (result.Data.UserID ?? string.Empty).Trim();
-                
+
                 if (string.Equals(userId, LongSessionUserId, StringComparison.OrdinalIgnoreCase))
                 {
                     Session.Timeout = LongSessionTimeoutMinutes;

@@ -15,7 +15,7 @@ namespace Application.Interfaces
         Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn);
 
         Task<FixtureMonthlyRawDto> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay);
-       
+
         Task<FixtureDailyRawDto> GetFixtureDailyAsync(string type, string line, string department, string eqSn, string chkDay, string shift, string uploadId, bool isApproverMode);
 
         Task<string> SaveFixtureDailyAsync(FixtureDailyDto fixture, SaveFixtureParam param);

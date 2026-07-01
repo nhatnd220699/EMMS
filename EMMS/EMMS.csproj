@@ -152,7 +152,6 @@
     <Content Include="Content\css\custom\popup.css" />
     <Content Include="Content\css\custom\radio.css" />
     <Content Include="Content\data\daily.json" />
-    <Content Include="Views\Home\Index_BK20260615.cshtml" />
     <Content Include="Views\Auth\ChangePassword.cshtml" />
     <None Include="Views\Auth\Login.cshtml" />
     <Content Include="Scripts\api\api-client.js" />

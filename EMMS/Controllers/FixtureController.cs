@@ -52,7 +52,7 @@ namespace EMMS.Controllers
                 if (!IsLoggedIn()) return LoginRequired<FixtureFilterOptionDto>();
 
                 var result = await _fixtureService.GetFilterOptionsAsync();
-               
+
                 if (!result.Success)
                 {
                     switch (result.ErrorCode)

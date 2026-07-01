@@ -68,6 +68,14 @@
     background-color: #fdf9f0;
 }
 
+.bg-primary-subtle-custom {
+    background-color: #DBEAFE;
+}
+
+.text-primary-custom {
+    color: #5075dc;
+}
+
 .text-xs {
     font-size: 0.75rem;
     line-height: 1rem;

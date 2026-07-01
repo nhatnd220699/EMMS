@@ -219,7 +219,7 @@ namespace Infrastructure.Repositories
 
         public async Task<object> ChangePasswordAsync(ChangePasswordDto model)
         {
-                
+
             using (var conn = _db.CreateConnection())
             {
                 using (var multi = await conn.QueryMultipleAsync(

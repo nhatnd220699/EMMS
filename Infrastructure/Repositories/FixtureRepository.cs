@@ -73,7 +73,7 @@ namespace Infrastructure.Repositories
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
-                    
+
                     if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
@@ -116,7 +116,7 @@ namespace Infrastructure.Repositories
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
-                    
+
                     if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
@@ -142,7 +142,7 @@ namespace Infrastructure.Repositories
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
-                    
+
                     if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
@@ -178,7 +178,7 @@ namespace Infrastructure.Repositories
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
-                    
+
                     if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
@@ -244,7 +244,7 @@ namespace Infrastructure.Repositories
                 )
                 {
                     var result = (await multi.ReadAsync<ResultMessageDto>()).FirstOrDefault() ?? throw new BusinessException("Stored procedure returned no status.");
-                    
+
                     if (!result.Result.IsPass())
                     {
                         throw new BusinessException(result.Message);
