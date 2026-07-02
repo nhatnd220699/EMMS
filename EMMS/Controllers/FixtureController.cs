@@ -2,6 +2,7 @@
 using Application.Mapper;
 using Application.Services;
 using Infrastructure.Repositories;
+using Newtonsoft.Json.Linq;
 using Shared.Common;
 using Shared.DTOs;
 using System;
@@ -196,7 +197,22 @@ namespace EMMS.Controllers
 
                 var result = await _fixtureService.GetImageInfoAsync(file);
 
-                return Json(result);
+                //return Json(result);
+
+                if (!result.Success)
+                {
+                    switch (result.ErrorCode)
+                    {
+                        case "SYSTEM_ERROR":
+                        case "DB_ERROR":
+                            return Content(HttpStatusCode.InternalServerError, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                        case "BUSINESS_ERROR":
+                        default:
+                            return Content(HttpStatusCode.BadRequest, ApiResponseNew<object>.Fail(result.Message, result.ErrorCode));
+                    }
+                }
+
+                return Ok(ApiResponseNew<JObject>.Ok(result.Data, result.Message));
 
             }
             catch (Exception)

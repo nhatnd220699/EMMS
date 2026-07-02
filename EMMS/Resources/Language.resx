@@ -381,4 +381,13 @@
   <data name="Filtered" xml:space="preserve">
     <value>Filtered</value>
   </data>
+  <data name="AwaitingUploadImage" xml:space="preserve">
+    <value>Awaiting upload image</value>
+  </data>
+  <data name="ImageSizeExceed" xml:space="preserve">
+    <value>The image size must not exceed</value>
+  </data>
+  <data name="CurrentSize" xml:space="preserve">
+    <value>Current size</value>
+  </data>
 </root>

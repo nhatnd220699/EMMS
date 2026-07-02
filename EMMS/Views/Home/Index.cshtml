@@ -352,36 +352,39 @@
     <script>
 
         const i18n = @Html.Raw(Json.Encode(new {
-            allType = Language.AllType,
-            allLine = Language.AllLine,
-            allDepartment = Language.AllDepartment,
-            addFeedback = Language.AddFeedback,
-            viewImageBeforEvaluation = Language.ViewImageBeforeEvaluation,
-            unableToRetrieveDailyReport = Language.UnableToRetrieveDailyReport,
-            savingData = Language.SavingData,
-            savedSuccessfully = Language.SavedSuccessfully,
-            failedToSaveData = Language.FailedToSaveData,
-            processingImage = Language.ProcessingImage,
-            imageProcessedCompleted = Language.ImageProcessedCompleted,
-            failedToProcessImage = Language.FailedToProcessImage,
-            dailyMaintenanceList = Language.DailyMaintenanceList,
-            line = Language.Line,
-            shift = Language.Shift,
-            year = Language.Year,
-            month = Language.Month,
-            deviceName = Language.DeviceName,
-            deviceModel = Language.DeviceModel,
-            deviceNumber = Language.DeviceNumber,
-            noNumber = Language.NoNumber,
-            action = Language.Action,
-            confirmationMethodAndStandard = Language.ConfirmationMethodAndStandard,
-            date = Language.Date,
-            loadingData = Language.LoadingData,
-            noDataAvailable = Language.NoDataAvailable,
-            of = Language.Of,
-            showing = Language.Showing,
-            filtered = Language.Filtered
-        }));
+                    allType = Language.AllType,
+                    allLine = Language.AllLine,
+                    allDepartment = Language.AllDepartment,
+                    addFeedback = Language.AddFeedback,
+                    viewImageBeforEvaluation = Language.ViewImageBeforeEvaluation,
+                    unableToRetrieveDailyReport = Language.UnableToRetrieveDailyReport,
+                    savingData = Language.SavingData,
+                    savedSuccessfully = Language.SavedSuccessfully,
+                    failedToSaveData = Language.FailedToSaveData,
+                    processingImage = Language.ProcessingImage,
+                    imageProcessedCompleted = Language.ImageProcessedCompleted,
+                    failedToProcessImage = Language.FailedToProcessImage,
+                    dailyMaintenanceList = Language.DailyMaintenanceList,
+                    line = Language.Line,
+                    shift = Language.Shift,
+                    year = Language.Year,
+                    month = Language.Month,
+                    deviceName = Language.DeviceName,
+                    deviceModel = Language.DeviceModel,
+                    deviceNumber = Language.DeviceNumber,
+                    noNumber = Language.NoNumber,
+                    action = Language.Action,
+                    confirmationMethodAndStandard = Language.ConfirmationMethodAndStandard,
+                    date = Language.Date,
+                    loadingData = Language.LoadingData,
+                    noDataAvailable = Language.NoDataAvailable,
+                    of = Language.Of,
+                    showing = Language.Showing,
+                    filtered = Language.Filtered,
+                    awaitingUploadImage = Language.AwaitingUploadImage,
+                    imageSizeExceed = Language.ImageSizeExceed,
+                    currentSize = Language.CurrentSize,
+                }));
 
 
         //// Initialize Lenis
@@ -417,6 +420,7 @@
         const STATUS_NG = "NG";
         const STATUS_PENDING_APPROVAL = "Pending Approval";
         const STATUS_PENDING_UPLOAD = "Pending Upload";
+        const IMAGE_SIZE = 500; //KB
 
         let idDashboardTimeout;
         let timer = 5 * 60 * 1000;
@@ -444,8 +448,8 @@
         const CURRENT_USER_NAME = "@HttpUtility.JavaScriptStringEncode(currentUserNameFromSession)";
         const CURRENT_SESSION_ROLE = "@HttpUtility.JavaScriptStringEncode(roleFromSession)";
         const CAN_APPROVE = CURRENT_SESSION_ROLE.toLowerCase() === "admin";
-        const DEFAULT_UPLOAD_ID = CURRENT_USER_ID || "V5070000";
-        const DEFAULT_APPROVAL_ID = CURRENT_USER_ID || "V4070216";
+        const DEFAULT_UPLOAD_ID = CURRENT_USER_ID;
+        const DEFAULT_APPROVAL_ID = CURRENT_USER_ID;
 
         /**
         * Utility: Get Status Styling
@@ -592,8 +596,6 @@
                 acc[curr.status] = (acc[curr.status] || 0) + 1;
                 return acc;
             }, {});
-
-            console.log(counts)
 
             document.getElementById("kpi-total").textContent = FIXTURE_DATASET.length.toLocaleString();
             document.getElementById("kpi-maintenance").textContent = (counts[STATUS_NO_CHECKING] || 0) + (counts[STATUS_NG] || 0);
@@ -992,7 +994,11 @@
 
             const imageResult = await uploadImage(fileList);
 
-            if (imageResult.code !== 200) return;
+
+            if (!imageResult || imageResult.code !== 200) {
+                input.value = null;
+                return;
+            }
 
             let result = '';
             if (imageResult && imageResult.code === 200) {
@@ -1055,20 +1061,31 @@
 
             try {
 
+                if (fileList.length <= 0) return;
+
+                const file = fileList[0];
+
+                if (!checkImageSize(file)) {
+                    Popup.error(`${i18n.imageSizeExceed} ${IMAGE_SIZE} KB. ${i18n.currentSize}: ${(file.size / 1024).toFixed(2) } KB.`);
+                    return;
+                }
+
                 Popup.show(`${i18n.processingImage}...`);
 
                 const formData = new FormData();
-                formData.append("file", fileList[0]);
+                formData.append("file", file);
 
                 const result = await ApiClient.postForm('api/fixture/image/getInfo', formData);
 
-                if (result.code === 200) {
+                const data = getResponseData(result);
+
+                if (data.code === 200) {
                     Popup.success(i18n.imageProcessedCompleted);
                 } else {
                     Popup.error(i18n.failedToProcessImage);
                 }
 
-                return result;
+                return data;
 
 
             } catch (error) {
@@ -1076,6 +1093,18 @@
             }
 
         }
+
+
+        const checkImageSize = (file) => {
+            const MAX_SIZE = IMAGE_SIZE * 1024; // 500KB
+
+            if (file.size > MAX_SIZE) {
+                return false;
+            }
+
+            return true;
+        }
+
 
         function checkImageTime(timestamp, rowId) {
 
@@ -1286,21 +1315,35 @@
                 tr.dataset.mtNo = mtNo;
                 tr.dataset.numberOrder = numberOrder;
 
-                let images = (item.ExistingImagePaths || []).map(url => {
-                    return `
+                let images;
+                if (needUploadImg === "Y") {
+                    images = (item.ExistingImagePaths || []).map(url => {
+                        return `
                         <div class="gallery-item" data-result="${uploadResult}" data-path="${url}">
                             <a href="${url}" data-mtNo="${mtNo}" data-fancybox="gallery-${mtNo}">
                                 <img src="${url}" alt="preview">
                             </a>
                             ${currentRole == "uploader" && startEdit
-                        ? `<button type="button" class="remove-btn">
+                                ? `<button type="button" class="remove-btn">
                                 <span class="material-symbols-outlined">remove</span>
                             </button>
                             `
-                        : ''}
+                                : ''}
                         </div>
                     `
-                }).join('');
+                    }).join('');
+
+                    if (!images) {
+                        if (
+                            (!isToday && currentRole === "uploader") ||
+                            currentRole === "approver"
+                        ) {
+                            images = `<span style="color: #a8b1b9;">${i18n.awaitingUploadImage}</span>`;
+                        }
+                    }
+                } else {
+                    images = 'N/A';
+                }
 
                 PREVIEW_IMAGE[mtNo] = false;
 
@@ -1337,17 +1380,17 @@
                 let uploaderResultHtml = `
                     <div class="status-radio flex-column gap-1">
                         <div class="radio-inner">
-                            <input type="radio" id="uploader_resOk_${mtNo}" name="uploader_res_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} class="hidden-radio radio-ok" ${needUploadImg == "Y"  ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
+                            <input type="radio" id="uploader_resOk_${mtNo}" name="uploader_res_${mtNo}" value="OK" ${uploadResult === "OK" ? "checked" : ""} class="hidden-radio radio-ok" ${needUploadImg == "Y" ||!isToday || currentRole !== "uploader" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
                             <label for="uploader_resOk_${mtNo}" class="custom-radio"></label>
                             <label for="uploader_resOk_${mtNo}" class="radio-label-text">OK</label>
                         </div>
                         <div class="radio-inner">
-                            <input type="radio" id="uploader_resNG_${mtNo}" name="uploader_res_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} class="hidden-radio radio-ng" ${needUploadImg == "Y" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
+                            <input type="radio" id="uploader_resNG_${mtNo}" name="uploader_res_${mtNo}" value="NG" ${uploadResult === "NG" ? "checked" : ""} class="hidden-radio radio-ng" ${needUploadImg == "Y" || !isToday || currentRole !== "uploader" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
                             <label for="uploader_resNG_${mtNo}" class="custom-radio"></label>
                             <label for="uploader_resNG_${mtNo}" class="radio-label-text">NG</label>
                         </div>
                         <div class="radio-inner">
-                            <input type="radio" id="uploader_resNa_${mtNo}" name="uploader_res_${mtNo}" value="NA" ${uploadResult === "NA" ? "checked" : ""} class="hidden-radio radio-na" ${needUploadImg == "Y" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
+                            <input type="radio" id="uploader_resNa_${mtNo}" name="uploader_res_${mtNo}" value="NA" ${uploadResult === "NA" ? "checked" : ""} class="hidden-radio radio-na" ${needUploadImg == "Y" || !isToday || currentRole !== "uploader" ? "disabled" : (isUploaded && !startEdit ? "disabled" : '')}>
                             <label for="uploader_resNa_${mtNo}" class="custom-radio"></label>
                             <label for="uploader_resNa_${mtNo}" class="radio-label-text">NA</label>
                         </div>
@@ -1357,17 +1400,17 @@
                 let approvalResultHtml = `
                     <div class="status-radio flex-column gap-1 approver-radio">
                          <div class="radio-inner">
-                             <input type="radio" id="approver_resOk_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="OK" ${approvalResult === "OK" ? "checked" : ""} ${currentRole !== "approver" || (currentRole === 'approver' &&  !isUploaded) ? "disabled" : ""} class="hidden-radio radio-ok">
+                             <input type="radio" id="approver_resOk_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="OK" ${approvalResult === "OK" ? "checked" : ""} ${!isToday || currentRole !== "approver" || (currentRole === 'approver' &&  !isUploaded) ? "disabled" : ""} class="hidden-radio radio-ok">
                              <label for="approver_resOk_${mtNo}" class="custom-radio"></label>
                              <label for="approver_resOk_${mtNo}" class="radio-label-text">OK</label>
                          </div>
                          <div class="radio-inner">
-                             <input type="radio" id="approver_resNg_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NG" ${approvalResult === "NG" ? "checked" : ""} ${currentRole !== "approver" || (currentRole === 'approver' && !isUploaded) ? "disabled" : ""} class="hidden-radio radio-ng">
+                             <input type="radio" id="approver_resNg_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NG" ${approvalResult === "NG" ? "checked" : ""} ${!isToday|| currentRole !== "approver" || (currentRole === 'approver' && !isUploaded) ? "disabled" : ""} class="hidden-radio radio-ng">
                              <label for="approver_resNg_${mtNo}" class="custom-radio"></label>
                              <label for="approver_resNg_${mtNo}" class="radio-label-text">NG</label>
                          </div>
                          <div class="radio-inner">
-                             <input type="radio" id="approver_resNa_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NA" ${approvalResult === "NA" ? "checked" : ""} ${currentRole !== "approver" || (currentRole === 'approver' && !isUploaded) ? "disabled" : ""} class="hidden-radio radio-na">
+                             <input type="radio" id="approver_resNa_${mtNo}" name="approver_res_${mtNo}" data-mt-no=${mtNo} value="NA" ${approvalResult === "NA" ? "checked" : ""} ${!isToday || currentRole !== "approver" || (currentRole === 'approver' && !isUploaded) ? "disabled" : ""} class="hidden-radio radio-na">
                              <label for="approver_resNa_${mtNo}" class="custom-radio"></label>
                              <label for="approver_resNa_${mtNo}" class="radio-label-text">NA</label>
                          </div>
@@ -1375,7 +1418,21 @@
                 `;
 
                 // Remark Cell Logic
-                let remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="@Language.AddFeedback..." ${!isToday || (currentRole === 'uploader' && isUploaded && !startEdit) || (currentRole === 'approver' && !isUploaded) ? 'disabled' : ''}>${remark}</textarea>`;
+                let remarkHtml = '';
+                if (isToday) {
+                    let allowRemark = false;
+
+                    if (currentRole === "approver") allowRemark = true;
+                    else if (currentRole === "uploader" && (startEdit || !isUploaded)) allowRemark = true;
+
+                    if (allowRemark) {
+                        remarkHtml = `<textarea class="form-control text-xs" rows="3" placeholder="@Language.AddFeedback..." ${!isToday || (currentRole === 'uploader' && isUploaded && !startEdit) || (currentRole === 'approver' && !isUploaded) ? 'disabled' : ''}>${remark}</textarea>`;
+                    } else {
+                        remarkHtml = `<div style="word-wrap: break-word; word-break: break-all; width: 220px;">${remark}</div>`;
+                    }
+                } else {
+                    remarkHtml = `<div style="word-wrap: break-word; word-break: break-all; width: 220px;">${remark}</div>`;
+                }
 
                 tr.innerHTML = `
                     <td class="text-center number-order">${numberOrder}</td>
@@ -1938,7 +1995,7 @@
             updateDisplay();
             initFancybox();
 
-            //requestAnimationFrame(raf); 
+            //requestAnimationFrame(raf);
 
             document.getElementById("pageSizeSelector").value = pageSize;
 

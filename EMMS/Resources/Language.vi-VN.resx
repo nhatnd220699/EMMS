@@ -381,4 +381,13 @@
   <data name="Filtered" xml:space="preserve">
     <value>Đã lọc</value>
   </data>
+  <data name="AwaitingUploadImage" xml:space="preserve">
+    <value>Đang chờ tải ảnh lên</value>
+  </data>
+  <data name="ImageSizeExceed" xml:space="preserve">
+    <value>Kích thước ảnh không được vượt quá</value>
+  </data>
+  <data name="CurrentSize" xml:space="preserve">
+    <value>Kích thước hiện tại</value>
+  </data>
 </root>

@@ -11,10 +11,12 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Application.Services
 {
@@ -22,6 +24,25 @@ namespace Application.Services
     {
         private readonly IFixtureRepository _fixtureRepository;
         private readonly IFileService _fileService;
+        private static readonly HttpClient _httpClient;
+
+        static FixtureService()
+        {
+            var handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback =
+                    (sender, cert, chain, sslPolicyErrors) => true,
+
+                SslProtocols =
+                    System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls11
+            };
+
+            _httpClient = new HttpClient(handler)
+            {
+                Timeout = TimeSpan.FromSeconds(60)
+            };
+        }
+
 
         public FixtureService(IFixtureRepository fixtureRepository, IFileService fileService)
         {
@@ -364,35 +385,99 @@ namespace Application.Services
                 .Replace("\n", " ");
         }
 
-        public async Task<JObject> GetImageInfoAsync(HttpPostedFile file)
+        public async Task<Result<JObject>> GetImageInfoAsync(HttpPostedFile file)
         {
-
-            using (var ms = new MemoryStream())
+            try
             {
-                file.InputStream.CopyTo(ms);
-                string url = "https://10.36.8.55:5000/api/timestamp";
-
-                byte[] bytes = ms.ToArray();
-                string base64 = Convert.ToBase64String(bytes);
-                string json = "{\"image_base64\":\"" + base64 + "\"}";
-
-                var handler = new HttpClientHandler
+                if (file == null || file.ContentLength == 0)
                 {
-                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true,
+                    throw new BusinessException("Image file is required.");
+                }
 
-                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls11
+                const int maxFileSize = 500 * 1024;
+
+                if (file.ContentLength > maxFileSize)
+                {
+                    throw new BusinessException($"The image size must not exceed 500 KB. Current size: {file.ContentLength / 1024:N0} KB");
+                }
+
+                const string url = "https://10.36.8.55:5000/api/timestamp";
+
+                string base64;
+
+                using (var ms = new MemoryStream())
+                {
+                    await file.InputStream.CopyToAsync(ms);
+                    base64 = Convert.ToBase64String(ms.ToArray());
+                }
+
+                var payload = new
+                {
+                    image_base64 = base64
                 };
 
-                using (HttpClient client = new HttpClient(handler))
+
+                using (var content = new StringContent(
+                    JsonConvert.SerializeObject(payload),
+                    Encoding.UTF8, "application/json"))
                 {
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    // 建议使用异步方式，避免死锁；
-                    var response = await client.PostAsync(url, content);
-                    response.EnsureSuccessStatusCode();
-                    string result = await response.Content.ReadAsStringAsync();
-                    return (JObject)JsonConvert.DeserializeObject(result);
+                    var response = await _httpClient.PostAsync(url, content);
+
+                    //response.EnsureSuccessStatusCode();
+
+                    var result = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new BusinessException($"API call failed. Status: {(int)response.StatusCode}, Response: {result}");
+                    }
+
+                    return Result<JObject>.Ok(JObject.Parse(result));
                 }
             }
+            catch (SqlException)
+            {
+                return Result<JObject>.Fail("Database error", "DB_ERROR");
+            }
+            catch (BusinessException ex)
+            {
+                return Result<JObject>.Fail(ex.Message, "BUSINESS_ERROR");
+            }
+            catch (Exception)
+            {
+                return Result<JObject>.Fail("System error", "SYSTEM_ERROR");
+            }
         }
+
+        //public async Task<JObject> GetImageInfoAsync(HttpPostedFile file)
+        //{
+
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        file.InputStream.CopyTo(ms);
+        //        string url = "https://10.36.8.55:5000/api/timestamp";
+
+        //        byte[] bytes = ms.ToArray();
+        //        string base64 = Convert.ToBase64String(bytes);
+        //        string json = "{\"image_base64\":\"" + base64 + "\"}";
+
+        //        var handler = new HttpClientHandler
+        //        {
+        //            ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true,
+
+        //            SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls11
+        //        };
+
+        //        using (HttpClient client = new HttpClient(handler))
+        //        {
+        //            var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //            // 建议使用异步方式，避免死锁；
+        //            var response = await client.PostAsync(url, content);
+        //            response.EnsureSuccessStatusCode();
+        //            string result = await response.Content.ReadAsStringAsync();
+        //            return (JObject)JsonConvert.DeserializeObject(result);
+        //        }
+        //    }
+        //}
     }
 }

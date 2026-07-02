@@ -19,6 +19,6 @@ namespace Application.Interfaces
 
         Task<Result<string>> SaveFixtureDailyAsync(FixtureDailyDto model, HttpFileCollection files, string action, string type, string department);
 
-        Task<JObject> GetImageInfoAsync(HttpPostedFile file);
+        Task<Result<JObject>> GetImageInfoAsync(HttpPostedFile file);
     }
 }

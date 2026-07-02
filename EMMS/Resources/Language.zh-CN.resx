@@ -381,4 +381,13 @@
   <data name="Filtered" xml:space="preserve">
     <value>已筛选</value>
   </data>
+  <data name="AwaitingUploadImage" xml:space="preserve">
+    <value>等待上传图片</value>
+  </data>
+  <data name="ImageSizeExceed" xml:space="preserve">
+    <value>图片大小不能超过</value>
+  </data>
+  <data name="CurrentSize" xml:space="preserve">
+    <value>当前大小</value>
+  </data>
 </root>

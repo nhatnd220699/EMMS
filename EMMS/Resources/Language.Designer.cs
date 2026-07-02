@@ -151,6 +151,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Awaiting upload image.
+        /// </summary>
+        public static string AwaitingUploadImage {
+            get {
+                return ResourceManager.GetString("AwaitingUploadImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to home.
         /// </summary>
         public static string BackToHome {
@@ -228,6 +237,15 @@ namespace EMMS.Resources {
         public static string CurrentPassword {
             get {
                 return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current size.
+        /// </summary>
+        public static string CurrentSize {
+            get {
+                return ResourceManager.GetString("CurrentSize", resourceCulture);
             }
         }
         
@@ -399,6 +417,15 @@ namespace EMMS.Resources {
         public static string ImageProcessedCompleted {
             get {
                 return ResourceManager.GetString("ImageProcessedCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The image size must not exceed.
+        /// </summary>
+        public static string ImageSizeExceed {
+            get {
+                return ResourceManager.GetString("ImageSizeExceed", resourceCulture);
             }
         }
         
