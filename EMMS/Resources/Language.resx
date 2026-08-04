@@ -390,4 +390,28 @@
   <data name="CurrentSize" xml:space="preserve">
     <value>Current size</value>
   </data>
+  <data name="StatusAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="StatusNoMaintenance" xml:space="preserve">
+    <value>No maintenance</value>
+  </data>
+  <data name="StatusOngoing" xml:space="preserve">
+    <value>Ongoing</value>
+  </data>
+  <data name="StatusDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="StatusNG" xml:space="preserve">
+    <value>NG</value>
+  </data>
+  <data name="StatusPendingApproval" xml:space="preserve">
+    <value>Pending approval</value>
+  </data>
+  <data name="StatusPendingUpload" xml:space="preserve">
+    <value>Pending upload</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
 </root>

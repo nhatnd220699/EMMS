@@ -763,6 +763,69 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string StatusAll {
+            get {
+                return ResourceManager.GetString("StatusAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string StatusDone {
+            get {
+                return ResourceManager.GetString("StatusDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NG.
+        /// </summary>
+        public static string StatusNG {
+            get {
+                return ResourceManager.GetString("StatusNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No maintenance.
+        /// </summary>
+        public static string StatusNoMaintenance {
+            get {
+                return ResourceManager.GetString("StatusNoMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongoing.
+        /// </summary>
+        public static string StatusOngoing {
+            get {
+                return ResourceManager.GetString("StatusOngoing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending approval.
+        /// </summary>
+        public static string StatusPendingApproval {
+            get {
+                return ResourceManager.GetString("StatusPendingApproval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending upload.
+        /// </summary>
+        public static string StatusPendingUpload {
+            get {
+                return ResourceManager.GetString("StatusPendingUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Strength.
         /// </summary>
         public static string Strength {
@@ -786,6 +849,15 @@ namespace EMMS.Resources {
         public static string TheFieldsIsRequired {
             get {
                 return ResourceManager.GetString("TheFieldsIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

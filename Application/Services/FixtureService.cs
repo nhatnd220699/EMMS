@@ -14,6 +14,7 @@ using System.Net.Http;
 using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -389,6 +390,7 @@ namespace Application.Services
         {
             try
             {
+
                 if (file == null || file.ContentLength == 0)
                 {
                     throw new BusinessException("Image file is required.");
@@ -402,6 +404,7 @@ namespace Application.Services
                 }
 
                 const string url = "https://10.36.8.55:5000/api/timestamp";
+                //const string url = "https://127.0.0.1:5000/api/timestamp";
 
                 string base64;
 
@@ -422,8 +425,6 @@ namespace Application.Services
                     Encoding.UTF8, "application/json"))
                 {
                     var response = await _httpClient.PostAsync(url, content);
-
-                    //response.EnsureSuccessStatusCode();
 
                     var result = await response.Content.ReadAsStringAsync();
 

@@ -558,9 +558,14 @@ thead tr th.day-col:hover {
     user-select: none;
 }
 
-    .upload-zone:hover {
+    .upload-zone:not(.disabled):hover {
         border-color: var(--primary-bg);
         background-color: #f1f5f9;
+    }
+
+    .upload-zone.disabled {
+        cursor: not-allowed;
+        color: #cbd5e1;
     }
 
 .gallery-grid {

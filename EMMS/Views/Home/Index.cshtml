@@ -16,7 +16,7 @@
         <!-- KPI Statistics -->
         <div class="row g-3 mb-4">
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="All">
+                <div class="card kpi-card p-4" data-status="@Language.StatusAll">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="No Maintenance">
+                <div class="card kpi-card p-4" data-status="@Language.StatusNoMaintenance">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="Ongoing">
+                <div class="card kpi-card p-4" data-status="@Language.StatusOngoing">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="Done">
+                <div class="card kpi-card p-4" data-status="@Language.StatusDone">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <small class="text-uppercase text-secondary fw-bold"
@@ -384,6 +384,14 @@
                     awaitingUploadImage = Language.AwaitingUploadImage,
                     imageSizeExceed = Language.ImageSizeExceed,
                     currentSize = Language.CurrentSize,
+                    statusAll = Language.StatusAll,
+                    statusNoMaintenance = Language.StatusNoMaintenance,
+                    statusOngoing  = Language.StatusOngoing,
+                    statusDone = Language.StatusDone,
+                    statusNG = Language.StatusNG,
+                    statusPendingApproval = Language.StatusPendingApproval,
+                    statusPendingUpload = Language.StatusPendingUpload,
+                    total = Language.Total,
                 }));
 
 
@@ -413,13 +421,21 @@
         let FIXTURE_DATASET = [];
         const IMAGE_CHECK = {};
         const PREVIEW_IMAGE = {};
-        const STATUS_ALL = "All";
-        const STATUS_NO_CHECKING = "No Maintenance";
-        const STATUS_ON_GOING = "Ongoing";
-        const STATUS_DONE = "Done";
-        const STATUS_NG = "NG";
-        const STATUS_PENDING_APPROVAL = "Pending Approval";
-        const STATUS_PENDING_UPLOAD = "Pending Upload";
+        //const STATUS_ALL = "All";
+        //const STATUS_NO_CHECKING = "No Maintenance";
+        //const STATUS_ON_GOING = "Ongoing";
+        //const STATUS_DONE = "Done";
+        //const STATUS_NG = "NG";
+        //const STATUS_PENDING_APPROVAL = "Pending Approval";
+        //const STATUS_PENDING_UPLOAD = "Pending Upload";
+
+        const STATUS_ALL = i18n.statusAll;
+        const STATUS_NO_CHECKING = i18n.statusNoMaintenance;
+        const STATUS_ON_GOING = i18n.statusOngoing;
+        const STATUS_DONE = i18n.statusDone;
+        const STATUS_NG = i18n.statusNG;
+        const STATUS_PENDING_APPROVAL = i18n.statusPendingApproval;
+        const STATUS_PENDING_UPLOAD = i18n.statusPendingUpload;
         const IMAGE_SIZE = 500; //KB
 
         let idDashboardTimeout;
@@ -428,7 +444,7 @@
         let currentPage = 1;
         let pageSize = 54;
 
-        let currentStatusFilter = "All";
+        let currentStatusFilter = i18n.statusAll; // "All";
         let maintenanceModalInstance = null;
         let detailModalInstance = null;
         let activeFixture = null;
@@ -455,6 +471,21 @@
         * Utility: Get Status Styling
         */
         const getStatusStyle = (status) => {
+            switch (normalizeStatus(status)) {
+                case STATUS_NO_CHECKING:
+                case STATUS_NG:
+                    return { class: "bg-danger-subtle text-danger", dot: "bg-danger" };
+                case STATUS_PENDING_APPROVAL:
+                    return { class: "bg-primary-subtle-custom text-primary-custom", dot: "bg-warning" };
+                case STATUS_PENDING_UPLOAD:
+                    return { class: "bg-warning-subtle text-warning", dot: "bg-warning" };
+                case STATUS_DONE:
+                default:
+                    return { class: "bg-success-subtle text-success", dot: "bg-success" };
+            }
+        };
+
+        const getStatusText = (status) => {
             switch (normalizeStatus(status)) {
                 case STATUS_NO_CHECKING:
                 case STATUS_NG:
@@ -652,7 +683,7 @@
 
             // 1. Filter the dataset
             const filteredData =
-                currentStatusFilter === "All"
+                currentStatusFilter === i18n.statusAll //"All"
                     ? FIXTURE_DATASET
                     : FIXTURE_DATASET.filter((item) => {
                         if (
@@ -721,8 +752,10 @@
             // 4. Update Header Labels
             const densityLabel = document.getElementById("grid-density-label");
             if (densityLabel) {
-                if (currentStatusFilter === "All") {
-                    densityLabel.textContent = "Total";
+                if (
+                    currentStatusFilter === i18n.statusAll //"All"
+                ) {
+                    densityLabel.textContent = i18n.total;
                 } else {
                     densityLabel.textContent = `${i18n.filtered}: ${currentStatusFilter}`;
                 }
@@ -988,6 +1021,19 @@
             }
         };
 
+        // Nếu ảnh chưa xử lý xong thì không được chọn ảnh khác
+        const handleInputImageClick = (mtNo) => {
+            const input = document.getElementById(`input_${mtNo}`);
+
+
+            const uploadZone = input.closest('.upload-zone');
+            if (uploadZone.classList.contains("disabled")) {
+                return;
+            }
+
+            input.click()
+        }
+
         const handleFileUpload = async (input, rowId) => {
 
             const fileList = Array.from(input.files);
@@ -1059,6 +1105,8 @@
 
         async function uploadImage(fileList) {
 
+            const uploadZones = document.querySelectorAll(".upload-zone");
+
             try {
 
                 if (fileList.length <= 0) return;
@@ -1066,9 +1114,13 @@
                 const file = fileList[0];
 
                 if (!checkImageSize(file)) {
-                    Popup.error(`${i18n.imageSizeExceed} ${IMAGE_SIZE} KB. ${i18n.currentSize}: ${(file.size / 1024).toFixed(2) } KB.`);
+                    Popup.error(`${i18n.imageSizeExceed} ${IMAGE_SIZE} KB. ${i18n.currentSize}: ${(file.size / 1024).toFixed(2)} KB.`);
                     return;
                 }
+
+                uploadZones.forEach(upload => {
+                    upload.classList.add('disabled');
+                });
 
                 Popup.show(`${i18n.processingImage}...`);
 
@@ -1090,10 +1142,13 @@
 
             } catch (error) {
                 Popup.error(error.message);
+            } finally {
+                uploadZones.forEach(upload => {
+                    upload.classList.remove('disabled');
+                });
             }
 
         }
-
 
         const checkImageSize = (file) => {
             const MAX_SIZE = IMAGE_SIZE * 1024; // 500KB
@@ -1148,30 +1203,6 @@
             }
 
             return result;
-
-            //if (IMAGE_CHECK[rowId] == null) {
-            //    IMAGE_CHECK[rowId] = [];
-            //}
-
-            //IMAGE_CHECK[rowId].push(result);
-
-            //const resultArr = IMAGE_CHECK[rowId] || [];
-
-            //let resultUploader = 'NA';
-            //if (resultArr.includes('NA')) {
-            //    resultUploader = 'NA';
-            //}
-
-            //if (resultArr.includes('NG')) {
-            //    resultUploader = 'NG';
-            //}
-
-            //// Tất cả đều là OK
-            //else if (resultArr.every(x => x === "OK")) {
-            //    resultUploader = 'OK';
-            //}
-
-            //document.querySelector(`input[name="uploader_res_${rowId}"][value="${resultUploader}"]`).checked = true;
         }
 
 
@@ -1203,7 +1234,6 @@
             ).checked = true;
         }
         ``
-
 
         const renderDetailRows = (buttonClick = false) => {
 
@@ -1358,7 +1388,7 @@
                             <div>
                                 ${isToday
                                 ?
-                                `<div class="upload-zone mx-auto" onclick="document.getElementById('input_${mtNo}').click()">
+                                `<div class="upload-zone mx-auto" onclick="handleInputImageClick(${mtNo})">
                                         <span class="material-symbols-outlined fs-2">add_a_photo</span>
                                         <input type="file" id="input_${mtNo}" class="d-none" accept="image/*" onchange="handleFileUpload( this, ${mtNo} )">
                                 </div>`
@@ -1945,7 +1975,7 @@
 
                         fancybox.currentMtno = mtno;
 
-                        if (currentRole?.toLocaleLowerCase() === 'approver' && !PREVIEW_IMAGE[mtno]) {
+                        if (currentRole?.toLocaleLowerCase() === 'approver' && !PREVIEW_IMAGE[mtno] && checkToday(activeDetailDate)) {
 
                             fancybox.LOCK_DURATION = 5;
                             fancybox.isClosable = false;

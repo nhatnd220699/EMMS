@@ -390,4 +390,28 @@
   <data name="CurrentSize" xml:space="preserve">
     <value>Kích thước hiện tại</value>
   </data>
+  <data name="StatusAll" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="StatusNoMaintenance" xml:space="preserve">
+    <value>Chưa bảo dưỡng</value>
+  </data>
+  <data name="StatusOngoing" xml:space="preserve">
+    <value>Đang thực hiện</value>
+  </data>
+  <data name="StatusDone" xml:space="preserve">
+    <value>Đã hoàn thành</value>
+  </data>
+  <data name="StatusNG" xml:space="preserve">
+    <value>NG</value>
+  </data>
+  <data name="StatusPendingApproval" xml:space="preserve">
+    <value>Chờ phê duyệt</value>
+  </data>
+  <data name="StatusPendingUpload" xml:space="preserve">
+    <value>Chờ tải lên</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng</value>
+  </data>
 </root>

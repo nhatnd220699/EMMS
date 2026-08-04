@@ -390,4 +390,28 @@
   <data name="CurrentSize" xml:space="preserve">
     <value>当前大小</value>
   </data>
+  <data name="StatusAll" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="StatusNoMaintenance" xml:space="preserve">
+    <value>未维护</value>
+  </data>
+  <data name="StatusOngoing" xml:space="preserve">
+    <value>进行中</value>
+  </data>
+  <data name="StatusDone" xml:space="preserve">
+    <value>已完成</value>
+  </data>
+  <data name="StatusNG" xml:space="preserve">
+    <value>NG</value>
+  </data>
+  <data name="StatusPendingApproval" xml:space="preserve">
+    <value>待签核</value>
+  </data>
+  <data name="StatusPendingUpload" xml:space="preserve">
+    <value>待上传</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>总计</value>
+  </data>
 </root>
