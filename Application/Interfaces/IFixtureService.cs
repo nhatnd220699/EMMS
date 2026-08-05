@@ -11,7 +11,7 @@ namespace Application.Interfaces
     {
         Task<Result<FixtureFilterOptionDto>> GetFilterOptionsAsync();
 
-        Task<Result<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn);
+        Task<Result<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string userId, string type, string line, string department, string sqSn);
 
         Task<Result<FixtureMonthlyDto>> GetFixtureMonthlyAsync(string type, string line, string department, string eqSn, string chkDay);
 

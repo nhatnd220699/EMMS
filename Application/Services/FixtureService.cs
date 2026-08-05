@@ -121,11 +121,11 @@ namespace Application.Services
             }
         }
 
-        public async Task<Result<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
+        public async Task<Result<List<FixtureDashboardDto>>> GetFixtureDashboardsAsync(string userId, string type, string line, string department, string sqSn)
         {
             try
             {
-                var repoResult = await _fixtureRepository.GetFixtureDashboardsAsync(type, line, department, sqSn);
+                var repoResult = await _fixtureRepository.GetFixtureDashboardsAsync(userId, type, line, department, sqSn);
 
                 var data = repoResult
                             .OrderBy(x => x.Number_Order)

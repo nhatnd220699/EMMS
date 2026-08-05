@@ -103,14 +103,18 @@ namespace Infrastructure.Repositories
             return GetStringListAsync(FuncType.Get_Dept.ToCode());
         }
 
-        public async Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string type, string line, string department, string sqSn)
+        public async Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string userId, string type, string line, string department, string sqSn)
         {
+            var extendedPara = BuildExtendedPara(new Dictionary<string, string>
+            {
+                { "UserId", userId }
+            });
 
             using (var conn = _db.CreateConnection())
             {
                 using (var multi = await conn.QueryMultipleAsync(
                     "Maintenance_Fixture_Portal",
-                    BuildParameters(FuncType.Get_Equipment_List.ToCode(), type, line, department, sqSn),
+                    BuildParameters(FuncType.Get_Equipment_List.ToCode(), type, line, department, sqSn, "", extendedPara),
                     commandType: CommandType.StoredProcedure,
                     commandTimeout: 120)
                 )

@@ -78,13 +78,13 @@ namespace EMMS.Controllers
 
         [HttpGet]
         [Route("dashboard")]
-        public async Task<IHttpActionResult> GetFixtureDashboard(string type = "FATP", string line = "", string department = "", string fixtureSN = "")
+        public async Task<IHttpActionResult> GetFixtureDashboard(string userId,string type = "FATP", string line = "", string department = "", string fixtureSN = "")
         {
             try
             {
                 if (!IsLoggedIn()) return LoginRequired<List<FixtureDashboardDto>>();
 
-                var result = await _fixtureService.GetFixtureDashboardsAsync(type, line, department, fixtureSN);
+                var result = await _fixtureService.GetFixtureDashboardsAsync(userId, type, line, department, fixtureSN);
 
                 if (!result.Success)
                 {
