@@ -10,73 +10,103 @@
 @section styles {
     <link href="~/Content/css/fancybox/fancybox.css" rel="stylesheet" />
     <link href="~/Content/css/custom/style.css" rel="stylesheet" />
+    <style>
+        .kpi-inner {
+            border-radius: 0.575rem;
+            background-color: #ffffff;
+/*            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);*/
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 4px 12px rgba(16, 24, 40, 0.06);
+        }
+
+        .kpi-card {
+            height: 100%;
+            border: 1px solid #efefef;
+        }
+    </style>
 }
 <main id="content" class="active">
     <div class="container-fluid px-4 py-3">
         <!-- KPI Statistics -->
-        <div class="row g-3 mb-4">
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="@Language.StatusAll">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">@Language.TotalMaintenance</small>
-                            <h4 class="mb-0 fw-bold" id="kpi-total">0</h4>
+        <div class="row mb-4">
+            <div class="col-12 col-md-6 col-lg-7 mh-100">
+                <div class="h-100 px-3 py-3 kpi-inner">
+                    <div class="row mx-0 h-100 w-100 d-flex justify-content-between">
+                        <div class="col-12 col-md-6 col-lg-6 h-50 py-2">
+                            <div class="card kpi-card p-4" data-status="@Language.StatusAll">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <small class="text-uppercase text-secondary fw-bold"
+                                               style="font-size: 12px">
+                                            @Language.TotalMaintenance
+                                        </small>
+                                        <h3 class="mb-0 fw-bold" id="kpi-total">0</h3>
+                                    </div>
+                                    <div class="kpi-icon-box bg-primary-subtle text-primary">
+                                        <span class="material-symbols-outlined">inventory_2</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="kpi-icon-box bg-primary-subtle text-primary">
-                            <span class="material-symbols-outlined">inventory_2</span>
+                        <div class="col-12 col-md-6 col-lg-6 h-50 py-2">
+                            <div class="card kpi-card p-4" data-status="@Language.StatusNoMaintenance">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
+                                            @Language.NoMaintenance
+                                        </small>
+                                        <h3 class="mb-0 fw-bold text-danger" id="kpi-maintenance">
+                                            0
+                                        </h3>
+                                    </div>
+                                    <div class="kpi-icon-box bg-danger-subtle text-danger">
+                                        <span class="material-symbols-outlined">error</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6 h-50 py-2">
+                            <div class="card kpi-card p-4" data-status="@Language.StatusOngoing">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <small class="text-uppercase text-secondary fw-bold"
+                                               style="font-size: 12px">
+                                            @Language.MaintenanceOngoing
+                                        </small>
+                                        <!-- <h4 class="mb-0 fw-bold" id="kpi-waiting" style="color: var(--tertiary);">0</h4> -->
+                                        <h3 class="mb-0 fw-bold text-warning" id="kpi-waiting">
+                                            0
+                                        </h3>
+                                    </div>
+                                    <div class="kpi-icon-box bg-warning-subtle text-warning">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6 h-50 py-2">
+                            <div class="card kpi-card p-4" data-status="@Language.StatusDone">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <small class="text-uppercase text-secondary fw-bold"
+                                               style="font-size: 12px">
+                                            @Language.MaintenanceDone
+                                        </small>
+                                        <h3 class="mb-0 fw-bold text-success" id="kpi-completed">
+                                            0
+                                        </h3>
+                                    </div>
+                                    <div class="kpi-icon-box bg-success-subtle text-success">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="@Language.StatusNoMaintenance">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-uppercase text-secondary fw-bold" style="font-size: 12px">
-                                @Language.NoMaintenance
-                            </small>
-                            <h4 class="mb-0 fw-bold text-danger" id="kpi-maintenance">
-                                0
-                            </h4>
-                        </div>
-                        <div class="kpi-icon-box bg-danger-subtle text-danger">
-                            <span class="material-symbols-outlined">error</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="@Language.StatusOngoing">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">@Language.MaintenanceOngoing</small>
-                            <!-- <h4 class="mb-0 fw-bold" id="kpi-waiting" style="color: var(--tertiary);">0</h4> -->
-                            <h4 class="mb-0 fw-bold text-warning" id="kpi-waiting">
-                                0
-                            </h4>
-                        </div>
-                        <div class="kpi-icon-box bg-warning-subtle text-warning">
-                            <span class="material-symbols-outlined">schedule</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card kpi-card p-4" data-status="@Language.StatusDone">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <small class="text-uppercase text-secondary fw-bold"
-                                   style="font-size: 12px">@Language.MaintenanceDone</small>
-                            <h4 class="mb-0 fw-bold text-success" id="kpi-completed">
-                                0
-                            </h4>
-                        </div>
-                        <div class="kpi-icon-box bg-success-subtle text-success">
-                            <span class="material-symbols-outlined">check_circle</span>
-                        </div>
-                    </div>
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="kpi-inner">
+                    <div id="chartKpis" style="height: 400px;"></div>
                 </div>
             </div>
         </div>
@@ -84,7 +114,9 @@
         <div class="card border-0 shadow-sm p-2 mb-4">
             <div class="d-flex flex-wrap align-items-center gap-3">
                 <small class="text-uppercase text-secondary fw-bold ps-2"
-                       style="font-size: 10px; letter-spacing: 1px">@Language.Filter</small>
+                       style="font-size: 10px; letter-spacing: 1px">
+                    @Language.Filter
+                </small>
                 <select class="form-select form-select-sm w-auto border-light-subtle bg-light" id="type">
                     <option value="">All type</option>
                 </select>
@@ -102,7 +134,7 @@
         </div>
         <!-- Status Grid Header -->
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 clas="fw-bold mb-0">
+            <h5 class="fw-bold mb-0">
                 @Language.Machines
                 <small class="text-muted fw-normal ms-2 fs-6" id="grid-density-label">All</small>
             </h5>
@@ -171,7 +203,7 @@
                             </tr>
                             <tr>
                                 <th colspan="2" class="text-start">
-                                   @Language.Line:
+                                    @Language.Line:
                                     <span id="modalLine"></span>
                                 </th>
                                 <th colspan="1" class="text-start">
@@ -297,7 +329,7 @@
                                     @Language.MaintenanceItem
                                 </th>
                                 <th style="width: 220px">
-                                   @Language.ConfirmationMethodAndStandard
+                                    @Language.ConfirmationMethodAndStandard
                                 </th>
                                 <th style="width: 200px">@Language.MaintenanceImage</th>
                                 <th style="width: 140px">@Language.UploaderResult</th>
@@ -348,6 +380,8 @@
 @section scripts {
     <script src="@Url.Content("~/Scripts/libs/lenis/lenis.min.js")"></script>
     <script src="@Url.Content("~/Scripts/libs/fancybox/fancybox.umd.js")"></script>
+    <script src="@Url.Content("~/Scripts/libs/highcharts/highcharts.js")"></script>
+    <script src="@Url.Content("~/Scripts/libs/highcharts/accessibility.js")"></script>
 
     <script>
 
@@ -392,6 +426,11 @@
                     statusPendingApproval = Language.StatusPendingApproval,
                     statusPendingUpload = Language.StatusPendingUpload,
                     total = Language.Total,
+                    totalMaintenance = Language.TotalMaintenance,
+                    noMaintenance = Language.NoMaintenance,
+                    maintenanceOngoing = Language.MaintenanceOngoing,
+                    maintenanceDone = Language.MaintenanceDone,
+                    machineMaintenanceRate = Language.MachineMaintenanceRate,
                 }));
 
 
@@ -619,6 +658,66 @@
             }
         };
 
+        const chartKPIs = (data) => {
+            Highcharts.chart('chartKpis', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    backgroundColor: 'transparent',
+                    type: 'pie'
+                },
+                title: {
+                    text: i18n.machineMaintenanceRate,
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.2f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: '50%',
+                        allowPointSelect: true,
+                        borderRadius: 8,
+                        dataLabels: [{
+                            enabled: true,
+                            distance: 30,
+                            connectorWidth: 1,
+                            softConnector: true,
+                            format: '{point.name} ({point.percentage:.2f}%)',
+                        }, {
+                            enabled: true,
+                            backgroundColor: 'contrast',
+                            distance: -18,
+                            format: '{point.percentage:.2f}%',
+                            allowOverlap: true,
+                            crop: false,
+                            overflow: 'allow',
+                            style: {
+                                fontSize: '0.9em'
+                            },
+
+                        }],
+                        showInLegend: true,
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Rate',
+                    colorByPoint: true,
+                    data: data
+                }]
+            });
+
+        }
+        chartKPIs();
+
         /**
         * KPI Updates
         */
@@ -628,10 +727,35 @@
                 return acc;
             }, {});
 
-            document.getElementById("kpi-total").textContent = FIXTURE_DATASET.length.toLocaleString();
-            document.getElementById("kpi-maintenance").textContent = (counts[STATUS_NO_CHECKING] || 0) + (counts[STATUS_NG] || 0);
-            document.getElementById("kpi-waiting").textContent = (counts[STATUS_PENDING_APPROVAL] || 0) + (counts[STATUS_PENDING_UPLOAD] || 0);
-            document.getElementById("kpi-completed").textContent = counts[STATUS_DONE] || 0;
+            const total = FIXTURE_DATASET.length || 0;
+            const nomaintenanceCount = (counts[STATUS_NO_CHECKING] || 0) + (counts[STATUS_NG] || 0);
+            const waitingCount = (counts[STATUS_PENDING_APPROVAL] || 0) + (counts[STATUS_PENDING_UPLOAD] || 0);
+            const completedCount = counts[STATUS_DONE] || 0;
+
+            document.getElementById("kpi-total").textContent = total;
+            document.getElementById("kpi-maintenance").textContent = nomaintenanceCount;
+            document.getElementById("kpi-waiting").textContent = waitingCount;
+            document.getElementById("kpi-completed").textContent = completedCount;
+
+
+            const dataChart = [
+                {
+                    color: '#dc3545',
+                    name: i18n.noMaintenance,
+                    y: nomaintenanceCount,
+                },
+                {
+                    color: '#ffc12f',
+                    name: i18n.maintenanceOngoing,
+                    y: waitingCount,
+                },
+                {
+                    color: '#198754',
+                    name: i18n.maintenanceDone,
+                    y: completedCount,
+                }];
+
+            chartKPIs(dataChart);
         };
 
         /**

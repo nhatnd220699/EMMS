@@ -414,4 +414,7 @@
   <data name="Total" xml:space="preserve">
     <value>Tổng</value>
   </data>
+  <data name="MachineMaintenanceRate" xml:space="preserve">
+    <value>Tỷ lệ bảo trì máy</value>
+  </data>
 </root>

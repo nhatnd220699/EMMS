@@ -493,6 +493,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Machine Maintenance Rate.
+        /// </summary>
+        public static string MachineMaintenanceRate {
+            get {
+                return ResourceManager.GetString("MachineMaintenanceRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Machines.
         /// </summary>
         public static string Machines {
