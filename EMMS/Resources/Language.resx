@@ -147,6 +147,9 @@
   <data name="EnterFixtureSN" xml:space="preserve">
     <value>Enter Fixture SN</value>
   </data>
+  <data name="EnterFixtureName" xml:space="preserve">
+    <value>Enter Fixture Name</value>
+  </data>	
   <data name="TotalMaintenance" xml:space="preserve">
     <value>Total maintenance</value>
   </data>

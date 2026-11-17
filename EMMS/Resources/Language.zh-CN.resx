@@ -147,6 +147,9 @@
   <data name="EnterFixtureSN" xml:space="preserve">
     <value>输入Fixture SN</value>
   </data>
+  <data name="EnterFixtureName" xml:space="preserve">
+    <value>输入Fixture Name</value>
+  </data>
   <data name="TotalMaintenance" xml:space="preserve">
     <value>维护总计</value>
   </data>

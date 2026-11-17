@@ -1,17 +1,23 @@
 ﻿@using System.Globalization
+@{
+    string cookieToken, formToken;
+    System.Web.Helpers.AntiForgery.GetTokens(null, out cookieToken, out formToken);
+}
 
 <!DOCTYPE html>
 <html lang="@CultureInfo.CurrentUICulture.Name">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="app-root" content="@Url.Content("~/")" />
+    <meta name="csrf-form-token" content="@formToken" />
     <title>@ViewBag.Title - EMMS</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="@Url.Content("~/Content/css/custom/popup.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/css/custom/radio.css")" rel="stylesheet" />
-
+    <script>window.appRoot = @Url.Content("~/");</script>
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -26,7 +32,7 @@
     <script src="@Url.Content("~/Scripts/Common/helper.js")"></script>
     <script src="@Url.Content("~/Scripts/Common/utils.js")"></script>
     <script src="@Url.Content("~/Scripts/Common/popup.js")"></script>
-    <script src="@Url.Content("~/Scripts/common/action-lock.js")"></script>
+    <script src="@Url.Content("~/Scripts/Common/action-lock.js")"></script>
     <script src="@Url.Content("~/Scripts/api/api-client.js")"></script>
 
     @RenderSection("scripts", required: false)

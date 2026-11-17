@@ -14,16 +14,27 @@
         <!-- Welcome Section -->
         <div class="text-center mb-4">
             <h1 class="h3 fw-bold mb-1">@Language.LogIn</h1>
-            @*<p class="text-muted small mb-0">Vui lòng đăng nhập để tiếp tục.</p>*@
+            <p class="text-muted small mb-0">Sign in with your employee account to access the system.</p>
         </div>
         <!-- Login Form -->
-        <form id="loginForm" onsubmit="return false;">
+        @*<form id="loginForm" onsubmit="return false;">*@
+        @using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden"
+                   id="returnUrl"
+                   name="returnUrl"
+                   value="@ViewBag.ReturnUrl" />
+            <input type="hidden"
+                   id="type"
+                   name="type"
+                   value="FATP" />
             <!-- Email/Username Input -->
             <div class="mb-3">
                 <label class="form-label" for="username">@Language.Username</label>
                 <div class="position-relative">
                     <span class="material-symbols-outlined input-group-text-overlay">person</span>
-                    <input class="form-control" id="username" name="UserId" placeholder="@Language.EnterUsername" type="text" autocomplete="username">
+                    <input class="form-control" id="username" name="username" placeholder="@Language.EnterUsername" type="text" autocomplete="username">
                 </div>
             </div>
             <!-- Password Input -->
@@ -33,7 +44,7 @@
                 </div>
                 <div class="position-relative">
                     <span class="material-symbols-outlined input-group-text-overlay">lock</span>
-                    <input class="form-control" id="password" name="Password" placeholder="@Language.EnterPassword" type="password" autocomplete="current-password">
+                    <input class="form-control" id="password" name="password" placeholder="@Language.EnterPassword" type="password" autocomplete="current-password">
                     <button class="password-toggle" onclick="togglePasswordVisibility()" type="button">
                         <span class="material-symbols-outlined" id="password-toggle-icon">visibility</span>
                     </button>
@@ -41,26 +52,33 @@
             </div>
             <!-- Remember & Forgot -->
             <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="form-check">
-                        @*<input class="form-check-input" id="rememberMe" type="checkbox" value="">
+                <div class="form-check">
+                    @*<input class="form-check-input" id="rememberMe" type="checkbox" value="">
                         <label class="form-check-label" for="rememberMe">
                             Ghi nhớ đăng nhập
                         </label>*@
-                    </div>
-                    <a class="link-primary" href="change-password">@Language.ChangePassword</a>
                 </div>
+                <a class="link-primary" href="change-password">@Language.ChangePassword</a>
+            </div>
             <!-- Primary Submit Button -->
-            <div class="alert alert-danger d-none py-2 small text-center" id="loginMessage"></div>
+            if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger  py-2 small text-center" id="loginMessage">
+                    @ViewBag.Error
+                </div>
+            }
             <button class="btn btn-primary w-100 mb-4" id="loginButton" type="submit">
                 @Language.LogIn
             </button>
-        </form>
-        <!-- Signup Prompt -->
-        <div class="text-center">
-            <p class="small text-muted mb-0">
-                @Language.ContactAdmin
-            </p>
-        </div>
+
+            @*</form>*@
+            <!-- Signup Prompt -->
+            <div class="text-center">
+                <p class="small text-muted mb-0">
+                    @Language.ContactAdmin
+                </p>
+            </div>
+        }
     </div>
 </main>
 <!-- Bootstrap Bundle with Popper -->
@@ -93,9 +111,11 @@
             messageEl.classList.remove('d-none');
         };
 
-        document.getElementById('loginForm').addEventListener('submit', async () => {
+        @*document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
             const userId = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
+            const returnUrl = document.getElementById('returnUrl').value;
             const loginButton = document.getElementById('loginButton');
             const messageEl = document.getElementById('loginMessage');
 
@@ -103,32 +123,58 @@
 
             if (!userId || !password) {
                 showLoginMessage(i18n.requireUsernameAndPassword);
+                return;
             }
 
             const body = new URLSearchParams();
             body.append('Type', 'FATP');
             body.append('UserId', userId);
             body.append('Password', password);
+            body.append('ReturnUrl', returnUrl);
 
             loginButton.disabled = true;
             loginButton.textContent = `${i18n.loggingIn}...`;
 
             try {
-                const response = await fetch('@Url.Action("SignIn", "Auth")', {
+                const result = await fetch('@Url.Action("Login", "Auth")', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
-                    body: body.toString()
+                    body: {
+                        Type: 'FATP',
+                        UserId: userId,
+                        Password: password,
+                        ReturnUrl: returnUrl
+                    }
                 });
 
-                const text = await response.text();
-                const result = text ? JSON.parse(text) : null;
+                var params = {
+                    Type: 'FATP',
+                    UserId: userId,
+                    Password: password,
+                    ReturnUrl: returnUrl
+                }
+
+                const result = await ApiClient.postForm(
+                    '@Url.Action("Login", "Auth")',
+                    body.toString()
+                );
+
+                //const text = await response.text();
+                //const result = text ? JSON.parse(text) : null;
                 const success = getProp(result, 'success', 'Success') === true;
 
-                if (!response.ok || !success) {
-                    showLoginMessage(getProp(result, 'message', 'Message') || i18n.loginFailed);
-                    loginButton.textContent = i18n.logIn;
+                //if (!response.ok || !success) {
+                //    showLoginMessage(getProp(result, 'message', 'Message') || i18n.loginFailed);
+                //    loginButton.textContent = i18n.logIn;
+                //    return;
+                //}
+
+                if (!success) {
+                    showLoginMessage(
+                        getProp(result, 'message', 'Message') || i18n.loginFailed
+                    );
                     return;
                 }
 
@@ -142,6 +188,6 @@
             } finally {
                 loginButton.disabled = false;
             }
-        });
+        });*@
     </script>
 }

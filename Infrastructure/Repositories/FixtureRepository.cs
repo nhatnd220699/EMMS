@@ -103,11 +103,12 @@ namespace Infrastructure.Repositories
             return GetStringListAsync(FuncType.Get_Dept.ToCode());
         }
 
-        public async Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string userId, string type, string line, string department, string sqSn)
+        public async Task<List<FixtureDashboardDto>> GetFixtureDashboardsAsync(string userId, string type, string line, string department, string sqSn, string eqName)
         {
             var extendedPara = BuildExtendedPara(new Dictionary<string, string>
             {
-                { "UserId", userId }
+                { "UserId", userId },
+                { "EQ_Name", eqName }
             });
 
             using (var conn = _db.CreateConnection())

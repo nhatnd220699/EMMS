@@ -313,6 +313,15 @@ namespace EMMS.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter Fixture Name.
+        /// </summary>
+        public static string EnterFixtureName {
+            get {
+                return ResourceManager.GetString("EnterFixtureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter Fixture SN.
         /// </summary>
         public static string EnterFixtureSN {

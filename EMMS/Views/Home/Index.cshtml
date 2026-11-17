@@ -127,9 +127,14 @@
                     <option value="">All dept</option>
                 </select>
                 <input type="text" class="form-control form-control-sm w-auto" id="fixture-sn" placeholder="@Language.EnterFixtureSN..." />
+                
+                <!-- 20260928 Dorian add SearchFixtureName -->
+                <input type="text" class="form-control form-control-sm w-auto" id="fixture-name" placeholder="@Language.EnterFixtureName" />
+                
                 <button class="btn btn-primary btn-sm ms-auto d-flex align-items-center gap-2" id="refresh-btn">
                     <span class="material-symbols-outlined fs-6">refresh</span> @Language.Refresh
                 </button>
+
             </div>
         </div>
         <!-- Status Grid Header -->
@@ -774,7 +779,10 @@
                     type: DATASET.type,
                     line: DATASET.line,
                     department: DATASET.department,
-                    fixtureSN: DATASET.fixtureSNInput
+                    fixtureSN: DATASET.fixtureSNInput,
+
+                    // 20260928 Dorian add SearchFixtureName
+                    fixtureName: DATASET.fixtureNameInput
                 };
 
                 // const result = await ApiClient.get('/Content/data/dashboard.json');
@@ -2277,6 +2285,19 @@
                 if (e.key === "Enter") {
                     e.preventDefault();
                     DATASET["fixtureSNInput"] = (e.target.value ?? "").trim();
+                    updateDisplay(true);
+                }
+            });
+
+            // 20260928 Dorian add SearchFixtureName
+            document.getElementById('fixture-name').addEventListener("input", (e) => {
+                DATASET["fixtureNameInput"] = (e.target.value ?? "")?.trim();
+            });
+            document.getElementById('fixture-name').addEventListener("keydown", (e) => {
+
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    DATASET["fixtureNameInput"] = (e.target.value ?? "").trim();
                     updateDisplay(true);
                 }
             });

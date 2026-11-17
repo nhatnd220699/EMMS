@@ -147,6 +147,9 @@
   <data name="EnterFixtureSN" xml:space="preserve">
     <value>Nhập Fixture SN</value>
   </data>
+  <data name="EnterFixtureName" xml:space="preserve">
+    <value>Nhập Fixture Name</value>
+  </data>
   <data name="TotalMaintenance" xml:space="preserve">
     <value>Tổng bảo trì</value>
   </data>

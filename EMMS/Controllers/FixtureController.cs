@@ -1,8 +1,8 @@
 ﻿using Application.Interfaces;
 using Application.Mapper;
 using Application.Services;
+using EMMS.Filters;
 using Infrastructure.Repositories;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Shared.Common;
 using Shared.DTOs;
@@ -16,6 +16,7 @@ using System.Web.Http;
 
 namespace EMMS.Controllers
 {
+    [ApiAuthorize]
     [RoutePrefix("api/fixture")]
     public class FixtureController : ApiController
     {
@@ -51,7 +52,7 @@ namespace EMMS.Controllers
         {
             try
             {
-                if (!IsLoggedIn()) return LoginRequired<FixtureFilterOptionDto>();
+                //if (!IsLoggedIn()) return LoginRequired<FixtureFilterOptionDto>();
 
                 var result = await _fixtureService.GetFilterOptionsAsync();
 
@@ -78,13 +79,13 @@ namespace EMMS.Controllers
 
         [HttpGet]
         [Route("dashboard")]
-        public async Task<IHttpActionResult> GetFixtureDashboard(string userId,string type = "FATP", string line = "", string department = "", string fixtureSN = "")
+        public async Task<IHttpActionResult> GetFixtureDashboard(string userId,string type = "FATP", string line = "", string department = "", string fixtureSN = "", string fixtureName = "")
         {
             try
             {
-                if (!IsLoggedIn()) return LoginRequired<List<FixtureDashboardDto>>();
+                //if (!IsLoggedIn()) return LoginRequired<List<FixtureDashboardDto>>();
 
-                var result = await _fixtureService.GetFixtureDashboardsAsync(userId, type, line, department, fixtureSN);
+                var result = await _fixtureService.GetFixtureDashboardsAsync(userId, type, line, department, fixtureSN, fixtureName);
 
                 if (!result.Success)
                 {
@@ -113,7 +114,7 @@ namespace EMMS.Controllers
         {
             try
             {
-                if (!IsLoggedIn()) return LoginRequired<FixtureMonthlyDto>();
+                //if (!IsLoggedIn()) return LoginRequired<FixtureMonthlyDto>();
 
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {
@@ -150,7 +151,7 @@ namespace EMMS.Controllers
         {
             try
             {
-                if (!IsLoggedIn()) return LoginRequired<FixtureDailyDto>();
+                //if (!IsLoggedIn()) return LoginRequired<FixtureDailyDto>();
 
                 if (string.IsNullOrWhiteSpace(eqSn))
                 {

@@ -134,7 +134,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\css\custom\change-password.css" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Filters\ApiAuthorizeAttribute.cs" />
+    <Compile Include="Filters\ApiExceptionFilter.cs" />
+    <Compile Include="Filters\AppAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\CurrentUser.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Resources\Language.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,6 +168,9 @@
     <Content Include="Scripts\common\utils.js" />
     <Content Include="Views\Auth\Register.cshtml" />
     <Content Include="Views\Shared\_LayoutAuth.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\InternalServer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -249,7 +258,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Maintenance\" />
-    <Folder Include="Models\" />
     <Folder Include="Scripts\libs\custom\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using EMMS.Filters;
+using System.Web.Mvc;
 
 namespace EMMS.Controllers
 {
+    [AppAuthorize]
     public class HomeController : Controller
     {
         private bool IsLoggedIn()
@@ -11,30 +13,30 @@ namespace EMMS.Controllers
 
         public ActionResult Index()
         {
-            if (!IsLoggedIn())
-                return RedirectToAction("Index", "Auth");
+            //if (!IsLoggedIn())
+            //    return RedirectToAction("Index", "Auth");
 
             return View();
         }
 
-        public ActionResult About()
-        {
-            if (!IsLoggedIn())
-                return RedirectToAction("Index", "Auth");
+        //public ActionResult About()
+        //{
+        //    if (!IsLoggedIn())
+        //        return RedirectToAction("Index", "Auth");
 
-            ViewBag.Message = "Your application description page.";
+        //    ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        public ActionResult Contact()
-        {
-            if (!IsLoggedIn())
-                return RedirectToAction("Index", "Auth");
+        //public ActionResult Contact()
+        //{
+        //    if (!IsLoggedIn())
+        //        return RedirectToAction("Index", "Auth");
 
-            ViewBag.Message = "Your contact page.";
+        //    ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 }

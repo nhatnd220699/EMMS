@@ -1,11 +1,19 @@
-﻿@{
-    var navbarUserName = (Session["UserName"] ?? Session["UserId"] ?? "Guest").ToString();
-    var navbarRole = (Session["Role"] ?? "").ToString();
+﻿@using EMMS.Helpers
 
-   var currentLang = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+@{
+
+    var user = CurrentUser.Info;
+
+    //var navbarUserName = (Session["UserName"] ?? Session["UserId"] ?? "Guest").ToString();
+    //var navbarRole = (Session["Role"] ?? "").ToString();
+
+    var navbarUserName = user.UserName;
+    var navbarRole = user.Role;
+
+    var currentLang = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
 
     var langMap = new Dictionary<string, string>
-    {
+{
         { "en-US", "English" },
         { "zh-CN", "中文" },
         { "vi-VN", "Tiếng Việt" }
@@ -116,20 +124,30 @@
                         </a>
                     </li>
                     @*<li>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
-                           style="font-size: 14px">
-                            <span class="material-symbols-outlined fs-5">support_agent</span> @Language.AccountSettings
-                        </a>
-                    </li>*@
+                            <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-secondary" href="#"
+                               style="font-size: 14px">
+                                <span class="material-symbols-outlined fs-5">support_agent</span> @Language.AccountSettings
+                            </a>
+                        </li>*@
                     <li>
                         <hr class="dropdown-divider m-0 opacity-10" />
                     </li>
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger" href="@Url.Action("Logout", "Auth")"
-                           style="font-size: 14px">
-                            <span class="material-symbols-outlined fs-5">logout</span> @Language.LogOut
-                        </a>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            @*<a class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger" href="@Url.Action("Logout", "Auth")"
+                                   style="font-size: 14px">
+                                    <span class="material-symbols-outlined fs-5">logout</span> @Language.LogOut
+                                </a>*@
+                            @using (Html.BeginForm("Logout", "Auth", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                <button class="dropdown-item d-flex align-items-center gap-2 py-2 px-3 text-danger">
+                                    <span class="material-symbols-outlined fs-5">logout</span> @Language.LogOut
+                                </button>
+                            }
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
