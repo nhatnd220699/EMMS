@@ -88,6 +88,11 @@ const ApiClient = {
         );
     },
 
+    requiresAntiForgeryToken(method) {
+        return ["POST", "PUT", "PATCH", "DELETE"]
+            .includes(String(method).toUpperCase());
+    },
+
     buildHeaders(isJson = true, customHeaders = {}, csrfHeader = false) {
         const headers = new Headers(customHeaders);
 
@@ -146,43 +151,100 @@ const ApiClient = {
             data,
             headers = {},
             signal,
-            isJson = true,
-            csrfHeader = false
+            isJson = true
         } = options;
 
+        const normalizedMethod =
+            String(method).toUpperCase();
+
+        const requiresToken =
+            this.requiresAntiForgeryToken(normalizedMethod);
+
+        /*
+         * JSON:
+         * Gửi token qua RequestVerificationToken header.
+         *
+         * FormData/URLSearchParams:
+         * Gửi token trong __RequestVerificationToken.
+         */
         const requestHeaders = this.buildHeaders(
             isJson,
             headers,
-            csrfHeader
+            requiresToken && isJson
         );
 
         let requestBody = data;
 
         if (
-            data !== undefined &&
-            !isJson &&
-            !["GET", "HEAD"].includes(method.toUpperCase())
+            requiresToken &&
+            !isJson
         ) {
             const token = this.getAntiForgeryToken();
 
-            if (token) {
-                if (data instanceof URLSearchParams) {
-                    data.set("__RequestVerificationToken", token);
-                }
-                else if (data instanceof FormData) {
-                    data.set("__RequestVerificationToken", token);
-                }
+            if (!token) {
+                throw new Error(
+                    "Anti-forgery token was not found."
+                );
+            }
+
+            if (requestBody instanceof URLSearchParams) {
+                requestBody.set(
+                    "__RequestVerificationToken",
+                    token
+                );
+            }
+            else if (requestBody instanceof FormData) {
+                requestBody.set(
+                    "__RequestVerificationToken",
+                    token
+                );
+            }
+            else if (
+                typeof requestBody === "string"
+            ) {
+                const formParams =
+                    new URLSearchParams(requestBody);
+
+                formParams.set(
+                    "__RequestVerificationToken",
+                    token
+                );
+
+                requestBody = formParams;
+            }
+            else if (
+                requestBody === undefined ||
+                requestBody === null
+            ) {
+                const formParams =
+                    new URLSearchParams();
+
+                formParams.set(
+                    "__RequestVerificationToken",
+                    token
+                );
+
+                requestBody = formParams;
+            }
+            else {
+                throw new Error(
+                    "Form request data must be FormData, " +
+                    "URLSearchParams, or a form-urlencoded string."
+                );
             }
         }
 
         const requestOptions = {
-            method,
+            method: normalizedMethod,
             credentials: "same-origin",
             headers: requestHeaders,
             signal
         };
 
-        if (requestBody !== undefined) {
+        if (
+            requestBody !== undefined &&
+            !["GET", "HEAD"].includes(normalizedMethod)
+        ) {
             requestOptions.body = isJson
                 ? JSON.stringify(requestBody)
                 : requestBody;
